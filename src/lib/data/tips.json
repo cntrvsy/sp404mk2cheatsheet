@@ -1,0 +1,871 @@
+[
+	{
+		"id": "one-shot-playback",
+		"category": "Sample Playback",
+		"combo": ["Push VALUE", "GATE"],
+		"buttons": ["VALUE", "GATE"],
+		"action": "Toggle One-Shot Playback Mode",
+		"context": "Sample selected (GATE LED will pulse)",
+		"goal": "Let a long sample play all the way through without retriggering in a pattern, or prevent accidental double-triggers when finger drumming short drums.",
+		"aliases": [
+			"retrigger",
+			"finger drumming",
+			"double hit",
+			"double press",
+			"ambient loop",
+			"gate pulse",
+			"one shot"
+		]
+	},
+	{
+		"id": "hold-latch-sample",
+		"category": "Sample Playback",
+		"combo": ["PAD", "HOLD"],
+		"buttons": ["PAD", "HOLD"],
+		"action": "Latch pad playback without holding it down",
+		"context": "Sample Mode",
+		"goal": "Keep a gated or looping sample playing hands-free without holding your finger on the pad.",
+		"aliases": ["latch", "sustain", "keep playing", "hands free"]
+	},
+	{
+		"id": "stop-all-samples",
+		"category": "Sample Playback",
+		"combo": ["SHIFT", "EXIT"],
+		"buttons": ["SHIFT", "EXIT"],
+		"action": "Stop all currently playing samples (Panic)",
+		"context": "Or press EXIT 4 times rapidly",
+		"goal": "Immediately silence long tail samples, loops, or stuck audio.",
+		"aliases": ["panic", "silence", "kill audio", "stop sound", "exit x4", "all notes off"]
+	},
+	{
+		"id": "pause-all-audio",
+		"category": "Sample Playback",
+		"combo": ["SHIFT", "HOLD"],
+		"buttons": ["SHIFT", "HOLD"],
+		"action": "Pause / resume playing audio or pattern",
+		"context": "Works in Sample Playback, Pattern Play, and TR-REC",
+		"goal": "Freeze playback in place and resume from the exact same spot instead of restarting from bar 1.",
+		"aliases": ["freeze", "pause pattern", "stop in place", "tr-rec pause"]
+	},
+	{
+		"id": "switch-alternate-bank",
+		"category": "Sample Playback",
+		"combo": ["BANK (x2)"],
+		"buttons": ["BANK"],
+		"action": "Switch between primary (A–E) and alternate (F–J) bank",
+		"context": "Press the active Bank button a second time",
+		"goal": "Jump between Bank A and Bank F (or B and G, etc.) with one button press.",
+		"aliases": [
+			"bank f",
+			"bank g",
+			"bank h",
+			"bank i",
+			"bank j",
+			"second bank",
+			"double press bank"
+		]
+	},
+	{
+		"id": "ping-pong-loop",
+		"category": "Sample Playback",
+		"combo": ["SHIFT", "LOOP"],
+		"buttons": ["SHIFT", "LOOP"],
+		"action": "Toggle Ping-Pong Looping",
+		"context": "Sample selected with LOOP enabled",
+		"goal": "Loop a sample forward then backward seamlessly to avoid harsh loop clicks on sustained textures.",
+		"aliases": ["back and forth", "bidirectional loop", "smooth loop", "crossfade"]
+	},
+	{
+		"id": "roll-time-division",
+		"category": "Sample Playback",
+		"combo": ["SHIFT", "ROLL"],
+		"buttons": ["SHIFT", "ROLL"],
+		"action": "Set Roll repeat rate / time division",
+		"context": "Hold ROLL + PAD to trigger roll at chosen division",
+		"goal": "Change note repeat speed between 1/4, 1/8, 1/16, 1/32, or triplets for hi-hat rolls and fills.",
+		"aliases": ["note repeat", "ratchet", "hi-hat roll", "stutter speed"]
+	},
+	{
+		"id": "rename-sample",
+		"category": "Sample Playback",
+		"combo": ["REMAIN", "Turn VALUE"],
+		"buttons": ["REMAIN", "VALUE"],
+		"action": "View pad info and rename sample",
+		"context": "Select pad first, hold/press REMAIN, then scroll down with VALUE",
+		"goal": "Inspect sample details or give a pad a custom readable name on the OLED display.",
+		"aliases": ["title", "label sample", "pad info", "current pad menu", "file name"]
+	},
+	{
+		"id": "skip-back-recall",
+		"category": "Sample Playback",
+		"combo": ["MARK"],
+		"buttons": ["MARK"],
+		"action": "Recall last 40 seconds of audio (Skip Back Sampling)",
+		"context": "When MARK button is glowing after playing audio",
+		"goal": "Capture a happy accident or jam you just played without having pressed REC beforehand.",
+		"aliases": [
+			"retrospective record",
+			"40 seconds",
+			"capture jam",
+			"forgot to record",
+			"skipback"
+		],
+		"steps": [
+			"Press glowing MARK button to load the last 40s buffer",
+			"Press SUB PAD to preview; use CTRL 1 (Start) & CTRL 3 (End) to trim",
+			"Press REC → select destination PAD → press REC to save"
+		]
+	},
+	{
+		"id": "resample-multiple-pads",
+		"category": "Sample Playback",
+		"combo": ["SHIFT", "RESAMPLE"],
+		"buttons": ["SHIFT", "RESAMPLE", "PAD"],
+		"action": "Quick-combine / bounce multiple pads together",
+		"context": "Select pads to merge (Note: does not copy all individual parameters)",
+		"goal": "Quickly layer a kick and snare or chord pads onto a single new pad.",
+		"aliases": ["merge pads", "layer drums", "combine samples", "quick bounce"]
+	},
+	{
+		"id": "pad-mute-mode",
+		"category": "Pattern Sequencer",
+		"combo": ["SHIFT", "REVERSE", "REMAIN"],
+		"buttons": ["SHIFT", "REVERSE", "REMAIN"],
+		"action": "Latch Pad Mute Mode on (exit with EXIT or SHIFT + REVERSE)",
+		"context": "During Pattern Playback (Pads turn white when muted)",
+		"goal": "Drop drum or melodic parts in and out live during a pattern—or press REC inside Pad Mute Mode to record mute automation.",
+		"aliases": [
+			"track mute",
+			"solo",
+			"drop drums",
+			"mute automation",
+			"perform pattern",
+			"white pads"
+		]
+	},
+	{
+		"id": "pad-mute-momentary",
+		"category": "Pattern Sequencer",
+		"combo": ["Hold SHIFT", "Hold REVERSE", "PAD"],
+		"buttons": ["SHIFT", "REVERSE", "PAD"],
+		"action": "Momentary Pad Mute screen",
+		"context": "Hold both SHIFT + REVERSE, tap pads to mute/unmute, release to return",
+		"goal": "Quickly mute or unmute a sample in a running pattern without staying locked in Pad Mute Mode.",
+		"aliases": ["quick mute", "silence track", "pattern mute"]
+	},
+	{
+		"id": "copy-specific-pattern-samples",
+		"category": "Pattern Sequencer",
+		"combo": ["COPY", "REMAIN", "PAD"],
+		"buttons": ["COPY", "REMAIN", "PAD"],
+		"action": "Copy specific sample(s) from one pattern to another",
+		"context": "While in Pattern Copy screen, press REMAIN to filter pads",
+		"goal": "Create arrangement variations (e.g., copy just the kick and bass into an empty pattern).",
+		"aliases": [
+			"split pattern",
+			"extract track",
+			"copy drums only",
+			"pattern variation",
+			"selective copy"
+		],
+		"steps": [
+			"In PATTERN SELECT, press COPY and select source pattern PAD",
+			"Press REMAIN, then tap the specific sample PADs you want to include",
+			"Press REMAIN again, select destination empty pattern PAD, and press COPY / VALUE"
+		]
+	},
+	{
+		"id": "delete-sample-in-pattern",
+		"category": "Pattern Sequencer",
+		"combo": ["Hold DEL", "PAD"],
+		"buttons": ["DEL", "PAD"],
+		"action": "Delete all notes of a specific sample from a pattern",
+		"context": "In PATTERN EDIT mode (Pads with notes light up blue)",
+		"goal": "Wipe a single bad drum part or bassline from a pattern without erasing the rest of the loop.",
+		"aliases": ["clear track", "remove instrument", "erase pad from pattern", "blue pad delete"]
+	},
+	{
+		"id": "erase-mode-live",
+		"category": "Pattern Sequencer",
+		"combo": ["DEL", "Hold PAD"],
+		"buttons": ["DEL", "PAD"],
+		"action": "Real-time Erase Mode while pattern is looping",
+		"context": "While in Pattern Record (press DEL again to return to record)",
+		"goal": "Erase only specific hits of a sound as the loop passes over them.",
+		"aliases": ["spot erase", "scrub notes", "delete single hit", "pattern record del"]
+	},
+	{
+		"id": "bounce-pattern-to-pad",
+		"category": "Pattern Sequencer",
+		"combo": ["COPY", "PATTERN SELECT", "PAD"],
+		"buttons": ["COPY", "PATTERN SELECT", "REMAIN", "PAD"],
+		"action": "Bounce / convert pattern (or stems) directly to a sample pad",
+		"context": "In PATTERN EDIT or PATTERN COPY menu",
+		"goal": "Render a pattern—or individual stems using REMAIN—into an audio sample faster than real-time resampling.",
+		"aliases": [
+			"stems",
+			"export audio",
+			"render pattern",
+			"convert pattern to sample",
+			"offline bounce"
+		],
+		"steps": [
+			"In PATTERN EDIT (or PATTERN SELECT), press COPY and choose the pattern to bounce",
+			"Optional: Press REMAIN and select specific pads if you only want stems",
+			"Press PATTERN SELECT to switch destination from Pattern to Sample Bank",
+			"Choose an empty destination PAD and press COPY (or push VALUE) to bounce"
+		]
+	},
+	{
+		"id": "rehearsal-mode",
+		"category": "Pattern Sequencer",
+		"combo": ["REC"],
+		"buttons": ["REC"],
+		"action": "Toggle Rehearsal Mode during pattern recording",
+		"context": "While already recording a pattern (REC LED blinks)",
+		"goal": "Practice playing a part over the looping pattern without committing notes until you press REC again.",
+		"aliases": ["practice", "audition pattern", "overdub test", "try out notes"]
+	},
+	{
+		"id": "pattern-undo",
+		"category": "Pattern Sequencer",
+		"combo": ["SHIFT", "PATTERN SELECT"],
+		"buttons": ["SHIFT", "PATTERN SELECT"],
+		"action": "Undo last pattern recording step (up to 16 levels)",
+		"context": "While recording or overdubbing a pattern",
+		"goal": "Revert a bad take immediately (remaining undo steps show on the left of the OLED).",
+		"aliases": ["oops", "revert", "take back", "16 undo"]
+	},
+	{
+		"id": "microscope-mode",
+		"category": "Pattern Sequencer",
+		"combo": ["Hold PATTERN EDIT", "PAD"],
+		"buttons": ["PATTERN EDIT", "PAD"],
+		"action": "Enter Microscope Mode for step/substep note editing",
+		"context": "In PATTERN EDIT (or within TR-REC substeps)",
+		"goal": "Inspect and nudge individual note events, micro-timing, or substep triggers on a specific pad.",
+		"aliases": ["micro timing", "nudge note", "list edit", "step inspector", "event list"]
+	},
+	{
+		"id": "tr-rec-mode",
+		"category": "Pattern Sequencer",
+		"combo": ["PATTERN SELECT", "REC", "REMAIN"],
+		"buttons": ["PATTERN SELECT", "REC", "RECORD SETTING", "REMAIN", "SUB PAD"],
+		"action": "Enter TR-REC step sequencer mode",
+		"context": "On Pattern Record Setting screen, press REMAIN to switch from Real-Time to TR-REC",
+		"goal": "Program drum steps on the 16-pad grid like a classic Roland TR-808/909.",
+		"aliases": ["step sequencer", "808 style", "grid sequencing", "x0x"],
+		"steps": [
+			"Press PATTERN SELECT → REC → select empty PAD",
+			"Press REMAIN to switch to TR-REC (or press REC then REMAIN)",
+			"Hold SUB PAD + press a PAD to select sound without placing a step",
+			"Use VALUE encoder to switch bars; CTRL 1 for Substep type; CTRL 3 for Velocity"
+		]
+	},
+	{
+		"id": "tr-rec-motion-recording",
+		"category": "Pattern Sequencer",
+		"combo": ["Hold ROLL", "Turn CTRL 1/2/3"],
+		"buttons": ["ROLL", "CTRL 1", "CTRL 2", "CTRL 3"],
+		"action": "Record parameter motion (Substep, Velocity, Pitch) in TR-REC",
+		"context": "While TR-REC pattern is running",
+		"goal": "Automate pitch slides, velocity ramps, or ratchets per step in real time.",
+		"aliases": ["parameter lock", "p-lock", "step automation", "pitch automation"]
+	},
+	{
+		"id": "efx-motion-recording",
+		"category": "Pattern Sequencer",
+		"combo": ["MARK"],
+		"buttons": ["MARK", "START/END", "SHIFT"],
+		"action": "Start Effects Motion Recording (FX Automation) in a pattern",
+		"context": "While recording a pattern (START/END toggles Motion On/Off; SHIFT + MARK deletes motion)",
+		"goal": "Automate filter sweeps, delay throws, or effect toggles directly inside a pattern loop.",
+		"aliases": ["fx automation", "record knob movements", "delete automation", "motion erase"]
+	},
+	{
+		"id": "quantize-after-recording",
+		"category": "Pattern Sequencer",
+		"combo": ["PATTERN EDIT", "PAD", "RECORD SETTING", "VALUE"],
+		"buttons": ["PATTERN EDIT", "PAD", "RECORD SETTING", "VALUE", "CTRL 2", "CTRL 3"],
+		"action": "Quantize a pattern after recording",
+		"context": "In PATTERN EDIT → select pattern PAD → press RECORD SETTING or push VALUE",
+		"goal": "Tighten timing (Grid via CTRL 2, Strength % via CTRL 3) non-destructively or save to a pad.",
+		"aliases": ["fix timing", "post quantize", "swing", "grid strength"]
+	},
+	{
+		"id": "pattern-chain",
+		"category": "Pattern Sequencer",
+		"combo": ["PATTERN SELECT", "Hold HOLD", "PAD"],
+		"buttons": ["PATTERN SELECT", "HOLD", "PAD", "REMAIN", "SUB PAD"],
+		"action": "Create and play a Pattern Chain (Song Mode)",
+		"context": "In PATTERN SELECT, hold HOLD (pads flash green) + press PAD to choose Chain Slot 1–16",
+		"goal": "Sequence patterns in order to build or resample a complete song arrangement.",
+		"aliases": ["song mode", "arrange patterns", "chain slot", "green flashing pads"],
+		"steps": [
+			"In PATTERN SELECT, hold HOLD + press a PAD to select one of 16 Chain Slots",
+			"Tap pattern PADs in the order you want them to play",
+			"Press REMAIN to set repeat count for steps; press SUB PAD to play chain",
+			"To resample a chain: PATTERN SELECT → RESAMPLE → destination PAD → HOLD + Chain PAD → SUB PAD"
+		]
+	},
+	{
+		"id": "delete-pattern",
+		"category": "Pattern Sequencer",
+		"combo": ["DEL", "PAD", "Push VALUE"],
+		"buttons": ["DEL", "PAD", "VALUE"],
+		"action": "Delete a pattern (or DEL + EXIT to delete all patterns in a bank)",
+		"context": "In PATTERN SELECT mode",
+		"goal": "Clear a single pattern pad or wipe an entire bank of patterns at once.",
+		"aliases": ["erase pattern", "clear pattern bank", "del exit"]
+	},
+	{
+		"id": "lock-loop-point",
+		"category": "Sample Edit & Chop",
+		"combo": ["REMAIN"],
+		"buttons": ["START/END", "REMAIN"],
+		"action": "Lock Loop Point while adjusting Start Point",
+		"context": "On START/END sample edit screen",
+		"goal": "Prevent the Loop point from shifting when you move the Start point past it.",
+		"aliases": ["keep loop point", "freeze loop marker", "start point move"]
+	},
+	{
+		"id": "preview-end-of-sample",
+		"category": "Sample Edit & Chop",
+		"combo": ["ROLL"],
+		"buttons": ["START/END", "ROLL"],
+		"action": "Play only the last 4 seconds of a sample",
+		"context": "On START/END sample edit screen",
+		"goal": "Quickly audition and fine-tune the End point of a long sample without listening from the very beginning.",
+		"aliases": ["audition end", "tail preview", "last 4 seconds", "long sample trim"]
+	},
+	{
+		"id": "snap-zero-crossing",
+		"category": "Sample Edit & Chop",
+		"combo": ["RESAMPLE"],
+		"buttons": ["START/END", "RESAMPLE"],
+		"action": "Toggle Snap to Zero-Crossing",
+		"context": "On START/END or CHOP edit screen",
+		"goal": "Eliminate clicks and pops at sample start/end/chop points by snapping markers to zero amplitude.",
+		"aliases": ["remove click", "pop free", "zero cross", "clean chop"]
+	},
+	{
+		"id": "chop-menu",
+		"category": "Sample Edit & Chop",
+		"combo": ["SHIFT", "START/END"],
+		"buttons": ["SHIFT", "START/END"],
+		"action": "Open Sample Chop Menu (Manual, Auto Mark, Assign to Pads)",
+		"context": "Sample selected",
+		"goal": "Slice a breakbeat or melodic sample into up to 16 playable pad slices.",
+		"aliases": ["slice sample", "lazy chop", "auto chop", "transient slice", "time division chop"],
+		"steps": [
+			"Manual Lazy Chop: Press PAD to play, tap other PADs (or MARK) as it plays to drop markers",
+			"Fine-tune markers: CTRL 3 selects mark, CTRL 2 moves selected mark, CTRL 1 places new mark",
+			"Auto Chop: Push VALUE → AUTO MARK → CTRL 2 chooses TIME DIVISION, LEVEL, or TRANSIENT",
+			"Assign to Pads: Push VALUE → ASSIGN TO PAD → press MARK to auto-select pads → push VALUE twice"
+		]
+	},
+	{
+		"id": "truncate-sample",
+		"category": "Sample Edit & Chop",
+		"combo": ["START/END", "Push VALUE", "TRUNCATE"],
+		"buttons": ["START/END", "VALUE"],
+		"action": "Truncate sample (permanently delete audio outside Start/End)",
+		"context": "On START/END screen, push VALUE encoder to open menu",
+		"goal": "Free up memory and normalize/chop accurately by trimming unused audio before Start and after End.",
+		"aliases": ["trim permanent", "crop audio", "cut excess"]
+	},
+	{
+		"id": "groove-humanize-sample",
+		"category": "Pitch, Speed & Env",
+		"combo": ["PITCH/SPEED", "ROLL"],
+		"buttons": ["PITCH/SPEED", "ROLL"],
+		"action": "Access Groove / Humanization settings for sample",
+		"context": "On PITCH/SPEED screen, press ROLL",
+		"goal": "Add subtle timing/pitch humanization or groove variance to static samples.",
+		"aliases": ["humanize", "swing sample", "random variation", "feel"]
+	},
+	{
+		"id": "copy-pitch-speed-bank",
+		"category": "Pitch, Speed & Env",
+		"combo": ["Hold REMAIN", "Turn CTRL 1/2/3"],
+		"buttons": ["PITCH/SPEED", "REMAIN", "CTRL 1", "CTRL 2", "CTRL 3"],
+		"action": "Adjust Pitch, Speed, Volume, or Envelope for ALL pads in current Bank",
+		"context": "On PITCH/SPEED or ENVELOPE (SHIFT + PITCH/SPEED) screen",
+		"goal": "Batch-edit volume, tuning, or release tails across all 16 pads in the current bank simultaneously.",
+		"aliases": ["bank wide edit", "all pads volume", "batch pitch", "copy settings to bank"]
+	},
+	{
+		"id": "copy-pitch-speed-mute-group",
+		"category": "Pitch, Speed & Env",
+		"combo": ["Hold COPY", "Turn CTRL 1/2/3"],
+		"buttons": ["PITCH/SPEED", "COPY", "CTRL 1", "CTRL 2", "CTRL 3"],
+		"action": "Adjust Pitch, Speed, Volume, Gate, or Loop for pads in same Mute Group",
+		"context": "On PITCH/SPEED screen (Mute Group pads will flash)",
+		"goal": "Change tuning, speed, or volume across all chopped slices of a sample without affecting drums in the same bank.",
+		"aliases": ["edit all chops", "slice group pitch", "mute group batch edit", "chops volume"]
+	},
+	{
+		"id": "vinyl-varispeed-toggle",
+		"category": "Pitch, Speed & Env",
+		"combo": ["SHIFT", "Push VALUE"],
+		"buttons": ["PITCH/SPEED", "SHIFT", "VALUE"],
+		"action": "Switch between VINYL Mode and VARISPEED (Backing / Ensemble)",
+		"context": "On PITCH/SPEED screen",
+		"goal": "Choose classic Vinyl repitching (pitch & speed linked) or independent pitch/time-stretch (Backing for drums, Ensemble for chords/bass).",
+		"aliases": ["time stretch", "repitch", "algorithm", "backing", "ensemble", "vinyl mode"]
+	},
+	{
+		"id": "sample-pan-mono",
+		"category": "Pitch, Speed & Env",
+		"combo": ["Hold SHIFT", "Turn CTRL 3"],
+		"buttons": ["PITCH/SPEED", "SHIFT", "CTRL 3"],
+		"action": "Adjust Sample Panning or force Stereo sample to MONO (L/R)",
+		"context": "On PITCH/SPEED screen",
+		"goal": "Pan individual drums left/right or collapse a stereo breakbeat/bass sample to mono.",
+		"aliases": ["pan left right", "mono sample", "stereo to mono", "width"]
+	},
+	{
+		"id": "envelope-menu",
+		"category": "Pitch, Speed & Env",
+		"combo": ["SHIFT", "PITCH/SPEED"],
+		"buttons": ["SHIFT", "PITCH/SPEED", "CTRL 1", "CTRL 2", "CTRL 3"],
+		"action": "Open Amplitude Envelope (Attack, Hold, Release) screen",
+		"context": "CTRL 1 = Attack, CTRL 2 = Hold, CTRL 3 = Release",
+		"goal": "Fade in a sample (Attack) or add a smooth fade-out tail (Release) so chops don't cut off abruptly.",
+		"aliases": ["adsr", "fade in", "fade out", "attack release", "declick tail"]
+	},
+	{
+		"id": "auto-detect-bpm",
+		"category": "Pitch, Speed & Env",
+		"combo": ["PITCH/SPEED", "Push VALUE"],
+		"buttons": ["PITCH/SPEED", "VALUE"],
+		"action": "Auto-detect or manually set fine decimal BPM (MANU-F)",
+		"context": "On PITCH/SPEED screen (Turn VALUE to select MANU or MANU-F for decimals)",
+		"goal": "Set exact loop tempo or scan BPM within a target range so half/double-time loops sync properly.",
+		"aliases": ["tap tempo", "decimal bpm", "detect tempo", "manu-f", "loop bpm"]
+	},
+	{
+		"id": "swap-bus-1-2",
+		"category": "FX & Routing",
+		"combo": ["REMAIN", "BUS FX"],
+		"buttons": ["REMAIN", "BUS FX"],
+		"action": "Flip / swap the effects assigned to Bus 1 and Bus 2",
+		"context": "Anytime",
+		"goal": "Instantly reverse the serial routing order of your Bus 1 and Bus 2 effects (e.g., Filter into Delay vs. Delay into Filter).",
+		"aliases": ["flip bus", "reverse fx order", "swap bus 1 and 2", "exchange bus fx"]
+	},
+	{
+		"id": "toggle-bus-3-4",
+		"category": "FX & Routing",
+		"combo": ["Push VALUE", "BUS FX"],
+		"buttons": ["VALUE", "BUS FX"],
+		"action": "Toggle Master Bus 3 + Bus 4 effects on/off",
+		"context": "Anytime",
+		"goal": "Bypass or engage your master chain effects (like 303 Vinyl Sim + Compressor on Bus 3/4) for instant A/B comparison.",
+		"aliases": ["master fx bypass", "turn off bus 3 4", "a/b master chain"]
+	},
+	{
+		"id": "mute-bus-fx",
+		"category": "FX & Routing",
+		"combo": ["SHIFT", "BUS FX"],
+		"buttons": ["SHIFT", "BUS FX"],
+		"action": "Mute Bus (silence audio routed to Bus 1/2 while keeping tails/dry pads)",
+		"context": "Dry pads (lit white) continue playing",
+		"goal": "Drop out the main beat routed through Bus 1/2 while letting reverb/delay tails ring out or keeping a dry vocal/drum playing.",
+		"aliases": ["bus mute", "kill dry", "effect tail drop"]
+	},
+	{
+		"id": "save-efx-params",
+		"category": "FX & Routing",
+		"combo": ["Hold SHIFT", "Hold MARK (3–5s)"],
+		"buttons": ["SHIFT", "MARK"],
+		"action": "Save current MFX / Faceplate FX parameters as default",
+		"context": "While on the effect parameter screen",
+		"goal": "Make your favorite Filter, Vinyl Sim, or Isolator knob settings persist even after turning the SP-404MKII off.",
+		"aliases": [
+			"save effect preset",
+			"remember fx settings",
+			"startup fx params",
+			"default knob values"
+		]
+	},
+	{
+		"id": "keep-mfx-screen-visible",
+		"category": "FX & Routing",
+		"combo": ["Any FX", "REMAIN"],
+		"buttons": ["MFX", "REMAIN", "FILTER+DRIVE", "RESONATOR", "DELAY", "ISOLATOR", "DJFX LOOPER"],
+		"action": "Lock the FX parameter screen on the OLED display",
+		"context": "While in an effect menu, press REMAIN + the FX button",
+		"goal": "Stop the effect parameter screen from auto-closing after a few seconds while you tweak knobs.",
+		"aliases": ["pin fx menu", "hold effect screen", "stop menu timeout", "stay on fx screen"]
+	},
+	{
+		"id": "view-mfx-without-activating",
+		"category": "FX & Routing",
+		"combo": ["Hold REMAIN", "Any FX"],
+		"buttons": ["REMAIN", "MFX", "FILTER+DRIVE", "RESONATOR", "DELAY", "ISOLATOR", "DJFX LOOPER"],
+		"action": "Inspect or pre-tweak an effect screen without turning the effect on",
+		"context": "Press REMAIN first, then the FX button",
+		"goal": "Check or preset knob parameters before dropping the effect into a live performance.",
+		"aliases": ["preview fx", "check effect settings", "silent fx edit"]
+	},
+	{
+		"id": "grab-momentary-fx",
+		"category": "FX & Routing",
+		"combo": ["Hold VALUE", "Any FX"],
+		"buttons": ["VALUE", "MFX", "FILTER+DRIVE", "RESONATOR", "DELAY", "ISOLATOR", "DJFX LOOPER"],
+		"action": "Momentarily 'Grab' / punch-in an effect only while held",
+		"context": "Hold VALUE encoder down, press FX button(s), release to disengage",
+		"goal": "Punch in a quick DJFX Looper stutter, Isolator cut, or Delay throw for one beat and snap right back.",
+		"aliases": ["punch in fx", "momentary effect", "fx grab", "temporary effect"]
+	},
+	{
+		"id": "mfx-pages-shortcut",
+		"category": "FX & Routing",
+		"combo": ["Hold MFX", "DJFX LOOPER / ISOLATOR"],
+		"buttons": ["MFX", "DJFX LOOPER", "ISOLATOR", "PAD"],
+		"action": "Jump directly to MFX Page 2 (17–32) or Page 3 / SFX (33+)",
+		"context": "Hold MFX + DJFX LOOPER (Page 2) or ISOLATOR (Page 3), then tap PAD 1–16",
+		"goal": "Select any of the 40+ MFX (including Cloud Delay, SFX Reverb, Backspin) instantly using the 16 pads without scrolling.",
+		"aliases": [
+			"cloud delay",
+			"backspin",
+			"sfx reverb",
+			"mfx list",
+			"fast effect select",
+			"page 2",
+			"page 3"
+		]
+	},
+	{
+		"id": "mfx-second-param-page",
+		"category": "FX & Routing",
+		"combo": ["Push/Hold VALUE"],
+		"buttons": ["VALUE", "CTRL 1", "CTRL 2", "CTRL 3"],
+		"action": "Access the 2nd page of 3 additional FX parameters",
+		"context": "When a down-arrow icon appears on the FX screen",
+		"goal": "Adjust the bottom row of effect parameters (4–6) using CTRL 1–3 knobs.",
+		"aliases": ["sub parameters", "effect page 2", "6 knobs", "arrow down fx"]
+	},
+	{
+		"id": "assign-pad-bus-routing",
+		"category": "FX & Routing",
+		"combo": ["Hold REMAIN", "PAD / BANK"],
+		"buttons": ["REMAIN", "PAD", "BANK", "BUS FX"],
+		"action": "Send Pad (or entire Bank) to Bus 1, Bus 2, or Dry (White)",
+		"context": "Select BUS 1 or BUS 2 first with BUS FX, then hold REMAIN + tap PAD (or BANK)",
+		"goal": "Route drums to Bus 1 (Compressor) and samples to Bus 2 (Filter), or exclude a pad from effects completely (White LED).",
+		"aliases": ["bus assignment", "dry pad", "exclude from fx", "bus 1 bus 2 routing", "white pad"]
+	},
+	{
+		"id": "ext-source-input-settings",
+		"category": "FX & Routing",
+		"combo": ["SHIFT", "EXT SOURCE"],
+		"buttons": ["SHIFT", "EXT SOURCE"],
+		"action": "Open Input Settings (Ext In vs. Mix routing, Input BPM, Input FX)",
+		"context": "CTRL 2 switches between EXT IN (external only) and MIX (internal + external)",
+		"goal": "Record only your external synth/phone/mic without capturing internal playing pads, or add Input FX.",
+		"aliases": ["ext in", "mix routing", "input fx", "usb audio record", "microphone", "guitar"]
+	},
+	{
+		"id": "toggle-gate-bank",
+		"category": "Banks & Projects",
+		"combo": ["SHIFT", "GATE"],
+		"buttons": ["SHIFT", "GATE"],
+		"action": "Toggle Gate ON/OFF for all 16 pads in current Bank",
+		"context": "Sample Mode",
+		"goal": "Turn off Gate for an entire bank of drum hits or chops at once instead of tapping Gate 16 times.",
+		"aliases": ["all pads gate", "bank gate off", "batch gate"]
+	},
+	{
+		"id": "bank-volume",
+		"category": "Banks & Projects",
+		"combo": ["SHIFT", "BANK"],
+		"buttons": ["SHIFT", "BANK", "VOLUME"],
+		"action": "Adjust overall Volume for an entire Bank",
+		"context": "Hold SHIFT and press the Bank button (A/F–E/J)",
+		"goal": "Balance a loud drum bank against a quiet sample bank without editing individual pads or changing master VOLUME.",
+		"aliases": ["bank level", "group volume", "turn down bank"]
+	},
+	{
+		"id": "delete-bank",
+		"category": "Banks & Projects",
+		"combo": ["DEL", "EXIT"],
+		"buttons": ["DEL", "EXIT", "BANK"],
+		"action": "Delete all samples (or patterns) in an entire Bank",
+		"context": "Press DEL + EXIT, select the Bank (or PAD), then press DEL to confirm",
+		"goal": "Wipe a whole bank clean in seconds instead of deleting 16 pads one by one.",
+		"aliases": ["clear bank", "wipe bank", "erase 16 pads"]
+	},
+	{
+		"id": "copy-bank-or-project",
+		"category": "Banks & Projects",
+		"combo": ["COPY", "EXIT"],
+		"buttons": ["COPY", "EXIT", "BANK"],
+		"action": "Copy an entire Bank to another Bank or another Project",
+		"context": "Use CTRL 3 to choose target Project; COPY > CTRL 3 also copies single pads across Projects",
+		"goal": "Move your favorite drum kit bank or pattern bank into a brand new project.",
+		"aliases": ["duplicate bank", "export bank to project", "move kit", "copy between projects"]
+	},
+	{
+		"id": "protect-bank",
+		"category": "Banks & Projects",
+		"combo": ["SHIFT", "COPY"],
+		"buttons": ["SHIFT", "COPY"],
+		"action": "Protect / lock current Bank from accidental edits or deletion",
+		"context": "Sample Mode",
+		"goal": "Lock finished banks so you can't accidentally overwrite or delete a sample live.",
+		"aliases": ["lock bank", "read only", "prevent delete", "safe mode"]
+	},
+	{
+		"id": "select-project",
+		"category": "Banks & Projects",
+		"combo": ["SHIFT", "SUB PAD"],
+		"buttons": ["SHIFT", "SUB PAD", "PAD"],
+		"action": "Open Project Select / Manager (16 Projects on PAD 1–16)",
+		"context": "Press PAD to load, COPY to duplicate project, DEL to delete project",
+		"goal": "Switch between your 16 projects on the SD card or duplicate a project as a backup before experimenting.",
+		"aliases": ["switch project", "load project", "new project", "duplicate project"]
+	},
+	{
+		"id": "fixed-velocity-mode",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 1"],
+		"buttons": ["SHIFT", "PAD 1", "PAD"],
+		"action": "Toggle Fixed Velocity Mode (Full Level)",
+		"context": "SHIFT + PAD 1 (FIXED VEL)",
+		"goal": "Trigger samples at maximum 127 volume regardless of how softly or hard you hit the pads.",
+		"aliases": ["full level", "max velocity", "constant volume", "pad sensitivity"]
+	},
+	{
+		"id": "16-velocity-mode",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 2"],
+		"buttons": ["SHIFT", "PAD 2", "PAD"],
+		"action": "Enter 16 Velocity Mode for selected sample",
+		"context": "PAD 13 = quietest, PAD 4 = loudest",
+		"goal": "Play subtle ghost notes and dynamic hi-hat/snare rolls across 16 progressive volume levels.",
+		"aliases": ["16 levels", "ghost notes", "velocity staircase", "dynamic hi-hats"]
+	},
+	{
+		"id": "cue-headphone-audition",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 3"],
+		"buttons": ["SHIFT", "PAD 3", "PAD"],
+		"action": "Toggle Cue Mode (audition pads in headphones only)",
+		"context": "Pads light up GREEN when sent to Cue",
+		"goal": "Preview sounds in your headphones during a live set without sending them to the main Line Out.",
+		"aliases": ["headphone preview", "dj cue", "green pads", "monitor only"]
+	},
+	{
+		"id": "chromatic-mode",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 4"],
+		"buttons": ["SHIFT", "PAD 4", "PAD", "REMAIN", "VALUE"],
+		"action": "Enter Chromatic / Scale Mode (Mono, Legato, Poly)",
+		"context": "Press REMAIN for Mono/Legato/Poly; Push VALUE to select Scale; Turn VALUE for Root note",
+		"goal": "Play any sample melodically across the 16 pads—including polyphonic chords or locked musical scales—and record into patterns.",
+		"aliases": ["keyboard mode", "play bassline", "polyphony", "chords", "scales", "legato"],
+		"steps": [
+			"Select sample PAD → press SHIFT + PAD 4",
+			"Press REMAIN to cycle MONO → LEGATO → POLY (up to 4-note chords)",
+			"Push VALUE encoder to cycle Scales (Chromatic, Major, Minor, Dorian, Phrygian, etc.)",
+			"To record into a pattern: Enter Pattern Record → press REC for Rehearsal → press SHIFT + PAD 4 → press REC to record notes"
+		]
+	},
+	{
+		"id": "exchange-swap-pads",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 5"],
+		"buttons": ["SHIFT", "PAD 5", "PAD"],
+		"action": "Exchange / swap two sample pads",
+		"context": "Select first PAD → select second PAD → press COPY (or push VALUE)",
+		"goal": "Rearrange your drum kit layout on the 4x4 grid without needing an empty temporary pad.",
+		"aliases": ["swap pads", "move sample", "reorganize kit", "switch pad positions"]
+	},
+	{
+		"id": "init-sample-params",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 6"],
+		"buttons": ["SHIFT", "PAD 6", "PAD"],
+		"action": "Initialize sample parameters (Reset Pitch, Speed, Env)",
+		"context": "Select PAD → press SHIFT + PAD 6 → confirm with VALUE",
+		"goal": "Revert a sample back to its original un-pitched, un-trimmed factory state.",
+		"aliases": ["reset sample", "clear pitch", "default parameters", "init param"]
+	},
+	{
+		"id": "pad-link",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 7"],
+		"buttons": ["SHIFT", "PAD 7", "PAD"],
+		"action": "Configure Pad Link groups (trigger multiple pads from one hit)",
+		"context": "Tap pads to link together, press EXIT when done",
+		"goal": "Layer a kick + sub-bass or snare + clap so hitting one pad fires all linked pads simultaneously.",
+		"aliases": ["layer pads", "stack drums", "link pads", "simultaneous trigger"]
+	},
+	{
+		"id": "mute-groups",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 8"],
+		"buttons": ["SHIFT", "PAD 8", "PAD"],
+		"action": "Assign pads to Mute Groups A–J (Choke groups)",
+		"context": "10 Mute Groups available across banks",
+		"goal": "Make open hi-hats choke when closed hi-hats hit, or make melodic sample chops cut each other off cleanly.",
+		"aliases": [
+			"choke group",
+			"cut off sample",
+			"hi-hat choke",
+			"monophonic chops",
+			"stop overlapping"
+		]
+	},
+	{
+		"id": "metronome-toggle",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 9"],
+		"buttons": ["SHIFT", "PAD 9", "PAD"],
+		"action": "Toggle Metronome On/Off",
+		"context": "Adjust click volume in Utility > Click",
+		"goal": "Turn the click track on or off while recording or practicing patterns.",
+		"aliases": ["click track", "tempo click", "metronome"]
+	},
+	{
+		"id": "count-in-mode",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 10"],
+		"buttons": ["SHIFT", "PAD 10", "PAD"],
+		"action": "Cycle Recording Count-In (1 Meas, 2 Meas, Wait, Off)",
+		"context": "WAIT starts recording automatically as soon as input audio exceeds threshold",
+		"goal": "Add a 1- or 2-bar count-in before pattern recording, or use WAIT for threshold-triggered sampling.",
+		"aliases": ["pre-roll", "threshold record", "auto start sampling", "wait mode"]
+	},
+	{
+		"id": "tap-tempo-menu",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 11"],
+		"buttons": ["SHIFT", "PAD 11", "PAD", "SUB PAD"],
+		"action": "Open Bank Tap Tempo screen",
+		"context": "Tap SUB PAD repeatedly to set tempo, or turn VALUE encoder",
+		"goal": "Tap in the master/bank tempo by ear and sync all BPM-Sync enabled pads in the bank.",
+		"aliases": ["set bpm", "master tempo", "tap sub pad"]
+	},
+	{
+		"id": "gain-noise-gate",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 12"],
+		"buttons": ["SHIFT", "PAD 12", "PAD", "VOLUME"],
+		"action": "Open Input Attenuator, Noise Gate & Output Gain settings",
+		"context": "Quick shortcut to Gain/Input staging parameters",
+		"goal": "Prevent hot line inputs from clipping with the Attenuator or gate out background hum on the Mic/Guitar jack.",
+		"aliases": ["clipping", "input too loud", "attenuator", "noise gate", "hum"]
+	},
+	{
+		"id": "utility-menu",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 13"],
+		"buttons": ["SHIFT", "PAD 13", "PAD"],
+		"action": "Open Utility Menu (System, Knob Mode, Sub Pad Mode, Backup, Factory Reset)",
+		"context": "Set Knob Mode (Direct vs. Catch) or Sub Pad Mode (Retrigger vs. Skip Back)",
+		"goal": "Configure system preferences, MIDI channels, SD card full backups, and Catch knob behavior.",
+		"aliases": ["knob catch", "system settings", "sd backup", "midi settings"]
+	},
+	{
+		"id": "import-export-sd",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 14"],
+		"buttons": ["SHIFT", "PAD 14", "PAD"],
+		"action": "Import / Export Samples & Multipads from SD Card (or Format SD)",
+		"context": "Browse WAV/AIFF files on SD card to load onto pads",
+		"goal": "Load drum kits from your SD card or export finished samples/patterns without a computer.",
+		"aliases": ["load wav", "sd card browser", "export stems", "format sd card"]
+	},
+	{
+		"id": "pad-led-settings",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 15"],
+		"buttons": ["SHIFT", "PAD 15", "PAD"],
+		"action": "Open Pad Settings (Velocity Curve, Threshold, LED Colors)",
+		"context": "Customize pad trigger feel and custom RGB color coding",
+		"goal": "Adjust pad velocity sensitivity for your finger-drumming style or color-code pads by instrument.",
+		"aliases": ["pad color", "rgb led", "pad sensitivity", "velocity curve"]
+	},
+	{
+		"id": "efx-routing-bus-3-4",
+		"category": "Pad Modes (SHIFT + Pad)",
+		"combo": ["SHIFT", "PAD 16"],
+		"buttons": ["SHIFT", "PAD 16", "PAD", "VALUE"],
+		"action": "Open EFX Settings (Bus 1/2 Routing Type A/B, Bus 3/4 Master FX, Direct FX Assign)",
+		"context": "Push VALUE to toggle Type A (Serial) vs Type B (Parallel); Turn VALUE for Favorites 1–16",
+		"goal": "Choose serial vs. parallel Bus 1/2 routing, set up Bus 3 & 4 master effects, or customize the 5 top Direct FX buttons.",
+		"aliases": [
+			"bus 3",
+			"bus 4",
+			"serial parallel routing",
+			"type a type b",
+			"efx favorites",
+			"customize top buttons"
+		]
+	},
+	{
+		"id": "record-setting-input-menu",
+		"category": "Sample Playback",
+		"combo": ["RECORD SETTING"],
+		"buttons": ["RECORD SETTING", "CTRL 1", "CTRL 2", "CTRL 3", "VALUE"],
+		"action": "Adjust Input Recording Settings (Count-In, Auto-Trig, Rec BPM & Routing)",
+		"context": "In Sample Mode or while armed in REC / RESAMPLE",
+		"goal": "Set recording Count-In, Auto-Trigger threshold level, input BPM, and Ext In vs. Mix routing in one screen.",
+		"aliases": [
+			"recording settings",
+			"auto trigger",
+			"input routing",
+			"rec bpm",
+			"count in setting"
+		]
+	},
+	{
+		"id": "pattern-edit-record-setting",
+		"category": "Pattern Sequencer",
+		"combo": ["PATTERN EDIT", "RECORD SETTING"],
+		"buttons": ["PATTERN EDIT", "RECORD SETTING", "CTRL 1", "CTRL 2", "CTRL 3"],
+		"action": "Edit Pattern BPM, Bar Length (Double/Halve), or Time Signature",
+		"context": "In PATTERN EDIT with a pattern selected",
+		"goal": "Change a pattern's tempo, double its bar length to add variations, or crop bars without re-recording.",
+		"aliases": ["double pattern length", "pattern bpm", "crop pattern", "bars", "pattern settings"]
+	},
+	{
+		"id": "custom-sample-color-rename",
+		"category": "Banks & Projects",
+		"combo": ["SHIFT", "RECORD SETTING"],
+		"buttons": ["SHIFT", "RECORD SETTING", "VALUE"],
+		"action": "Quick-edit Sample Name and Custom Pad RGB Color",
+		"context": "When pad LED color mode is set to SAMPLE in Utility > Pad Para",
+		"goal": "Assign a custom RGB LED color and name to the currently selected sample pad.",
+		"aliases": ["sample color", "rename pad", "custom pad led", "shift record setting"]
+	},
+	{
+		"id": "dj-mode-enter-controls",
+		"category": "Sample Playback",
+		"combo": ["BANK B/G", "BANK C/H"],
+		"buttons": ["BANK B/G", "BANK C/H", "BANK", "PAD"],
+		"action": "Enter DJ Mode (Dual-Deck CH1 / CH2 Performance Mixer)",
+		"context": "Press BANK B/G + C/H simultaneously; Pads 1–16 become CH1/CH2 transport controls",
+		"goal": "Mix two tracks live using CH1 (left pads: BEND+/-, BPM+/-, |<<, SYNC, ▶/⏸, CUE) and CH2 (right pads).",
+		"aliases": ["dj mode", "ch1", "ch2", "pitch bend", "sync decks", "crossfader", "dual deck"],
+		"steps": [
+			"Press BANK B/G and BANK C/H at the same time to enter DJ Mode",
+			"Pads 1 & 5 = CH1 Pitch Bend +/- | Pads 2 & 6 = CH1 BPM +/- (Pads 3/7 & 4/8 for CH2)",
+			"Pad 9 = CH1 Restart (|<<) | Pad 10 = CH1 Beat Sync (Pads 11 & 12 for CH2)",
+			"Pad 13 = CH1 Play/Pause (▶/⏸) | Pad 14 = CH1 Headphone Cue (Pads 15 & 16 for CH2)"
+		]
+	},
+	{
+		"id": "master-volume-cue-monitoring",
+		"category": "FX & Routing",
+		"combo": ["VOLUME", "SHIFT", "PAD 3"],
+		"buttons": ["VOLUME", "SHIFT", "PAD 3", "PAD"],
+		"action": "Monitor CUE pads in Headphones independent of Master Line Out",
+		"context": "VOLUME controls overall level; use SHIFT + PAD 3 (CUE) to pre-listen before bringing pads into the mix",
+		"goal": "Check sample levels and loops privately in headphones while controlling the main output with VOLUME.",
+		"aliases": ["master volume", "headphone cue", "live monitoring", "volume knob"]
+	}
+]
