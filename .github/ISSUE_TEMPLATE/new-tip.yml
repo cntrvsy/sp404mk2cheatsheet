@@ -39,3 +39,18 @@ body:
       placeholder: 'e.g. Quickly reverse the serial order of Bus 1 and Bus 2 effects without menu diving.'
     validations:
       required: true
+  - type: input
+    id: source
+    attributes:
+      label: Verification Source (Manual Page, Firmware Note, or Community Reference)
+      description: 'To prevent inaccurate tips, cite where this shortcut is documented or demonstrated.'
+      placeholder: 'e.g. Roland Reference Manual v4.04 p. 82, C-Dub Cheat Sheet p. 9, or video timestamp'
+    validations:
+      required: true
+  - type: checkboxes
+    id: verified
+    attributes:
+      label: Hardware Verification
+      options:
+        - label: I have personally tested this exact button combination on physical SP-404MKII hardware.
+          required: true

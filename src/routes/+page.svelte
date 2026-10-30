@@ -155,6 +155,15 @@
 			</button>
 
 			<button type="button" class="tool-btn" onclick={handlePrint}>Print / PDF</button>
+
+			<a
+				href="https://github.com/cntrvsy/sp404mk2cheatsheet/issues/new?template=new-tip.yml"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="tool-btn"
+			>
+				+ Suggest Tip
+			</a>
 		</nav>
 	</div>
 </header>

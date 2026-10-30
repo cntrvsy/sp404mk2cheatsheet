@@ -15,7 +15,8 @@
 			"ambient loop",
 			"gate pulse",
 			"one shot"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "hold-latch-sample",
@@ -25,7 +26,8 @@
 		"action": "Latch pad playback without holding it down",
 		"context": "Sample Mode",
 		"goal": "Keep a gated or looping sample playing hands-free without holding your finger on the pad.",
-		"aliases": ["latch", "sustain", "keep playing", "hands free"]
+		"aliases": ["latch", "sustain", "keep playing", "hands free"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "stop-all-samples",
@@ -35,7 +37,8 @@
 		"action": "Stop all currently playing samples (Panic)",
 		"context": "Or press EXIT 4 times rapidly",
 		"goal": "Immediately silence long tail samples, loops, or stuck audio.",
-		"aliases": ["panic", "silence", "kill audio", "stop sound", "exit x4", "all notes off"]
+		"aliases": ["panic", "silence", "kill audio", "stop sound", "exit x4", "all notes off"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "pause-all-audio",
@@ -45,7 +48,8 @@
 		"action": "Pause / resume playing audio or pattern",
 		"context": "Works in Sample Playback, Pattern Play, and TR-REC",
 		"goal": "Freeze playback in place and resume from the exact same spot instead of restarting from bar 1.",
-		"aliases": ["freeze", "pause pattern", "stop in place", "tr-rec pause"]
+		"aliases": ["freeze", "pause pattern", "stop in place", "tr-rec pause"],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "switch-alternate-bank",
@@ -63,7 +67,8 @@
 			"bank j",
 			"second bank",
 			"double press bank"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "ping-pong-loop",
@@ -73,7 +78,8 @@
 		"action": "Toggle Ping-Pong Looping",
 		"context": "Sample selected with LOOP enabled",
 		"goal": "Loop a sample forward then backward seamlessly to avoid harsh loop clicks on sustained textures.",
-		"aliases": ["back and forth", "bidirectional loop", "smooth loop", "crossfade"]
+		"aliases": ["back and forth", "bidirectional loop", "smooth loop", "crossfade"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "roll-time-division",
@@ -83,7 +89,8 @@
 		"action": "Set Roll repeat rate / time division",
 		"context": "Hold ROLL + PAD to trigger roll at chosen division",
 		"goal": "Change note repeat speed between 1/4, 1/8, 1/16, 1/32, or triplets for hi-hat rolls and fills.",
-		"aliases": ["note repeat", "ratchet", "hi-hat roll", "stutter speed"]
+		"aliases": ["note repeat", "ratchet", "hi-hat roll", "stutter speed"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "rename-sample",
@@ -93,7 +100,8 @@
 		"action": "View pad info and rename sample",
 		"context": "Select pad first, hold/press REMAIN, then scroll down with VALUE",
 		"goal": "Inspect sample details or give a pad a custom readable name on the OLED display.",
-		"aliases": ["title", "label sample", "pad info", "current pad menu", "file name"]
+		"aliases": ["title", "label sample", "pad info", "current pad menu", "file name"],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "skip-back-recall",
@@ -114,7 +122,8 @@
 			"Press glowing MARK button to load the last 40s buffer",
 			"Press SUB PAD to preview; use CTRL 1 (Start) & CTRL 3 (End) to trim",
 			"Press REC → select destination PAD → press REC to save"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "resample-multiple-pads",
@@ -124,7 +133,8 @@
 		"action": "Quick-combine / bounce multiple pads together",
 		"context": "Select pads to merge (Note: does not copy all individual parameters)",
 		"goal": "Quickly layer a kick and snare or chord pads onto a single new pad.",
-		"aliases": ["merge pads", "layer drums", "combine samples", "quick bounce"]
+		"aliases": ["merge pads", "layer drums", "combine samples", "quick bounce"],
+		"sources": ["r/SP404 Community"]
 	},
 	{
 		"id": "pad-mute-mode",
@@ -141,7 +151,8 @@
 			"mute automation",
 			"perform pattern",
 			"white pads"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "pad-mute-momentary",
@@ -151,7 +162,8 @@
 		"action": "Momentary Pad Mute screen",
 		"context": "Hold both SHIFT + REVERSE, tap pads to mute/unmute, release to return",
 		"goal": "Quickly mute or unmute a sample in a running pattern without staying locked in Pad Mute Mode.",
-		"aliases": ["quick mute", "silence track", "pattern mute"]
+		"aliases": ["quick mute", "silence track", "pattern mute"],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "copy-specific-pattern-samples",
@@ -172,7 +184,8 @@
 			"In PATTERN SELECT, press COPY and select source pattern PAD",
 			"Press REMAIN, then tap the specific sample PADs you want to include",
 			"Press REMAIN again, select destination empty pattern PAD, and press COPY / VALUE"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "delete-sample-in-pattern",
@@ -182,7 +195,8 @@
 		"action": "Delete all notes of a specific sample from a pattern",
 		"context": "In PATTERN EDIT mode (Pads with notes light up blue)",
 		"goal": "Wipe a single bad drum part or bassline from a pattern without erasing the rest of the loop.",
-		"aliases": ["clear track", "remove instrument", "erase pad from pattern", "blue pad delete"]
+		"aliases": ["clear track", "remove instrument", "erase pad from pattern", "blue pad delete"],
+		"sources": ["r/SP404 Community"]
 	},
 	{
 		"id": "erase-mode-live",
@@ -192,7 +206,8 @@
 		"action": "Real-time Erase Mode while pattern is looping",
 		"context": "While in Pattern Record (press DEL again to return to record)",
 		"goal": "Erase only specific hits of a sound as the loop passes over them.",
-		"aliases": ["spot erase", "scrub notes", "delete single hit", "pattern record del"]
+		"aliases": ["spot erase", "scrub notes", "delete single hit", "pattern record del"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "bounce-pattern-to-pad",
@@ -214,7 +229,8 @@
 			"Optional: Press REMAIN and select specific pads if you only want stems",
 			"Press PATTERN SELECT to switch destination from Pattern to Sample Bank",
 			"Choose an empty destination PAD and press COPY (or push VALUE) to bounce"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "rehearsal-mode",
@@ -224,7 +240,8 @@
 		"action": "Toggle Rehearsal Mode during pattern recording",
 		"context": "While already recording a pattern (REC LED blinks)",
 		"goal": "Practice playing a part over the looping pattern without committing notes until you press REC again.",
-		"aliases": ["practice", "audition pattern", "overdub test", "try out notes"]
+		"aliases": ["practice", "audition pattern", "overdub test", "try out notes"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "pattern-undo",
@@ -234,7 +251,8 @@
 		"action": "Undo last pattern recording step (up to 16 levels)",
 		"context": "While recording or overdubbing a pattern",
 		"goal": "Revert a bad take immediately (remaining undo steps show on the left of the OLED).",
-		"aliases": ["oops", "revert", "take back", "16 undo"]
+		"aliases": ["oops", "revert", "take back", "16 undo"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "microscope-mode",
@@ -244,7 +262,8 @@
 		"action": "Enter Microscope Mode for step/substep note editing",
 		"context": "In PATTERN EDIT (or within TR-REC substeps)",
 		"goal": "Inspect and nudge individual note events, micro-timing, or substep triggers on a specific pad.",
-		"aliases": ["micro timing", "nudge note", "list edit", "step inspector", "event list"]
+		"aliases": ["micro timing", "nudge note", "list edit", "step inspector", "event list"],
+		"sources": ["r/SP404 Community"]
 	},
 	{
 		"id": "tr-rec-mode",
@@ -260,7 +279,8 @@
 			"Press REMAIN to switch to TR-REC (or press REC then REMAIN)",
 			"Hold SUB PAD + press a PAD to select sound without placing a step",
 			"Use VALUE encoder to switch bars; CTRL 1 for Substep type; CTRL 3 for Velocity"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "tr-rec-motion-recording",
@@ -270,7 +290,8 @@
 		"action": "Record parameter motion (Substep, Velocity, Pitch) in TR-REC",
 		"context": "While TR-REC pattern is running",
 		"goal": "Automate pitch slides, velocity ramps, or ratchets per step in real time.",
-		"aliases": ["parameter lock", "p-lock", "step automation", "pitch automation"]
+		"aliases": ["parameter lock", "p-lock", "step automation", "pitch automation"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "efx-motion-recording",
@@ -280,7 +301,8 @@
 		"action": "Start Effects Motion Recording (FX Automation) in a pattern",
 		"context": "While recording a pattern (START/END toggles Motion On/Off; SHIFT + MARK deletes motion)",
 		"goal": "Automate filter sweeps, delay throws, or effect toggles directly inside a pattern loop.",
-		"aliases": ["fx automation", "record knob movements", "delete automation", "motion erase"]
+		"aliases": ["fx automation", "record knob movements", "delete automation", "motion erase"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "quantize-after-recording",
@@ -290,7 +312,8 @@
 		"action": "Quantize a pattern after recording",
 		"context": "In PATTERN EDIT → select pattern PAD → press RECORD SETTING or push VALUE",
 		"goal": "Tighten timing (Grid via CTRL 2, Strength % via CTRL 3) non-destructively or save to a pad.",
-		"aliases": ["fix timing", "post quantize", "swing", "grid strength"]
+		"aliases": ["fix timing", "post quantize", "swing", "grid strength"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "pattern-chain",
@@ -306,7 +329,8 @@
 			"Tap pattern PADs in the order you want them to play",
 			"Press REMAIN to set repeat count for steps; press SUB PAD to play chain",
 			"To resample a chain: PATTERN SELECT → RESAMPLE → destination PAD → HOLD + Chain PAD → SUB PAD"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "delete-pattern",
@@ -316,7 +340,8 @@
 		"action": "Delete a pattern (or DEL + EXIT to delete all patterns in a bank)",
 		"context": "In PATTERN SELECT mode",
 		"goal": "Clear a single pattern pad or wipe an entire bank of patterns at once.",
-		"aliases": ["erase pattern", "clear pattern bank", "del exit"]
+		"aliases": ["erase pattern", "clear pattern bank", "del exit"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "lock-loop-point",
@@ -326,7 +351,8 @@
 		"action": "Lock Loop Point while adjusting Start Point",
 		"context": "On START/END sample edit screen",
 		"goal": "Prevent the Loop point from shifting when you move the Start point past it.",
-		"aliases": ["keep loop point", "freeze loop marker", "start point move"]
+		"aliases": ["keep loop point", "freeze loop marker", "start point move"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "preview-end-of-sample",
@@ -336,7 +362,8 @@
 		"action": "Play only the last 4 seconds of a sample",
 		"context": "On START/END sample edit screen",
 		"goal": "Quickly audition and fine-tune the End point of a long sample without listening from the very beginning.",
-		"aliases": ["audition end", "tail preview", "last 4 seconds", "long sample trim"]
+		"aliases": ["audition end", "tail preview", "last 4 seconds", "long sample trim"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "snap-zero-crossing",
@@ -346,7 +373,8 @@
 		"action": "Toggle Snap to Zero-Crossing",
 		"context": "On START/END or CHOP edit screen",
 		"goal": "Eliminate clicks and pops at sample start/end/chop points by snapping markers to zero amplitude.",
-		"aliases": ["remove click", "pop free", "zero cross", "clean chop"]
+		"aliases": ["remove click", "pop free", "zero cross", "clean chop"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "chop-menu",
@@ -362,7 +390,8 @@
 			"Fine-tune markers: CTRL 3 selects mark, CTRL 2 moves selected mark, CTRL 1 places new mark",
 			"Auto Chop: Push VALUE → AUTO MARK → CTRL 2 chooses TIME DIVISION, LEVEL, or TRANSIENT",
 			"Assign to Pads: Push VALUE → ASSIGN TO PAD → press MARK to auto-select pads → push VALUE twice"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "truncate-sample",
@@ -372,7 +401,8 @@
 		"action": "Truncate sample (permanently delete audio outside Start/End)",
 		"context": "On START/END screen, push VALUE encoder to open menu",
 		"goal": "Free up memory and normalize/chop accurately by trimming unused audio before Start and after End.",
-		"aliases": ["trim permanent", "crop audio", "cut excess"]
+		"aliases": ["trim permanent", "crop audio", "cut excess"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "groove-humanize-sample",
@@ -382,7 +412,8 @@
 		"action": "Access Groove / Humanization settings for sample",
 		"context": "On PITCH/SPEED screen, press ROLL",
 		"goal": "Add subtle timing/pitch humanization or groove variance to static samples.",
-		"aliases": ["humanize", "swing sample", "random variation", "feel"]
+		"aliases": ["humanize", "swing sample", "random variation", "feel"],
+		"sources": ["r/SP404 Community"]
 	},
 	{
 		"id": "copy-pitch-speed-bank",
@@ -392,7 +423,8 @@
 		"action": "Adjust Pitch, Speed, Volume, or Envelope for ALL pads in current Bank",
 		"context": "On PITCH/SPEED or ENVELOPE (SHIFT + PITCH/SPEED) screen",
 		"goal": "Batch-edit volume, tuning, or release tails across all 16 pads in the current bank simultaneously.",
-		"aliases": ["bank wide edit", "all pads volume", "batch pitch", "copy settings to bank"]
+		"aliases": ["bank wide edit", "all pads volume", "batch pitch", "copy settings to bank"],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "copy-pitch-speed-mute-group",
@@ -402,7 +434,8 @@
 		"action": "Adjust Pitch, Speed, Volume, Gate, or Loop for pads in same Mute Group",
 		"context": "On PITCH/SPEED screen (Mute Group pads will flash)",
 		"goal": "Change tuning, speed, or volume across all chopped slices of a sample without affecting drums in the same bank.",
-		"aliases": ["edit all chops", "slice group pitch", "mute group batch edit", "chops volume"]
+		"aliases": ["edit all chops", "slice group pitch", "mute group batch edit", "chops volume"],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "vinyl-varispeed-toggle",
@@ -412,7 +445,8 @@
 		"action": "Switch between VINYL Mode and VARISPEED (Backing / Ensemble)",
 		"context": "On PITCH/SPEED screen",
 		"goal": "Choose classic Vinyl repitching (pitch & speed linked) or independent pitch/time-stretch (Backing for drums, Ensemble for chords/bass).",
-		"aliases": ["time stretch", "repitch", "algorithm", "backing", "ensemble", "vinyl mode"]
+		"aliases": ["time stretch", "repitch", "algorithm", "backing", "ensemble", "vinyl mode"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "sample-pan-mono",
@@ -422,7 +456,8 @@
 		"action": "Adjust Sample Panning or force Stereo sample to MONO (L/R)",
 		"context": "On PITCH/SPEED screen",
 		"goal": "Pan individual drums left/right or collapse a stereo breakbeat/bass sample to mono.",
-		"aliases": ["pan left right", "mono sample", "stereo to mono", "width"]
+		"aliases": ["pan left right", "mono sample", "stereo to mono", "width"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "envelope-menu",
@@ -432,7 +467,8 @@
 		"action": "Open Amplitude Envelope (Attack, Hold, Release) screen",
 		"context": "CTRL 1 = Attack, CTRL 2 = Hold, CTRL 3 = Release",
 		"goal": "Fade in a sample (Attack) or add a smooth fade-out tail (Release) so chops don't cut off abruptly.",
-		"aliases": ["adsr", "fade in", "fade out", "attack release", "declick tail"]
+		"aliases": ["adsr", "fade in", "fade out", "attack release", "declick tail"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "auto-detect-bpm",
@@ -442,7 +478,8 @@
 		"action": "Auto-detect or manually set fine decimal BPM (MANU-F)",
 		"context": "On PITCH/SPEED screen (Turn VALUE to select MANU or MANU-F for decimals)",
 		"goal": "Set exact loop tempo or scan BPM within a target range so half/double-time loops sync properly.",
-		"aliases": ["tap tempo", "decimal bpm", "detect tempo", "manu-f", "loop bpm"]
+		"aliases": ["tap tempo", "decimal bpm", "detect tempo", "manu-f", "loop bpm"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "swap-bus-1-2",
@@ -452,7 +489,8 @@
 		"action": "Flip / swap the effects assigned to Bus 1 and Bus 2",
 		"context": "Anytime",
 		"goal": "Instantly reverse the serial routing order of your Bus 1 and Bus 2 effects (e.g., Filter into Delay vs. Delay into Filter).",
-		"aliases": ["flip bus", "reverse fx order", "swap bus 1 and 2", "exchange bus fx"]
+		"aliases": ["flip bus", "reverse fx order", "swap bus 1 and 2", "exchange bus fx"],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "toggle-bus-3-4",
@@ -462,7 +500,8 @@
 		"action": "Toggle Master Bus 3 + Bus 4 effects on/off",
 		"context": "Anytime",
 		"goal": "Bypass or engage your master chain effects (like 303 Vinyl Sim + Compressor on Bus 3/4) for instant A/B comparison.",
-		"aliases": ["master fx bypass", "turn off bus 3 4", "a/b master chain"]
+		"aliases": ["master fx bypass", "turn off bus 3 4", "a/b master chain"],
+		"sources": ["r/SP404 Community"]
 	},
 	{
 		"id": "mute-bus-fx",
@@ -472,7 +511,8 @@
 		"action": "Mute Bus (silence audio routed to Bus 1/2 while keeping tails/dry pads)",
 		"context": "Dry pads (lit white) continue playing",
 		"goal": "Drop out the main beat routed through Bus 1/2 while letting reverb/delay tails ring out or keeping a dry vocal/drum playing.",
-		"aliases": ["bus mute", "kill dry", "effect tail drop"]
+		"aliases": ["bus mute", "kill dry", "effect tail drop"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "save-efx-params",
@@ -487,7 +527,8 @@
 			"remember fx settings",
 			"startup fx params",
 			"default knob values"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "keep-mfx-screen-visible",
@@ -497,7 +538,8 @@
 		"action": "Lock the FX parameter screen on the OLED display",
 		"context": "While in an effect menu, press REMAIN + the FX button",
 		"goal": "Stop the effect parameter screen from auto-closing after a few seconds while you tweak knobs.",
-		"aliases": ["pin fx menu", "hold effect screen", "stop menu timeout", "stay on fx screen"]
+		"aliases": ["pin fx menu", "hold effect screen", "stop menu timeout", "stay on fx screen"],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "view-mfx-without-activating",
@@ -507,7 +549,8 @@
 		"action": "Inspect or pre-tweak an effect screen without turning the effect on",
 		"context": "Press REMAIN first, then the FX button",
 		"goal": "Check or preset knob parameters before dropping the effect into a live performance.",
-		"aliases": ["preview fx", "check effect settings", "silent fx edit"]
+		"aliases": ["preview fx", "check effect settings", "silent fx edit"],
+		"sources": ["r/SP404 Community"]
 	},
 	{
 		"id": "grab-momentary-fx",
@@ -517,7 +560,8 @@
 		"action": "Momentarily 'Grab' / punch-in an effect only while held",
 		"context": "Hold VALUE encoder down, press FX button(s), release to disengage",
 		"goal": "Punch in a quick DJFX Looper stutter, Isolator cut, or Delay throw for one beat and snap right back.",
-		"aliases": ["punch in fx", "momentary effect", "fx grab", "temporary effect"]
+		"aliases": ["punch in fx", "momentary effect", "fx grab", "temporary effect"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "mfx-pages-shortcut",
@@ -535,7 +579,8 @@
 			"fast effect select",
 			"page 2",
 			"page 3"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "mfx-second-param-page",
@@ -545,7 +590,8 @@
 		"action": "Access the 2nd page of 3 additional FX parameters",
 		"context": "When a down-arrow icon appears on the FX screen",
 		"goal": "Adjust the bottom row of effect parameters (4–6) using CTRL 1–3 knobs.",
-		"aliases": ["sub parameters", "effect page 2", "6 knobs", "arrow down fx"]
+		"aliases": ["sub parameters", "effect page 2", "6 knobs", "arrow down fx"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "assign-pad-bus-routing",
@@ -555,7 +601,8 @@
 		"action": "Send Pad (or entire Bank) to Bus 1, Bus 2, or Dry (White)",
 		"context": "Select BUS 1 or BUS 2 first with BUS FX, then hold REMAIN + tap PAD (or BANK)",
 		"goal": "Route drums to Bus 1 (Compressor) and samples to Bus 2 (Filter), or exclude a pad from effects completely (White LED).",
-		"aliases": ["bus assignment", "dry pad", "exclude from fx", "bus 1 bus 2 routing", "white pad"]
+		"aliases": ["bus assignment", "dry pad", "exclude from fx", "bus 1 bus 2 routing", "white pad"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "ext-source-input-settings",
@@ -565,7 +612,8 @@
 		"action": "Open Input Settings (Ext In vs. Mix routing, Input BPM, Input FX)",
 		"context": "CTRL 2 switches between EXT IN (external only) and MIX (internal + external)",
 		"goal": "Record only your external synth/phone/mic without capturing internal playing pads, or add Input FX.",
-		"aliases": ["ext in", "mix routing", "input fx", "usb audio record", "microphone", "guitar"]
+		"aliases": ["ext in", "mix routing", "input fx", "usb audio record", "microphone", "guitar"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "toggle-gate-bank",
@@ -575,7 +623,8 @@
 		"action": "Toggle Gate ON/OFF for all 16 pads in current Bank",
 		"context": "Sample Mode",
 		"goal": "Turn off Gate for an entire bank of drum hits or chops at once instead of tapping Gate 16 times.",
-		"aliases": ["all pads gate", "bank gate off", "batch gate"]
+		"aliases": ["all pads gate", "bank gate off", "batch gate"],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "bank-volume",
@@ -585,7 +634,8 @@
 		"action": "Adjust overall Volume for an entire Bank",
 		"context": "Hold SHIFT and press the Bank button (A/F–E/J)",
 		"goal": "Balance a loud drum bank against a quiet sample bank without editing individual pads or changing master VOLUME.",
-		"aliases": ["bank level", "group volume", "turn down bank"]
+		"aliases": ["bank level", "group volume", "turn down bank"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "delete-bank",
@@ -595,7 +645,8 @@
 		"action": "Delete all samples (or patterns) in an entire Bank",
 		"context": "Press DEL + EXIT, select the Bank (or PAD), then press DEL to confirm",
 		"goal": "Wipe a whole bank clean in seconds instead of deleting 16 pads one by one.",
-		"aliases": ["clear bank", "wipe bank", "erase 16 pads"]
+		"aliases": ["clear bank", "wipe bank", "erase 16 pads"],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "copy-bank-or-project",
@@ -605,7 +656,8 @@
 		"action": "Copy an entire Bank to another Bank or another Project",
 		"context": "Use CTRL 3 to choose target Project; COPY > CTRL 3 also copies single pads across Projects",
 		"goal": "Move your favorite drum kit bank or pattern bank into a brand new project.",
-		"aliases": ["duplicate bank", "export bank to project", "move kit", "copy between projects"]
+		"aliases": ["duplicate bank", "export bank to project", "move kit", "copy between projects"],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "protect-bank",
@@ -615,7 +667,8 @@
 		"action": "Protect / lock current Bank from accidental edits or deletion",
 		"context": "Sample Mode",
 		"goal": "Lock finished banks so you can't accidentally overwrite or delete a sample live.",
-		"aliases": ["lock bank", "read only", "prevent delete", "safe mode"]
+		"aliases": ["lock bank", "read only", "prevent delete", "safe mode"],
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
 	},
 	{
 		"id": "select-project",
@@ -625,7 +678,8 @@
 		"action": "Open Project Select / Manager (16 Projects on PAD 1–16)",
 		"context": "Press PAD to load, COPY to duplicate project, DEL to delete project",
 		"goal": "Switch between your 16 projects on the SD card or duplicate a project as a backup before experimenting.",
-		"aliases": ["switch project", "load project", "new project", "duplicate project"]
+		"aliases": ["switch project", "load project", "new project", "duplicate project"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "fixed-velocity-mode",
@@ -635,7 +689,8 @@
 		"action": "Toggle Fixed Velocity Mode (Full Level)",
 		"context": "SHIFT + PAD 1 (FIXED VEL)",
 		"goal": "Trigger samples at maximum 127 volume regardless of how softly or hard you hit the pads.",
-		"aliases": ["full level", "max velocity", "constant volume", "pad sensitivity"]
+		"aliases": ["full level", "max velocity", "constant volume", "pad sensitivity"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "16-velocity-mode",
@@ -645,7 +700,8 @@
 		"action": "Enter 16 Velocity Mode for selected sample",
 		"context": "PAD 13 = quietest, PAD 4 = loudest",
 		"goal": "Play subtle ghost notes and dynamic hi-hat/snare rolls across 16 progressive volume levels.",
-		"aliases": ["16 levels", "ghost notes", "velocity staircase", "dynamic hi-hats"]
+		"aliases": ["16 levels", "ghost notes", "velocity staircase", "dynamic hi-hats"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "cue-headphone-audition",
@@ -655,7 +711,8 @@
 		"action": "Toggle Cue Mode (audition pads in headphones only)",
 		"context": "Pads light up GREEN when sent to Cue",
 		"goal": "Preview sounds in your headphones during a live set without sending them to the main Line Out.",
-		"aliases": ["headphone preview", "dj cue", "green pads", "monitor only"]
+		"aliases": ["headphone preview", "dj cue", "green pads", "monitor only"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "chromatic-mode",
@@ -671,7 +728,8 @@
 			"Press REMAIN to cycle MONO → LEGATO → POLY (up to 4-note chords)",
 			"Push VALUE encoder to cycle Scales (Chromatic, Major, Minor, Dorian, Phrygian, etc.)",
 			"To record into a pattern: Enter Pattern Record → press REC for Rehearsal → press SHIFT + PAD 4 → press REC to record notes"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "exchange-swap-pads",
@@ -681,7 +739,8 @@
 		"action": "Exchange / swap two sample pads",
 		"context": "Select first PAD → select second PAD → press COPY (or push VALUE)",
 		"goal": "Rearrange your drum kit layout on the 4x4 grid without needing an empty temporary pad.",
-		"aliases": ["swap pads", "move sample", "reorganize kit", "switch pad positions"]
+		"aliases": ["swap pads", "move sample", "reorganize kit", "switch pad positions"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "init-sample-params",
@@ -691,7 +750,8 @@
 		"action": "Initialize sample parameters (Reset Pitch, Speed, Env)",
 		"context": "Select PAD → press SHIFT + PAD 6 → confirm with VALUE",
 		"goal": "Revert a sample back to its original un-pitched, un-trimmed factory state.",
-		"aliases": ["reset sample", "clear pitch", "default parameters", "init param"]
+		"aliases": ["reset sample", "clear pitch", "default parameters", "init param"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "pad-link",
@@ -701,7 +761,8 @@
 		"action": "Configure Pad Link groups (trigger multiple pads from one hit)",
 		"context": "Tap pads to link together, press EXIT when done",
 		"goal": "Layer a kick + sub-bass or snare + clap so hitting one pad fires all linked pads simultaneously.",
-		"aliases": ["layer pads", "stack drums", "link pads", "simultaneous trigger"]
+		"aliases": ["layer pads", "stack drums", "link pads", "simultaneous trigger"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "mute-groups",
@@ -717,7 +778,8 @@
 			"hi-hat choke",
 			"monophonic chops",
 			"stop overlapping"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "metronome-toggle",
@@ -727,7 +789,8 @@
 		"action": "Toggle Metronome On/Off",
 		"context": "Adjust click volume in Utility > Click",
 		"goal": "Turn the click track on or off while recording or practicing patterns.",
-		"aliases": ["click track", "tempo click", "metronome"]
+		"aliases": ["click track", "tempo click", "metronome"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "count-in-mode",
@@ -737,7 +800,8 @@
 		"action": "Cycle Recording Count-In (1 Meas, 2 Meas, Wait, Off)",
 		"context": "WAIT starts recording automatically as soon as input audio exceeds threshold",
 		"goal": "Add a 1- or 2-bar count-in before pattern recording, or use WAIT for threshold-triggered sampling.",
-		"aliases": ["pre-roll", "threshold record", "auto start sampling", "wait mode"]
+		"aliases": ["pre-roll", "threshold record", "auto start sampling", "wait mode"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "tap-tempo-menu",
@@ -747,7 +811,8 @@
 		"action": "Open Bank Tap Tempo screen",
 		"context": "Tap SUB PAD repeatedly to set tempo, or turn VALUE encoder",
 		"goal": "Tap in the master/bank tempo by ear and sync all BPM-Sync enabled pads in the bank.",
-		"aliases": ["set bpm", "master tempo", "tap sub pad"]
+		"aliases": ["set bpm", "master tempo", "tap sub pad"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "gain-noise-gate",
@@ -757,7 +822,8 @@
 		"action": "Open Input Attenuator, Noise Gate & Output Gain settings",
 		"context": "Quick shortcut to Gain/Input staging parameters",
 		"goal": "Prevent hot line inputs from clipping with the Attenuator or gate out background hum on the Mic/Guitar jack.",
-		"aliases": ["clipping", "input too loud", "attenuator", "noise gate", "hum"]
+		"aliases": ["clipping", "input too loud", "attenuator", "noise gate", "hum"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "utility-menu",
@@ -767,7 +833,8 @@
 		"action": "Open Utility Menu (System, Knob Mode, Sub Pad Mode, Backup, Factory Reset)",
 		"context": "Set Knob Mode (Direct vs. Catch) or Sub Pad Mode (Retrigger vs. Skip Back)",
 		"goal": "Configure system preferences, MIDI channels, SD card full backups, and Catch knob behavior.",
-		"aliases": ["knob catch", "system settings", "sd backup", "midi settings"]
+		"aliases": ["knob catch", "system settings", "sd backup", "midi settings"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "import-export-sd",
@@ -777,7 +844,8 @@
 		"action": "Import / Export Samples & Multipads from SD Card (or Format SD)",
 		"context": "Browse WAV/AIFF files on SD card to load onto pads",
 		"goal": "Load drum kits from your SD card or export finished samples/patterns without a computer.",
-		"aliases": ["load wav", "sd card browser", "export stems", "format sd card"]
+		"aliases": ["load wav", "sd card browser", "export stems", "format sd card"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "pad-led-settings",
@@ -787,7 +855,8 @@
 		"action": "Open Pad Settings (Velocity Curve, Threshold, LED Colors)",
 		"context": "Customize pad trigger feel and custom RGB color coding",
 		"goal": "Adjust pad velocity sensitivity for your finger-drumming style or color-code pads by instrument.",
-		"aliases": ["pad color", "rgb led", "pad sensitivity", "velocity curve"]
+		"aliases": ["pad color", "rgb led", "pad sensitivity", "velocity curve"],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "efx-routing-bus-3-4",
@@ -804,43 +873,84 @@
 			"type a type b",
 			"efx favorites",
 			"customize top buttons"
-		]
+		],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
-		"id": "record-setting-input-menu",
-		"category": "Sample Playback",
-		"combo": ["RECORD SETTING"],
-		"buttons": ["RECORD SETTING", "CTRL 1", "CTRL 2", "CTRL 3", "VALUE"],
-		"action": "Adjust Input Recording Settings (Count-In, Auto-Trig, Rec BPM & Routing)",
-		"context": "In Sample Mode or while armed in REC / RESAMPLE",
-		"goal": "Set recording Count-In, Auto-Trigger threshold level, input BPM, and Ext In vs. Mix routing in one screen.",
+		"id": "input-fx-recording",
+		"category": "FX & Routing",
+		"combo": ["EXT SOURCE", "REC", "RECORD SETTING", "Push VALUE"],
+		"buttons": ["EXT SOURCE", "REC", "RECORD SETTING", "VALUE"],
+		"action": "Add Input FX when recording an external source",
+		"context": "Press EXT SOURCE → REC → RECORD SETTING → Push VALUE encoder to configure Input FX",
+		"goal": "Print built-in SP-404MKII effects (like Vinyl Sim, Compressor, or Filter) directly onto incoming external audio from USB, Line In, or Mic/Guitar.",
 		"aliases": [
-			"recording settings",
-			"auto trigger",
-			"input routing",
-			"rec bpm",
-			"count in setting"
-		]
+			"input fx",
+			"record with effects",
+			"record setting",
+			"external audio fx",
+			"print effects"
+		],
+		"steps": [
+			"Press EXT SOURCE to monitor incoming audio, then press REC",
+			"Press RECORD SETTING and push the VALUE encoder to select and tweak Input FX",
+			"Press EXIT twice, select your destination PAD, and press REC to start recording"
+		],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
-		"id": "pattern-edit-record-setting",
+		"id": "pattern-edit-parameters",
 		"category": "Pattern Sequencer",
-		"combo": ["PATTERN EDIT", "RECORD SETTING"],
-		"buttons": ["PATTERN EDIT", "RECORD SETTING", "CTRL 1", "CTRL 2", "CTRL 3"],
-		"action": "Edit Pattern BPM, Bar Length (Double/Halve), or Time Signature",
-		"context": "In PATTERN EDIT with a pattern selected",
-		"goal": "Change a pattern's tempo, double its bar length to add variations, or crop bars without re-recording.",
-		"aliases": ["double pattern length", "pattern bpm", "crop pattern", "bars", "pattern settings"]
+		"combo": ["PATTERN EDIT", "PAD"],
+		"buttons": ["PATTERN EDIT", "PAD", "CTRL 1", "CTRL 3", "VALUE"],
+		"action": "Edit Pattern BPM, Bar Length, or Duplicate / Crop Bars",
+		"context": "In PATTERN EDIT: CTRL 1 = BPM, CTRL 3 = Length, Push VALUE = Duplicate or Crop",
+		"goal": "Change a pattern's tempo, double/duplicate a 2-bar loop into 4 bars so you can add variations, or crop excess bars.",
+		"aliases": [
+			"duplicate pattern bars",
+			"double pattern length",
+			"pattern bpm",
+			"crop pattern",
+			"bars"
+		],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
-		"id": "custom-sample-color-rename",
-		"category": "Banks & Projects",
-		"combo": ["SHIFT", "RECORD SETTING"],
-		"buttons": ["SHIFT", "RECORD SETTING", "VALUE"],
-		"action": "Quick-edit Sample Name and Custom Pad RGB Color",
-		"context": "When pad LED color mode is set to SAMPLE in Utility > Pad Para",
-		"goal": "Assign a custom RGB LED color and name to the currently selected sample pad.",
-		"aliases": ["sample color", "rename pad", "custom pad led", "shift record setting"]
+		"id": "queue-next-pattern",
+		"category": "Pattern Sequencer",
+		"combo": ["PATTERN SELECT", "PAD"],
+		"buttons": ["PATTERN SELECT", "PAD"],
+		"action": "Queue the next pattern to play seamlessly after current loop finishes",
+		"context": "While a pattern is already playing in PATTERN SELECT mode (pads flash purple)",
+		"goal": "Transition smoothly between song sections live—tap the next pattern pad anytime and it will wait until the current bar loop completes.",
+		"aliases": ["switch pattern", "cue pattern", "next pattern", "live arrangement", "purple pads"],
+		"sources": ["C-Dub's Cheat Sheet"]
+	},
+	{
+		"id": "external-fx-processor",
+		"category": "FX & Routing",
+		"combo": ["EXT SOURCE", "Any FX"],
+		"buttons": [
+			"EXT SOURCE",
+			"BUS FX",
+			"MFX",
+			"FILTER+DRIVE",
+			"RESONATOR",
+			"DELAY",
+			"ISOLATOR",
+			"DJFX LOOPER"
+		],
+		"action": "Use the SP-404MKII as a standalone live Effects Processor for external gear",
+		"context": "Connect synth/turntable/mixer to rear Line In, enable EXT SOURCE, and engage FX buttons",
+		"goal": "Run external synths, drum machines, or turntables live through the SP-404MKII's Filter+Drive, DJFX Looper, and Bus 1–4 effects without recording.",
+		"aliases": [
+			"fx box",
+			"external synth effects",
+			"live fx processor",
+			"line in effects",
+			"thru fx"
+		],
+		"sources": ["C-Dub's Cheat Sheet"]
 	},
 	{
 		"id": "dj-mode-enter-controls",
@@ -856,16 +966,7 @@
 			"Pads 1 & 5 = CH1 Pitch Bend +/- | Pads 2 & 6 = CH1 BPM +/- (Pads 3/7 & 4/8 for CH2)",
 			"Pad 9 = CH1 Restart (|<<) | Pad 10 = CH1 Beat Sync (Pads 11 & 12 for CH2)",
 			"Pad 13 = CH1 Play/Pause (▶/⏸) | Pad 14 = CH1 Headphone Cue (Pads 15 & 16 for CH2)"
-		]
-	},
-	{
-		"id": "master-volume-cue-monitoring",
-		"category": "FX & Routing",
-		"combo": ["VOLUME", "SHIFT", "PAD 3"],
-		"buttons": ["VOLUME", "SHIFT", "PAD 3", "PAD"],
-		"action": "Monitor CUE pads in Headphones independent of Master Line Out",
-		"context": "VOLUME controls overall level; use SHIFT + PAD 3 (CUE) to pre-listen before bringing pads into the mix",
-		"goal": "Check sample levels and loops privately in headphones while controlling the main output with VOLUME.",
-		"aliases": ["master volume", "headphone cue", "live monitoring", "volume knob"]
+		],
+		"sources": ["Roland Manual"]
 	}
 ]

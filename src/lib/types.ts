@@ -17,6 +17,14 @@ export const CATEGORIES: Category[] = [
 	'Pad Modes (SHIFT + Pad)'
 ];
 
+export type TipSource = "C-Dub's Cheat Sheet" | 'r/SP404 Community' | 'Roland Manual';
+
+export const TIP_SOURCES: TipSource[] = [
+	"C-Dub's Cheat Sheet",
+	'r/SP404 Community',
+	'Roland Manual'
+];
+
 export interface Tip {
 	id: string;
 	category: Category;
@@ -27,6 +35,7 @@ export interface Tip {
 	goal: string;
 	aliases: string[];
 	steps?: string[];
+	sources: TipSource[];
 }
 
 export type HardwareZone =
