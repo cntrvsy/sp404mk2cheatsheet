@@ -7,28 +7,17 @@
 
 	let { label, active = false, onclick }: Props = $props();
 
-	const variant = $derived.by(() => {
+	const isEncoder = $derived.by(() => {
 		const upper = label.toUpperCase();
-		if (upper.includes('SHIFT')) return 'shift';
-		if (upper.includes('REMAIN')) return 'remain';
-		if (
-			/\bDEL\b/.test(upper) ||
-			(/\bREC\b/.test(upper) && !upper.includes('RECORD SETTING') && !upper.includes('TR-REC'))
-		) {
-			return 'rec';
-		}
-		if (upper.includes('VALUE') || upper.includes('CTRL') || upper.includes('VOLUME')) {
-			return 'encoder';
-		}
-		if (/\bPAD\b/.test(upper) && !upper.includes('SUB PAD')) return 'pad';
-		return 'default';
+		return upper.includes('VALUE') || upper.includes('CTRL') || upper.includes('VOLUME');
 	});
 </script>
 
 {#if onclick}
 	<button
 		type="button"
-		class="keycap keycap--interactive keycap--{variant}"
+		class="keycap keycap--interactive"
+		class:keycap--encoder={isEncoder}
 		class:keycap--active={active}
 		{onclick}
 		aria-pressed={active}
@@ -36,7 +25,7 @@
 		{label}
 	</button>
 {:else}
-	<kbd class="keycap keycap--{variant}" class:keycap--active={active}>
+	<kbd class="keycap" class:keycap--encoder={isEncoder} class:keycap--active={active}>
 		{label}
 	</kbd>
 {/if}
@@ -46,27 +35,27 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0.2rem 0.5rem;
+		padding: 0.22rem 0.52rem;
 		font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
-		font-size: 0.78rem;
+		font-size: 0.76rem;
 		font-weight: 700;
-		letter-spacing: 0.03em;
+		letter-spacing: 0.02em;
 		line-height: 1.2;
-		border-radius: 0.28rem;
-		background: #23262d;
+		border-radius: 0.3rem;
+		background: #1e222b;
 		color: #f1f5f9;
-		border: 1px solid #475569;
-		box-shadow: 0 2px 0 #0f172a;
+		border: 1px solid #363e4d;
+		box-shadow: 0 2px 0 #0b0d12;
 		max-inline-size: 100%;
 		text-align: center;
 		margin: 0;
 	}
 
-	@media (pointer: coarse) {
-		.keycap--interactive {
-			min-block-size: 2rem;
-			padding-inline: 0.65rem;
-		}
+	.keycap--encoder {
+		border-radius: 999px;
+		padding-inline: 0.6rem;
+		background: #1a1e26;
+		border-color: #475569;
 	}
 
 	.keycap--interactive {
@@ -78,45 +67,22 @@
 	}
 
 	.keycap--interactive:hover:not(:disabled) {
-		border-color: #f97316;
+		border-color: #94a3b8;
 		transform: translateY(-1px);
 	}
 
-	.keycap--shift {
-		background: #3b2f13;
-		color: #fbbf24;
-		border-color: #d97706;
-	}
-
-	.keycap--remain {
-		background: #2e2336;
-		color: #f3e8ff;
-		border-color: #a855f7;
-	}
-
-	.keycap--rec {
-		background: #3b1c1c;
-		color: #fecaca;
-		border-color: #ef4444;
-	}
-
-	.keycap--encoder {
-		background: #1e293b;
-		color: #38bdf8;
-		border-color: #0284c7;
-		border-radius: 999px;
-	}
-
-	.keycap--pad {
-		background: #2c221e;
-		color: #fed7aa;
-		border-color: #ea580c;
-	}
-
+	/* Active/selected state is the ONLY place bright orange appears on keycaps */
 	.keycap--active {
 		background: #ea580c;
 		color: #ffffff;
 		border-color: #fdba74;
-		box-shadow: 0 0 0.5rem rgba(249, 115, 22, 0.5);
+		box-shadow: 0 0 0.5rem rgba(249, 115, 22, 0.45);
+	}
+
+	@media (pointer: coarse) {
+		.keycap--interactive {
+			min-block-size: 2rem;
+			padding-inline: 0.65rem;
+		}
 	}
 </style>

@@ -44,16 +44,6 @@
 	let showOnlyPinned = $state(false);
 	let showFaceplate = $state(true);
 
-	const quickIntents = [
-		{ label: 'Bounce Stems', query: 'stems' },
-		{ label: 'Choke / Hi-Hats', query: 'choke' },
-		{ label: 'Stop Double-Hits', query: 'one shot' },
-		{ label: 'Track Mute', query: 'pad mute' },
-		{ label: 'Skip-Back (40s)', query: '40 seconds' },
-		{ label: 'FX Automation', query: 'fx automation' },
-		{ label: 'Batch Edit Chops', query: 'edit all chops' }
-	];
-
 	const filteredTips = $derived.by(() => {
 		let list = tips;
 
@@ -85,6 +75,20 @@
 		}
 
 		return list;
+	});
+
+	const isGroupedByCategory = $derived(
+		selectedCategory === 'ALL' &&
+			searchQuery.trim().length === 0 &&
+			activeButtons.length === 0 &&
+			!showOnlyPinned
+	);
+
+	const groupedSections = $derived.by(() => {
+		return CATEGORIES.map((category) => ({
+			category,
+			items: filteredTips.filter((t) => t.category === category)
+		})).filter((group) => group.items.length > 0);
 	});
 
 	function toggleHardwareButton(btnId: string) {
@@ -123,7 +127,7 @@
 			<div>
 				<h1 class="site-title">SP-404MKII Cheat Sheet</h1>
 				<p class="site-subtitle">
-					Interactive button-combo lookup table &bull; {tips.length} curated shortcuts
+					Search by goal, pick a workflow tab, or click a button on the hardware to filter
 				</p>
 			</div>
 		</div>
@@ -141,31 +145,22 @@
 
 			<button
 				type="button"
-				class="tool-btn tool-btn--pin"
+				class="tool-btn"
 				class:tool-btn--active={showOnlyPinned}
 				aria-pressed={showOnlyPinned}
 				onclick={() => (showOnlyPinned = !showOnlyPinned)}
 			>
-				<span aria-hidden="true">★</span>
+				<span aria-hidden="true">{showOnlyPinned ? '★' : '☆'}</span>
 				<span>My Sheet ({pinnedStore.ids.length})</span>
 			</button>
 
-			<button type="button" class="tool-btn" onclick={handlePrint}> Print / PDF </button>
-
-			<a
-				href="https://github.com/new"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="tool-btn tool-btn--accent"
-			>
-				+ Suggest Tip
-			</a>
+			<button type="button" class="tool-btn" onclick={handlePrint}>Print / PDF</button>
 		</nav>
 	</div>
 </header>
 
 <main id="main-content" class="container main-layout" tabindex="-1">
-	<!-- Search & Filter Bar -->
+	<!-- Search & Category Tabs Bar -->
 	<search class="search-panel" aria-label="Filter shortcuts by intent, category, or button">
 		<div class="search-input-row">
 			<label for="shortcut-search" class="visually-hidden">
@@ -174,34 +169,16 @@
 			<input
 				id="shortcut-search"
 				type="search"
-				placeholder="Search by goal or slang (e.g. 'stems', 'choke', 'double hit', 'automation', 'REMAIN')..."
+				placeholder="Search shortcuts (e.g. 'stems', 'choke', 'one shot', 'tr-rec', 'dj mode')..."
 				bind:value={searchQuery}
 				autocomplete="off"
 			/>
 			{#if hasActiveFilters}
-				<button type="button" class="reset-btn" onclick={clearAllFilters}> Clear All </button>
+				<button type="button" class="reset-btn" onclick={clearAllFilters}> Reset Filters </button>
 			{/if}
 		</div>
 
-		<!-- Quick Intent Chips -->
-		<div class="quick-intents">
-			<span class="quick-intents__label">Common lookups:</span>
-			{#each quickIntents as item (item.label)}
-				<button
-					type="button"
-					class="intent-chip"
-					class:intent-chip--active={searchQuery.toLowerCase() === item.query}
-					aria-pressed={searchQuery.toLowerCase() === item.query}
-					onclick={() => {
-						searchQuery = searchQuery.toLowerCase() === item.query ? '' : item.query;
-					}}
-				>
-					{item.label}
-				</button>
-			{/each}
-		</div>
-
-		<!-- Category Filter Pills -->
+		<!-- Category Filter Tabs -->
 		<div class="category-bar" role="group" aria-label="Filter by workflow category">
 			<button
 				type="button"
@@ -270,8 +247,10 @@
 						My Pinned Cheat Sheet ({filteredTips.length})
 					{:else if selectedCategory !== 'ALL'}
 						{selectedCategory} ({filteredTips.length})
+					{:else if hasActiveFilters}
+						Matching Shortcuts ({filteredTips.length})
 					{:else}
-						Shortcuts ({filteredTips.length})
+						All Workflows ({filteredTips.length} shortcuts)
 					{/if}
 				</h2>
 
@@ -295,6 +274,35 @@
 					</p>
 					<button type="button" class="tool-btn" onclick={clearAllFilters}> Reset Filters </button>
 				</div>
+			{:else if isGroupedByCategory}
+				<div class="category-sections">
+					{#each groupedSections as section (section.category)}
+						<section class="category-group" aria-labelledby="cat-{section.category}">
+							<div class="category-group__header">
+								<h3 id="cat-{section.category}" class="category-group__title">
+									{section.category}
+								</h3>
+								<span class="category-group__count">{section.items.length}</span>
+							</div>
+							<ul class="tips-grid" role="list">
+								{#each section.items as tip (tip.id)}
+									<li>
+										<TipCard
+											{tip}
+											isPinned={pinnedStore.has(tip.id)}
+											{activeButtons}
+											hideCategoryBadge={true}
+											onTogglePin={(id) => pinnedStore.toggle(id)}
+											onSelectCategory={(cat) => {
+												selectedCategory = selectedCategory === cat ? 'ALL' : cat;
+											}}
+										/>
+									</li>
+								{/each}
+							</ul>
+						</section>
+					{/each}
+				</div>
 			{:else}
 				<ul class="tips-grid" role="list">
 					{#each filteredTips as tip (tip.id)}
@@ -303,6 +311,7 @@
 								{tip}
 								isPinned={pinnedStore.has(tip.id)}
 								{activeButtons}
+								hideCategoryBadge={selectedCategory !== 'ALL'}
 								onTogglePin={(id) => pinnedStore.toggle(id)}
 								onSelectCategory={(cat) => {
 									selectedCategory = selectedCategory === cat ? 'ALL' : cat;
@@ -320,8 +329,8 @@
 	.site-header {
 		container-type: inline-size;
 		container-name: site-header;
-		background: #12151c;
-		border-bottom: 1px solid #262b36;
+		background: #0f1218;
+		border-bottom: 1px solid #222731;
 		padding-block: 0.65rem;
 		position: sticky;
 		top: 0;
@@ -347,21 +356,21 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 2.4rem;
-		height: 2.4rem;
+		width: 2.25rem;
+		height: 2.25rem;
 		flex-shrink: 0;
-		border-radius: 0.5rem;
-		background: #f97316;
-		color: #0b0d12;
+		border-radius: 0.45rem;
+		background: #1c2029;
+		border: 1px solid #363e4d;
+		color: #f8fafc;
 		font-weight: 900;
-		font-size: 0.9rem;
-		letter-spacing: -0.03em;
-		box-shadow: 0 2px 10px rgba(249, 115, 22, 0.35);
+		font-size: 0.82rem;
+		letter-spacing: -0.02em;
 	}
 
 	.site-title {
 		margin: 0;
-		font-size: clamp(1rem, 2.5vw, 1.25rem);
+		font-size: clamp(1rem, 2.5vw, 1.18rem);
 		font-weight: 800;
 		color: #f8fafc;
 		line-height: 1.2;
@@ -369,13 +378,13 @@
 
 	@supports (font-size: 1cqi) {
 		.site-title {
-			font-size: clamp(1rem, 2.2cqi, 1.25rem);
+			font-size: clamp(1rem, 2.1cqi, 1.18rem);
 		}
 	}
 
 	.site-subtitle {
 		margin: 0;
-		font-size: 0.76rem;
+		font-size: 0.75rem;
 		color: #94a3b8;
 	}
 
@@ -391,13 +400,13 @@
 		align-items: center;
 		justify-content: center;
 		gap: 0.35rem;
-		padding: 0.38rem 0.7rem;
-		font-size: 0.78rem;
+		padding: 0.36rem 0.7rem;
+		font-size: 0.76rem;
 		font-weight: 600;
-		color: #e2e8f0;
-		background: #1e232d;
-		border: 1px solid #334155;
-		border-radius: 0.4rem;
+		color: #cbd5e1;
+		background: #171b22;
+		border: 1px solid #2b3240;
+		border-radius: 0.38rem;
 		text-decoration: none;
 		cursor: pointer;
 		margin: 0;
@@ -406,30 +415,15 @@
 	}
 
 	.tool-btn:hover:not(:disabled) {
-		border-color: #64748b;
-		background: #262c38;
+		border-color: #475569;
+		color: #f8fafc;
+		background: #1e232d;
 	}
 
 	.tool-btn--active {
-		background: rgba(249, 115, 22, 0.2);
-		border-color: #f97316;
+		background: rgba(234, 88, 12, 0.16);
+		border-color: #ea580c;
 		color: #fdba74;
-	}
-
-	.tool-btn--pin.tool-btn--active {
-		background: rgba(217, 119, 6, 0.25);
-		border-color: #fbbf24;
-		color: #fde68a;
-	}
-
-	.tool-btn--accent {
-		background: #ea580c;
-		border-color: #f97316;
-		color: #ffffff;
-	}
-
-	.tool-btn--accent:hover {
-		background: #c2410c;
 	}
 
 	@media (max-width: 640px) {
@@ -450,18 +444,18 @@
 		padding-block: 1rem 3rem;
 	}
 
-	/* Search & Filter Section */
+	/* Search & Category Tabs Section */
 	.search-panel {
 		container-type: inline-size;
 		container-name: search-panel;
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
-		padding: clamp(0.75rem, 2vw, 1rem);
+		gap: 0.65rem;
+		padding: clamp(0.75rem, 2vw, 0.95rem);
 		margin-bottom: 1.25rem;
-		background: #14171f;
-		border: 1px solid #262b36;
-		border-radius: 0.75rem;
+		background: #13161c;
+		border: 1px solid #222731;
+		border-radius: 0.7rem;
 	}
 
 	.search-input-row {
@@ -475,69 +469,23 @@
 		margin: 0;
 		flex: 1 1 200px;
 		min-inline-size: 0;
-		background: #0d0f14;
-		border-color: #334155;
-		font-size: 0.95rem;
+		background: #0b0d12;
+		border-color: #2b3240;
+		font-size: 0.92rem;
 	}
 
 	.reset-btn {
-		padding: 0.5rem 0.85rem;
-		font-size: 0.8rem;
+		padding: 0.48rem 0.85rem;
+		font-size: 0.78rem;
 		font-weight: 700;
-		background: #334155;
-		border: 1px solid #475569;
+		background: #1e232d;
+		border: 1px solid #384152;
 		color: #f8fafc;
-		border-radius: 0.4rem;
+		border-radius: 0.38rem;
 		cursor: pointer;
 		margin: 0;
 		width: auto;
 		white-space: nowrap;
-	}
-
-	/* Default compact horizontal scroll on narrow screens/containers */
-	.quick-intents {
-		display: flex;
-		flex-wrap: nowrap;
-		overflow-x: auto;
-		overscroll-behavior-x: contain;
-		scrollbar-width: thin;
-		align-items: safe center;
-		gap: 0.4rem;
-		padding-bottom: 0.2rem;
-	}
-
-	.quick-intents__label {
-		font-size: 0.75rem;
-		font-weight: 600;
-		color: #94a3b8;
-		margin-inline-end: 0.2rem;
-		flex-shrink: 0;
-	}
-
-	.intent-chip {
-		flex-shrink: 0;
-		padding: 0.22rem 0.6rem;
-		font-size: 0.74rem;
-		font-weight: 600;
-		color: #cbd5e1;
-		background: #1e232e;
-		border: 1px solid #2e3646;
-		border-radius: 999px;
-		cursor: pointer;
-		margin: 0;
-		width: auto;
-		white-space: nowrap;
-	}
-
-	.intent-chip:hover:not(:disabled) {
-		border-color: #64748b;
-		color: #ffffff;
-	}
-
-	.intent-chip--active {
-		background: #f97316;
-		border-color: #fb923c;
-		color: #0b0d12;
 	}
 
 	.category-bar {
@@ -546,21 +494,19 @@
 		overflow-x: auto;
 		overscroll-behavior-x: contain;
 		scrollbar-width: thin;
-		gap: 0.4rem;
-		padding-top: 0.35rem;
-		padding-bottom: 0.2rem;
-		border-top: 1px solid #1f2430;
+		gap: 0.38rem;
+		padding-bottom: 0.15rem;
 	}
 
 	.cat-pill {
 		flex-shrink: 0;
-		padding: 0.3rem 0.65rem;
-		font-size: 0.76rem;
-		font-weight: 700;
+		padding: 0.28rem 0.65rem;
+		font-size: 0.75rem;
+		font-weight: 600;
 		color: #94a3b8;
-		background: #191d26;
-		border: 1px solid #2b3240;
-		border-radius: 0.38rem;
+		background: #181c24;
+		border: 1px solid #262c38;
+		border-radius: 0.35rem;
 		cursor: pointer;
 		margin: 0;
 		width: auto;
@@ -580,7 +526,6 @@
 
 	/* Fallback media query for wider screens */
 	@media (min-width: 640px) {
-		.quick-intents,
 		.category-bar {
 			flex-wrap: wrap;
 			overflow-x: visible;
@@ -591,7 +536,6 @@
 	/* Size-aware container query override */
 	@supports (container-type: inline-size) {
 		@media (min-width: 640px) {
-			.quick-intents,
 			.category-bar {
 				flex-wrap: nowrap;
 				overflow-x: auto;
@@ -599,7 +543,6 @@
 		}
 
 		@container search-panel (min-width: 560px) {
-			.quick-intents,
 			.category-bar {
 				flex-wrap: wrap;
 				overflow-x: visible;
@@ -613,14 +556,14 @@
 		flex-wrap: wrap;
 		align-items: safe center;
 		gap: 0.5rem;
-		padding: 0.5rem 0.75rem;
-		background: rgba(249, 115, 22, 0.1);
-		border: 1px solid rgba(249, 115, 22, 0.35);
-		border-radius: 0.45rem;
+		padding: 0.45rem 0.7rem;
+		background: rgba(234, 88, 12, 0.08);
+		border: 1px solid rgba(234, 88, 12, 0.3);
+		border-radius: 0.42rem;
 	}
 
 	.active-hw-bar__label {
-		font-size: 0.78rem;
+		font-size: 0.75rem;
 		font-weight: 700;
 		color: #fdba74;
 	}
@@ -635,10 +578,10 @@
 	.clear-hw-link {
 		margin-inline-start: auto;
 		padding: 0.15rem 0.5rem;
-		font-size: 0.74rem;
+		font-size: 0.72rem;
 		font-weight: 600;
 		background: transparent;
-		border: 1px solid #f97316;
+		border: 1px solid #ea580c;
 		color: #fdba74;
 		border-radius: 0.3rem;
 		cursor: pointer;
@@ -665,13 +608,13 @@
 		gap: 0.5rem;
 		margin-top: 0.65rem;
 		padding: 0.55rem 0.75rem;
-		background: #14171f;
-		border: 1px solid #2b3240;
-		border-radius: 0.6rem;
+		background: #13161c;
+		border: 1px solid #262c38;
+		border-radius: 0.55rem;
 	}
 
 	.mobile-jump-link {
-		font-size: 0.8rem;
+		font-size: 0.78rem;
 		font-weight: 700;
 		color: #fdba74;
 		text-decoration: none;
@@ -683,11 +626,11 @@
 
 	.mobile-hide-btn {
 		padding: 0.25rem 0.65rem;
-		font-size: 0.75rem;
+		font-size: 0.74rem;
 		font-weight: 600;
 		color: #cbd5e1;
-		background: #1e232d;
-		border: 1px solid #334155;
+		background: #1c2029;
+		border: 1px solid #2e3543;
 		border-radius: 0.35rem;
 		cursor: pointer;
 		margin: 0;
@@ -727,21 +670,60 @@
 
 	.results-title {
 		margin: 0;
-		font-size: 1.05rem;
+		font-size: 1rem;
 		font-weight: 800;
-		color: #e2e8f0;
+		color: #cbd5e1;
 	}
 
 	.unpin-all-btn {
 		padding: 0.2rem 0.6rem;
-		font-size: 0.75rem;
+		font-size: 0.74rem;
 		background: transparent;
-		border: 1px solid #475569;
+		border: 1px solid #384152;
 		color: #94a3b8;
 		border-radius: 0.3rem;
 		cursor: pointer;
 		margin: 0;
 		width: auto;
+	}
+
+	/* Categorized Sections for Unfiltered Default View */
+	.category-sections {
+		display: flex;
+		flex-direction: column;
+		gap: 1.75rem;
+	}
+
+	.category-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.65rem;
+	}
+
+	.category-group__header {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding-bottom: 0.35rem;
+		border-bottom: 1px solid #1f2430;
+	}
+
+	.category-group__title {
+		margin: 0;
+		font-size: 0.92rem;
+		font-weight: 800;
+		letter-spacing: 0.02em;
+		color: #f1f5f9;
+	}
+
+	.category-group__count {
+		font-size: 0.7rem;
+		font-weight: 700;
+		color: #94a3b8;
+		background: #181c24;
+		border: 1px solid #262c38;
+		padding: 0.08rem 0.45rem;
+		border-radius: 999px;
 	}
 
 	.tips-grid {
@@ -750,7 +732,7 @@
 		margin: 0;
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
-		gap: 0.85rem;
+		gap: 0.8rem;
 	}
 
 	.tips-grid li {
@@ -762,9 +744,9 @@
 	.empty-state {
 		text-align: center;
 		padding: 2.5rem 1.25rem;
-		background: #14171f;
-		border: 1px dashed #334155;
-		border-radius: 0.75rem;
+		background: #13161c;
+		border: 1px dashed #2e3543;
+		border-radius: 0.7rem;
 	}
 
 	.empty-state h3 {
@@ -783,7 +765,6 @@
 			padding-inline: 0.75rem;
 		}
 
-		.intent-chip,
 		.cat-pill {
 			min-block-size: 2.15rem;
 			padding-inline: 0.75rem;

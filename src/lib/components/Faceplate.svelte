@@ -9,6 +9,9 @@
 	let { activeButtons, matchCount, onToggleButton, onClearButtons }: Props = $props();
 
 	const isShiftActive = $derived(activeButtons.includes('SHIFT'));
+	const isDjModeActive = $derived(
+		activeButtons.includes('BANK B/G') && activeButtons.includes('BANK C/H')
+	);
 
 	// Zone 1 (Top): 4 Rotary Knobs (VOLUME, CTRL 1, CTRL 2, CTRL 3)
 	const topKnobs = [
@@ -45,9 +48,9 @@
 	];
 
 	const row2Sampling = [
-		{ id: 'DEL', label: 'DEL', sub: 'ERASE', accent: 'danger' },
-		{ id: 'REC', label: 'REC', sub: 'REHEARSAL', accent: 'rec' },
-		{ id: 'RESAMPLE', label: 'RESAMPLE', sub: 'MULTI PAD', accent: 'default' }
+		{ id: 'DEL', label: 'DEL', sub: 'ERASE' },
+		{ id: 'REC', label: 'REC', sub: 'REHEARSAL' },
+		{ id: 'RESAMPLE', label: 'RESAMPLE', sub: 'MULTI PAD' }
 	];
 
 	const row2SampleMode = [
@@ -59,9 +62,9 @@
 	];
 
 	const row3Left = [
-		{ id: 'EXIT', label: 'EXIT', sub: 'STOP ALL', accent: 'default' },
-		{ id: 'COPY', label: 'COPY', sub: 'PROTECT', accent: 'default' },
-		{ id: 'REMAIN', label: 'REMAIN', sub: 'BUS ROUTE', accent: 'remain' }
+		{ id: 'EXIT', label: 'EXIT', sub: 'STOP ALL' },
+		{ id: 'COPY', label: 'COPY', sub: 'PROTECT' },
+		{ id: 'REMAIN', label: 'REMAIN', sub: 'BUS ROUTE' }
 	];
 
 	const bankButtons = [
@@ -109,6 +112,7 @@
 <section
 	class="faceplate"
 	class:faceplate--shift={isShiftActive}
+	class:faceplate--dj={isDjModeActive}
 	aria-label="Interactive SP-404MKII Hardware Panel"
 >
 	<div class="faceplate__branding">
@@ -158,8 +162,8 @@
 		<div class="oled-bezel">
 			<div class="oled-screen" role="status" aria-live="polite">
 				<div class="oled-screen__topbar">
-					<span>OLED // LOOKUP</span>
-					<span>{matchCount} {matchCount === 1 ? 'TIP' : 'TIPS'}</span>
+					<span>OLED</span>
+					<span>{matchCount} {matchCount === 1 ? 'MATCH' : 'MATCHES'}</span>
 				</div>
 				<div class="oled-screen__main">
 					{#if activeButtons.length > 0}
@@ -167,16 +171,16 @@
 							{activeButtons.join(' + ')}
 						</div>
 					{:else}
-						<div class="oled-idle">TAP HARDWARE TO FILTER</div>
+						<div class="oled-idle">CLICK ANY BUTTON TO FILTER</div>
 					{/if}
 				</div>
 				<div class="oled-screen__footer">
 					{#if activeButtons.length > 0}
 						<button type="button" class="oled-clear-btn" onclick={onClearButtons}>
-							[RESET FILTER]
+							Clear selection
 						</button>
 					{:else}
-						<span>SHIFT HIGHLIGHTS SUB-LABELS</span>
+						<span>CLICK SHIFT TO REVEAL SUB-LABELS</span>
 					{/if}
 				</div>
 			</div>
@@ -255,7 +259,7 @@
 					<svg class="hw-knob__dial hw-knob__dial--encoder" viewBox="0 0 48 48" aria-hidden="true">
 						<circle cx="24" cy="24" r="20" class="dial-outer" />
 						<circle cx="24" cy="24" r="14" class="dial-inner" />
-						<circle cx="24" cy="24" r="5" class="dial-center" />
+						<circle cx="24" cy="24" r="4.5" class="dial-center" />
 					</svg>
 					<span class="hw-knob__label">VALUE</span>
 				</button>
@@ -270,7 +274,7 @@
 					{#each row2Sampling as btn (btn.id)}
 						<button
 							type="button"
-							class="hw-btn hw-btn--rect hw-btn--{btn.accent}"
+							class="hw-btn hw-btn--rect"
 							class:hw-btn--active={isSelected(btn.id)}
 							aria-pressed={isSelected(btn.id)}
 							onclick={() => onToggleButton(btn.id)}
@@ -313,7 +317,7 @@
 					{#each row3Left as btn (btn.id)}
 						<button
 							type="button"
-							class="hw-btn hw-btn--rect hw-btn--{btn.accent}"
+							class="hw-btn hw-btn--rect"
 							class:hw-btn--active={isSelected(btn.id)}
 							aria-pressed={isSelected(btn.id)}
 							onclick={() => onToggleButton(btn.id)}
@@ -328,7 +332,7 @@
 			</div>
 
 			<div class="fn-group">
-				<span class="fn-group__title">BANK (SHIFT: VOLUME)</span>
+				<span class="fn-group__title">BANK</span>
 				<div class="fn-group__grid fn-group__grid--6">
 					{#each bankButtons as bank (bank.id)}
 						<button
@@ -346,13 +350,12 @@
 
 					<button
 						type="button"
-						class="hw-btn hw-btn--rect hw-btn--shift"
+						class="hw-btn hw-btn--rect hw-btn--shift-key"
 						class:hw-btn--active={isSelected('SHIFT')}
 						aria-pressed={isSelected('SHIFT')}
 						onclick={() => onToggleButton('SHIFT')}
 					>
 						<span class="hw-btn__label">SHIFT</span>
-						<span class="hw-btn__shift">MOD</span>
 					</button>
 				</div>
 			</div>
@@ -362,8 +365,8 @@
 	<!-- Zone 4 (Bottom): 4x4 Performance Pads + Right Vertical Column (BUS FX, HOLD, EXT SOURCE, SUB PAD) -->
 	<div class="zone-pads-header-bar">
 		<div class="dj-channel-brackets" aria-hidden="true">
-			<span class="dj-bracket">┌── CH1 ──┐</span>
-			<span class="dj-bracket">┌── CH2 ──┐</span>
+			<span class="dj-bracket">CH1 (1–2)</span>
+			<span class="dj-bracket">CH2 (3–4)</span>
 		</div>
 		<button
 			type="button"
@@ -372,7 +375,7 @@
 			aria-pressed={isSelected('PAD')}
 			onclick={() => onToggleButton('PAD')}
 		>
-			Filter General [PAD] Combos
+			Any [PAD] Combo
 		</button>
 	</div>
 
@@ -388,8 +391,8 @@
 					onclick={() => onToggleButton(pad.id)}
 				>
 					<div class="hw-pad__top">
-						<span class="hw-pad__dj">{pad.dj}</span>
 						<span class="hw-pad__num">{pad.num}</span>
+						<span class="hw-pad__dj">{pad.dj}</span>
 					</div>
 					<span class="hw-pad__shift">{pad.shift}</span>
 				</button>
@@ -423,12 +426,10 @@
 		flex-direction: column;
 		gap: 0.65rem;
 		padding: clamp(0.7rem, 2.5vw, 1rem);
-		background: #14161b;
-		border: 2px solid #2b303c;
-		border-radius: 1rem;
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.06),
-			0 12px 28px rgba(0, 0, 0, 0.45);
+		background: #13161c;
+		border: 1px solid #262b36;
+		border-radius: 0.85rem;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 		user-select: none;
 	}
 
@@ -445,22 +446,22 @@
 		justify-content: space-between;
 		gap: 0.35rem 0.5rem;
 		padding-bottom: 0.35rem;
-		border-bottom: 1px solid #262b36;
+		border-bottom: 1px solid #222731;
 	}
 
 	.brand-roland {
-		font-size: 0.82rem;
+		font-size: 0.78rem;
 		font-weight: 800;
 		letter-spacing: 0.14em;
-		color: #cbd5e1;
+		color: #94a3b8;
 		text-transform: uppercase;
 	}
 
 	.brand-model {
-		font-size: 0.92rem;
+		font-size: 0.86rem;
 		font-weight: 900;
 		letter-spacing: 0.08em;
-		color: #f97316;
+		color: #e2e8f0;
 	}
 
 	/* Zone 1 (Top): 4 Knobs (VOLUME, CTRL 1, CTRL 2, CTRL 3) */
@@ -469,9 +470,9 @@
 		grid-template-columns: repeat(4, minmax(0, 1fr));
 		gap: 0.35rem;
 		padding: 0.4rem 0.45rem;
-		background: #101217;
-		border-radius: 0.55rem;
-		border: 1px solid #222630;
+		background: #0f1116;
+		border-radius: 0.5rem;
+		border: 1px solid #1e222b;
 	}
 
 	.hw-knob {
@@ -485,50 +486,51 @@
 		border-radius: 0.45rem;
 		cursor: pointer;
 		margin: 0;
-		color: #e2e8f0;
+		color: #cbd5e1;
 		min-inline-size: 0;
 	}
 
 	.hw-knob:hover:not(:disabled) {
-		background: #1b1f28;
-		border-color: #3b4252;
+		background: #1a1e26;
+		border-color: #363e4d;
 	}
 
 	.hw-knob--active {
-		background: rgba(249, 115, 22, 0.15);
+		background: rgba(234, 88, 12, 0.18);
 		border-color: #f97316;
+		color: #ffffff;
 	}
 
 	.hw-knob__dial {
-		width: clamp(1.85rem, 5.5vw, 2.3rem);
-		height: clamp(1.85rem, 5.5vw, 2.3rem);
+		width: clamp(1.85rem, 5.5vw, 2.25rem);
+		height: clamp(1.85rem, 5.5vw, 2.25rem);
 	}
 
 	.hw-knob__dial--encoder {
-		width: clamp(1.75rem, 5vw, 2.15rem);
-		height: clamp(1.75rem, 5vw, 2.15rem);
+		width: clamp(1.75rem, 5vw, 2.1rem);
+		height: clamp(1.75rem, 5vw, 2.1rem);
 	}
 
 	@supports (font-size: 1cqi) {
 		.hw-knob__dial {
-			width: clamp(1.85rem, 6cqi, 2.3rem);
-			height: clamp(1.85rem, 6cqi, 2.3rem);
+			width: clamp(1.85rem, 5.8cqi, 2.25rem);
+			height: clamp(1.85rem, 5.8cqi, 2.25rem);
 		}
 
 		.hw-knob__dial--encoder {
-			width: clamp(1.75rem, 5.4cqi, 2.15rem);
-			height: clamp(1.75rem, 5.4cqi, 2.15rem);
+			width: clamp(1.75rem, 5.2cqi, 2.1rem);
+			height: clamp(1.75rem, 5.2cqi, 2.1rem);
 		}
 	}
 
 	.dial-outer {
-		fill: #1e232d;
+		fill: #1b1f28;
 		stroke: #475569;
 		stroke-width: 2;
 	}
 
 	.hw-knob--encoder .dial-outer {
-		stroke: #38bdf8;
+		stroke: #64748b;
 		stroke-dasharray: 3 2;
 	}
 
@@ -538,31 +540,35 @@
 	}
 
 	.dial-inner {
-		fill: #0f1319;
-		stroke: #334155;
+		fill: #101318;
+		stroke: #2e3644;
 		stroke-width: 1.5;
 	}
 
 	.dial-pointer {
-		stroke: #f8fafc;
-		stroke-width: 2.5;
+		stroke: #e2e8f0;
+		stroke-width: 2.2;
 		stroke-linecap: round;
 	}
 
 	.dial-center {
-		fill: #38bdf8;
+		fill: #94a3b8;
+	}
+
+	.hw-knob--active .dial-center {
+		fill: #fdba74;
 	}
 
 	.hw-knob__label {
-		font-size: 0.64rem;
+		font-size: 0.62rem;
 		font-weight: 800;
-		color: #f1f5f9;
+		color: inherit;
 		line-height: 1.1;
 	}
 
 	.hw-knob__sub {
-		font-size: 0.52rem;
-		color: #94a3b8;
+		font-size: 0.5rem;
+		color: #64748b;
 		text-align: center;
 		line-height: 1.1;
 	}
@@ -587,10 +593,9 @@
 		align-items: center;
 		justify-content: center;
 		padding: 0.55rem;
-		background: radial-gradient(circle, #181c24 0%, #0e1015 100%);
-		border: 2px solid #282e3b;
-		border-radius: 1.25rem;
-		box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.6);
+		background: #0f1117;
+		border: 1.5px solid #262b36;
+		border-radius: 1.1rem;
 	}
 
 	.oled-screen {
@@ -599,22 +604,21 @@
 		flex-direction: column;
 		justify-content: space-between;
 		padding: 0.45rem 0.55rem;
-		background: #05070a;
-		border: 2px solid #334155;
-		border-radius: 0.45rem;
+		background: #07090d;
+		border: 1px solid #2b3240;
+		border-radius: 0.4rem;
 		font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
 		color: #f8fafc;
-		box-shadow: inset 0 0 12px rgba(56, 189, 248, 0.08);
 	}
 
 	.oled-screen__topbar {
 		display: flex;
 		justify-content: space-between;
-		font-size: 0.6rem;
+		font-size: 0.58rem;
 		font-weight: 700;
-		color: #38bdf8;
-		border-bottom: 1px solid #1e293b;
-		padding-bottom: 0.18rem;
+		color: #94a3b8;
+		border-bottom: 1px solid #191e28;
+		padding-bottom: 0.16rem;
 	}
 
 	.oled-screen__main {
@@ -622,40 +626,40 @@
 		align-items: safe center;
 		justify-content: center;
 		text-align: center;
-		min-block-size: 2.15rem;
-		padding-block: 0.2rem;
+		min-block-size: 2rem;
+		padding-block: 0.18rem;
 	}
 
 	.oled-combo {
-		font-size: 0.74rem;
+		font-size: 0.72rem;
 		font-weight: 800;
-		color: #fbbf24;
+		color: #fdba74;
 		letter-spacing: 0.03em;
 		overflow-wrap: anywhere;
 	}
 
 	.oled-idle {
-		font-size: 0.66rem;
-		color: #94a3b8;
+		font-size: 0.62rem;
+		color: #64748b;
 	}
 
 	.oled-screen__footer {
 		display: flex;
 		justify-content: center;
-		font-size: 0.56rem;
+		font-size: 0.54rem;
 		color: #64748b;
-		border-top: 1px solid #1e293b;
-		padding-top: 0.18rem;
+		border-top: 1px solid #191e28;
+		padding-top: 0.16rem;
 	}
 
 	.oled-clear-btn {
 		padding: 0.12rem 0.45rem;
 		font-family: inherit;
-		font-size: 0.62rem;
+		font-size: 0.6rem;
 		font-weight: 700;
-		color: #f97316;
-		background: rgba(249, 115, 22, 0.14);
-		border: 1px solid #f97316;
+		color: #fdba74;
+		background: rgba(234, 88, 12, 0.15);
+		border: 1px solid #ea580c;
 		border-radius: 0.2rem;
 		cursor: pointer;
 		margin: 0;
@@ -667,8 +671,8 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.45rem;
-		padding-top: 0.2rem;
-		border-top: 1px solid #232834;
+		padding-top: 0.25rem;
+		border-top: 1px solid #1f2430;
 	}
 
 	.fn-row-1,
@@ -693,10 +697,10 @@
 	}
 
 	.fn-group__title {
-		font-size: 0.52rem;
-		font-weight: 800;
+		font-size: 0.5rem;
+		font-weight: 700;
 		letter-spacing: 0.06em;
-		color: #94a3b8;
+		color: #64748b;
 		padding-inline: 0.1rem;
 		white-space: nowrap;
 		overflow: hidden;
@@ -724,7 +728,7 @@
 		grid-template-columns: repeat(6, minmax(0, 1fr));
 	}
 
-	/* Shared Hardware Button Styles */
+	/* Shared Hardware Button Styles (Unified quiet graphite palette) */
 	.hw-btn {
 		display: flex;
 		flex-direction: column;
@@ -732,14 +736,14 @@
 		justify-content: center;
 		padding: 0.3rem 0.18rem;
 		margin: 0;
-		background: #222631;
-		color: #f1f5f9;
-		border: 1px solid #3b4252;
+		background: #1c2029;
+		color: #e2e8f0;
+		border: 1px solid #2e3543;
 		border-radius: 0.32rem;
 		box-shadow: 0 2px 0 #0b0d12;
 		cursor: pointer;
 		text-align: center;
-		min-block-size: 2.25rem;
+		min-block-size: 2.2rem;
 		min-inline-size: 0;
 		transition:
 			transform 0.08s ease,
@@ -748,8 +752,8 @@
 	}
 
 	.hw-btn:hover:not(:disabled) {
-		border-color: #94a3b8;
-		background: #2a303d;
+		border-color: #64748b;
+		background: #242936;
 	}
 
 	.hw-btn--fx {
@@ -761,39 +765,39 @@
 	}
 
 	.hw-btn__led {
-		width: 0.38rem;
-		height: 0.38rem;
+		width: 0.35rem;
+		height: 0.35rem;
 		border-radius: 50%;
-		background: #475569;
+		background: #384152;
 		flex-shrink: 0;
 	}
 
 	.hw-btn--active .hw-btn__led {
-		background: #f97316;
-		box-shadow: 0 0 6px #f97316;
+		background: #ffffff;
 	}
 
 	.hw-btn__label {
-		font-size: clamp(0.52rem, 1.6vw, 0.62rem);
-		font-weight: 800;
-		line-height: 1.1;
+		font-size: clamp(0.52rem, 1.55vw, 0.6rem);
+		font-weight: 700;
+		line-height: 1.12;
 		letter-spacing: 0.01em;
 	}
 
 	@supports (font-size: 1cqi) {
 		.hw-btn__label {
-			font-size: clamp(0.52rem, 1.55cqi, 0.62rem);
+			font-size: clamp(0.52rem, 1.5cqi, 0.6rem);
 		}
 	}
 
+	/* Progressive disclosure: SHIFT sub-labels hidden until SHIFT is active or button is hovered/focused/active */
 	.hw-btn__shift {
+		display: none;
 		margin-top: 0.12rem;
-		font-size: 0.48rem;
+		font-size: 0.46rem;
 		font-weight: 700;
-		color: #d97706;
-		background: rgba(217, 119, 6, 0.12);
-		padding: 0.04rem 0.18rem;
-		border-radius: 0.16rem;
+		color: #cbd5e1;
+		padding: 0.03rem 0.15rem;
+		border-radius: 0.15rem;
 		line-height: 1.05;
 		max-inline-size: 100%;
 		overflow: hidden;
@@ -802,34 +806,19 @@
 	}
 
 	.faceplate--shift .hw-btn__shift,
-	.faceplate--shift .hw-pad__shift {
-		color: #111827;
-		background: #fbbf24;
-		box-shadow: 0 0 6px rgba(251, 191, 36, 0.5);
+	.hw-btn:hover .hw-btn__shift,
+	.hw-btn:focus-visible .hw-btn__shift,
+	.hw-btn--active .hw-btn__shift {
+		display: block;
 	}
 
-	.hw-btn--shift {
-		background: #3b2d12;
-		border-color: #d97706;
-		color: #fbbf24;
+	.faceplate--shift .hw-btn__shift {
+		color: #fdba74;
 	}
 
-	.hw-btn--remain {
-		background: #2b2135;
-		border-color: #9333ea;
-	}
-
-	.hw-btn--rec {
-		background: #3a1b1b;
-		border-color: #dc2626;
-	}
-
-	.hw-btn--danger {
-		border-color: #64748b;
-	}
-
-	.hw-btn--bank {
-		background: #1c2029;
+	.hw-btn--shift-key {
+		border-color: #475569;
+		color: #f8fafc;
 	}
 
 	/* Zone 4 (Bottom): 4x4 Pads + Right Vertical Column (BUS FX, HOLD, EXT SOURCE, SUB PAD) */
@@ -840,31 +829,34 @@
 		justify-content: space-between;
 		gap: 0.4rem;
 		padding-top: 0.25rem;
-		border-top: 1px solid #262b36;
+		border-top: 1px solid #1f2430;
 	}
 
 	.dj-channel-brackets {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 0.5rem;
-		font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
-		font-size: 0.6rem;
-		font-weight: 800;
-		color: #94a3b8;
+		display: flex;
+		gap: 0.75rem;
+		font-size: 0.54rem;
+		font-weight: 700;
+		color: #64748b;
 		letter-spacing: 0.04em;
 	}
 
 	.any-pad-btn {
-		padding: 0.18rem 0.55rem;
-		font-size: 0.62rem;
-		font-weight: 700;
-		color: #fed7aa;
-		background: #28201c;
-		border: 1px solid #c2410c;
+		padding: 0.16rem 0.55rem;
+		font-size: 0.6rem;
+		font-weight: 600;
+		color: #94a3b8;
+		background: #1a1e26;
+		border: 1px solid #2e3543;
 		border-radius: 999px;
 		cursor: pointer;
 		margin: 0;
 		width: auto;
+	}
+
+	.any-pad-btn:hover:not(:disabled) {
+		color: #e2e8f0;
+		border-color: #64748b;
 	}
 
 	.any-pad-btn--active {
@@ -891,16 +883,13 @@
 		grid-template-rows: repeat(4, minmax(0, 1fr));
 		gap: 0.38rem;
 		padding-inline-start: 0.35rem;
-		border-inline-start: 1px solid #262b36;
+		border-inline-start: 1px solid #1f2430;
 	}
 
 	.hw-btn--side {
 		block-size: 100%;
-		min-block-size: 2.8rem;
+		min-block-size: 2.7rem;
 		padding: 0.3rem 0.2rem;
-		background: #1b1f29;
-		border: 1.5px solid #384152;
-		border-radius: 0.38rem;
 	}
 
 	.hw-pad {
@@ -908,13 +897,12 @@
 		flex-direction: column;
 		align-items: stretch;
 		justify-content: space-between;
-		padding: clamp(0.28rem, 1.2vw, 0.42rem);
+		padding: clamp(0.3rem, 1.2vw, 0.44rem);
 		margin: 0;
-		aspect-ratio: 1.12 / 1;
-		background: #1e2129;
-		border: 2px solid #384152;
-		border-radius: 0.42rem;
-		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+		aspect-ratio: 1.15 / 1;
+		background: #1b1f27;
+		border: 1.5px solid #2e3543;
+		border-radius: 0.4rem;
 		cursor: pointer;
 		min-inline-size: 0;
 		transition:
@@ -924,8 +912,8 @@
 	}
 
 	.hw-pad:hover:not(:disabled) {
-		border-color: #f97316;
-		background: #262934;
+		border-color: #64748b;
+		background: #232833;
 	}
 
 	.hw-pad__top {
@@ -936,69 +924,83 @@
 		width: 100%;
 	}
 
-	.hw-pad__dj {
-		font-size: 0.46rem;
-		font-weight: 700;
-		color: #94a3b8;
-		background: #13161c;
-		border: 1px solid #2b3240;
-		padding: 0.04rem 0.18rem;
-		border-radius: 0.16rem;
-		line-height: 1.1;
-		white-space: nowrap;
-	}
-
 	.hw-pad__num {
-		font-size: clamp(0.74rem, 2.3vw, 0.9rem);
-		font-weight: 900;
-		color: #f8fafc;
+		font-size: clamp(0.76rem, 2.2vw, 0.88rem);
+		font-weight: 800;
+		color: #e2e8f0;
 		line-height: 1;
 	}
 
+	/* DJ sub-labels only show when DJ mode banks are selected or pad is hovered/focused */
+	.hw-pad__dj {
+		display: none;
+		font-size: 0.45rem;
+		font-weight: 700;
+		color: #94a3b8;
+		line-height: 1;
+		white-space: nowrap;
+	}
+
+	.faceplate--dj .hw-pad__dj,
+	.hw-pad:hover .hw-pad__dj,
+	.hw-pad:focus-visible .hw-pad__dj {
+		display: inline;
+	}
+
+	/* SHIFT pad sub-labels hidden by default, shown when SHIFT is active or pad is hovered/focused/active */
 	.hw-pad__shift {
+		display: none;
 		align-self: stretch;
-		text-align: center;
-		font-size: clamp(0.45rem, 1.4vw, 0.54rem);
-		font-weight: 800;
-		color: #fbbf24;
-		background: rgba(217, 119, 6, 0.16);
-		padding: 0.1rem 0.15rem;
-		border-radius: 0.2rem;
+		text-align: left;
+		font-size: clamp(0.45rem, 1.35vw, 0.52rem);
+		font-weight: 700;
+		color: #94a3b8;
 		letter-spacing: 0.01em;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 
+	.faceplate--shift .hw-pad__shift,
+	.hw-pad:hover .hw-pad__shift,
+	.hw-pad:focus-visible .hw-pad__shift,
+	.hw-pad--active .hw-pad__shift {
+		display: block;
+	}
+
+	.faceplate--shift .hw-pad__shift {
+		color: #fdba74;
+	}
+
 	@supports (font-size: 1cqi) {
 		.hw-pad {
-			padding: clamp(0.28rem, 1.25cqi, 0.44rem);
+			padding: clamp(0.3rem, 1.25cqi, 0.44rem);
 		}
 
 		.hw-pad__num {
-			font-size: clamp(0.74rem, 2.25cqi, 0.9rem);
+			font-size: clamp(0.76rem, 2.2cqi, 0.88rem);
 		}
 
 		.hw-pad__shift {
-			font-size: clamp(0.45rem, 1.35cqi, 0.54rem);
+			font-size: clamp(0.45rem, 1.3cqi, 0.52rem);
 		}
 	}
 
+	/* Active/Selected State: The ONLY place bright SP-404 orange appears */
 	.hw-btn--active,
 	.hw-pad--active {
 		background: #ea580c !important;
 		color: #ffffff !important;
 		border-color: #fdba74 !important;
-		box-shadow: 0 0 12px rgba(249, 115, 22, 0.55) !important;
+		box-shadow: 0 0 10px rgba(249, 115, 22, 0.4) !important;
 		transform: translateY(1px);
 	}
 
 	.hw-btn--active .hw-btn__shift,
 	.hw-pad--active .hw-pad__shift,
-	.hw-pad--active .hw-pad__dj {
-		background: rgba(0, 0, 0, 0.45);
-		color: #fde68a;
-		border-color: transparent;
+	.hw-pad--active .hw-pad__dj,
+	.hw-pad--active .hw-pad__num {
+		color: #ffffff;
 	}
 
 	/* Fallback media query for wider viewports */
@@ -1044,7 +1046,7 @@
 			}
 
 			.oled-bezel {
-				border-radius: 1.25rem;
+				border-radius: 1.1rem;
 				aspect-ratio: auto;
 				padding: 0.55rem;
 			}
