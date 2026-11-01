@@ -1,16 +1,29 @@
 <script lang="ts">
+	import type { Tip } from '#lib/types.js';
+
 	interface Props {
 		activeButtons: string[];
+		selectedTip?: Tip | null;
 		matchCount: number;
 		onToggleButton: (buttonId: string) => void;
 		onClearButtons: () => void;
+		onClearSelectedTip?: () => void;
 	}
 
-	let { activeButtons, matchCount, onToggleButton, onClearButtons }: Props = $props();
+	let {
+		activeButtons,
+		selectedTip = null,
+		matchCount,
+		onToggleButton,
+		onClearButtons,
+		onClearSelectedTip
+	}: Props = $props();
 
-	const isShiftActive = $derived(activeButtons.includes('SHIFT'));
+	const highlightedButtons = $derived(selectedTip ? selectedTip.buttons : activeButtons);
+
+	const isShiftActive = $derived(highlightedButtons.includes('SHIFT'));
 	const isDjModeActive = $derived(
-		activeButtons.includes('BANK B/G') && activeButtons.includes('BANK C/H')
+		highlightedButtons.includes('BANK B/G') && highlightedButtons.includes('BANK C/H')
 	);
 
 	// Zone 1 (Top): 4 Rotary Knobs (VOLUME, CTRL 1, CTRL 2, CTRL 3)
@@ -42,8 +55,8 @@
 	];
 
 	const sampleEditGroup = [
-		{ id: 'START/END', label: 'START/END', sub: 'CHOP' },
-		{ id: 'PITCH/SPEED', label: 'PITCH/SPEED', sub: 'ENVELOPE' },
+		{ id: 'START/END', label: 'START/ END', sub: 'CHOP' },
+		{ id: 'PITCH/SPEED', label: 'PITCH/ SPEED', sub: 'ENVELOPE' },
 		{ id: 'MARK', label: 'MARK', sub: 'SAVE EFX' }
 	];
 
@@ -103,8 +116,8 @@
 	];
 
 	function isSelected(id: string): boolean {
-		if (activeButtons.includes(id)) return true;
-		if (id.startsWith('BANK ') && activeButtons.includes('BANK')) return true;
+		if (highlightedButtons.includes(id)) return true;
+		if (id.startsWith('BANK ') && highlightedButtons.includes('BANK')) return true;
 		return false;
 	}
 </script>
@@ -162,20 +175,35 @@
 		<div class="oled-bezel">
 			<div class="oled-screen" role="status" aria-live="polite">
 				<div class="oled-screen__topbar">
-					<span>OLED</span>
-					<span>{matchCount} {matchCount === 1 ? 'MATCH' : 'MATCHES'}</span>
+					<span>{selectedTip ? 'CARD PREVIEW' : 'OLED'}</span>
+					<span>
+						{#if selectedTip}
+							{selectedTip.category.toUpperCase()}
+						{:else}
+							{matchCount} {matchCount === 1 ? 'MATCH' : 'MATCHES'}
+						{/if}
+					</span>
 				</div>
 				<div class="oled-screen__main">
-					{#if activeButtons.length > 0}
+					{#if selectedTip}
+						<div class="oled-preview">
+							<div class="oled-combo">{selectedTip.combo.join(' + ')}</div>
+							<div class="oled-action">{selectedTip.action}</div>
+						</div>
+					{:else if activeButtons.length > 0}
 						<div class="oled-combo">
 							{activeButtons.join(' + ')}
 						</div>
 					{:else}
-						<div class="oled-idle">CLICK ANY BUTTON TO FILTER</div>
+						<div class="oled-idle">CLICK BUTTON OR CARD TO HIGHLIGHT</div>
 					{/if}
 				</div>
 				<div class="oled-screen__footer">
-					{#if activeButtons.length > 0}
+					{#if selectedTip}
+						<button type="button" class="oled-clear-btn" onclick={onClearSelectedTip}>
+							Clear card preview
+						</button>
+					{:else if activeButtons.length > 0}
 						<button type="button" class="oled-clear-btn" onclick={onClearButtons}>
 							Clear selection
 						</button>
@@ -630,12 +658,27 @@
 		padding-block: 0.18rem;
 	}
 
+	.oled-preview {
+		display: flex;
+		flex-direction: column;
+		gap: 0.14rem;
+		align-items: center;
+	}
+
 	.oled-combo {
-		font-size: 0.72rem;
+		font-size: 0.7rem;
 		font-weight: 800;
 		color: #fdba74;
 		letter-spacing: 0.03em;
 		overflow-wrap: anywhere;
+	}
+
+	.oled-action {
+		font-size: 0.54rem;
+		font-weight: 600;
+		color: #cbd5e1;
+		line-height: 1.25;
+		max-inline-size: 24ch;
 	}
 
 	.oled-idle {

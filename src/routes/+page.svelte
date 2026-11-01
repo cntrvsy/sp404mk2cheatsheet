@@ -41,8 +41,13 @@
 	let searchQuery = $state('');
 	let selectedCategory = $state<Category | 'ALL'>('ALL');
 	let activeButtons = $state<string[]>([]);
+	let selectedTipId = $state<string | null>(null);
 	let showOnlyPinned = $state(false);
 	let showFaceplate = $state(true);
+
+	const selectedTip = $derived(
+		selectedTipId ? (tips.find((t) => t.id === selectedTipId) ?? null) : null
+	);
 
 	const filteredTips = $derived.by(() => {
 		let list = tips;
@@ -92,6 +97,7 @@
 	});
 
 	function toggleHardwareButton(btnId: string) {
+		selectedTipId = null;
 		if (activeButtons.includes(btnId)) {
 			activeButtons = activeButtons.filter((b) => b !== btnId);
 		} else {
@@ -99,10 +105,20 @@
 		}
 	}
 
+	function toggleSelectTip(tipId: string) {
+		if (selectedTipId === tipId) {
+			selectedTipId = null;
+		} else {
+			selectedTipId = tipId;
+			showFaceplate = true;
+		}
+	}
+
 	function clearAllFilters() {
 		searchQuery = '';
 		selectedCategory = 'ALL';
 		activeButtons = [];
+		selectedTipId = null;
 		showOnlyPinned = false;
 	}
 
@@ -233,9 +249,11 @@
 			<aside class="workspace__panel" aria-label="SP-404MKII Hardware Controller Filter">
 				<Faceplate
 					{activeButtons}
+					{selectedTip}
 					matchCount={filteredTips.length}
 					onToggleButton={toggleHardwareButton}
 					onClearButtons={() => (activeButtons = [])}
+					onClearSelectedTip={() => (selectedTipId = null)}
 				/>
 				<div class="mobile-panel-bar">
 					<a href="#results-heading" class="mobile-jump-link">
@@ -299,9 +317,11 @@
 										<TipCard
 											{tip}
 											isPinned={pinnedStore.has(tip.id)}
+											isSelected={selectedTipId === tip.id}
 											{activeButtons}
 											hideCategoryBadge={true}
 											onTogglePin={(id) => pinnedStore.toggle(id)}
+											onSelectTip={toggleSelectTip}
 											onSelectCategory={(cat) => {
 												selectedCategory = selectedCategory === cat ? 'ALL' : cat;
 											}}
@@ -319,9 +339,11 @@
 							<TipCard
 								{tip}
 								isPinned={pinnedStore.has(tip.id)}
+								isSelected={selectedTipId === tip.id}
 								{activeButtons}
 								hideCategoryBadge={selectedCategory !== 'ALL'}
 								onTogglePin={(id) => pinnedStore.toggle(id)}
+								onSelectTip={toggleSelectTip}
 								onSelectCategory={(cat) => {
 									selectedCategory = selectedCategory === cat ? 'ALL' : cat;
 								}}
@@ -478,9 +500,16 @@
 		margin: 0;
 		flex: 1 1 200px;
 		min-inline-size: 0;
+		padding: 0.62rem 0.9rem;
 		background: #0b0d12;
-		border-color: #2b3240;
+		border: 1px solid #2b3240;
+		border-radius: 0.45rem;
+		color: #f8fafc;
 		font-size: 0.92rem;
+	}
+
+	.search-input-row input[type='search']::placeholder {
+		color: #64748b;
 	}
 
 	.reset-btn {

@@ -65,6 +65,22 @@ const VALID_BUTTON_IDS = new Set([
 	'SUB PAD'
 ]);
 
+function comboTokenToButtons(token) {
+	const t = token.trim();
+	if (t === 'TRUNCATE') return [];
+	if (t === 'Any FX') {
+		return ['FILTER+DRIVE', 'RESONATOR', 'DELAY', 'ISOLATOR', 'DJFX LOOPER', 'MFX'];
+	}
+	if (t === 'DJFX LOOPER / ISOLATOR') return ['DJFX LOOPER', 'ISOLATOR'];
+	if (t === 'PAD / BANK') return ['PAD', 'BANK'];
+	if (t === 'Turn CTRL 1/2/3') return ['CTRL 1', 'CTRL 2', 'CTRL 3'];
+	if (t === 'Turn CTRL 3') return ['CTRL 3'];
+	if (t === 'BANK (x2)') return ['BANK'];
+	if (/VALUE/.test(t)) return ['VALUE'];
+	if (/MARK/.test(t)) return ['MARK'];
+	return [t.replace(/^(Hold|Push|Turn)\s+/i, '').trim()];
+}
+
 const raw = fs.readFileSync(TIPS_PATH, 'utf8');
 const tips = JSON.parse(raw);
 
@@ -101,6 +117,14 @@ for (const [index, tip] of tips.entries()) {
 		for (const btn of tip.buttons) {
 			if (!VALID_BUTTON_IDS.has(btn)) {
 				errors.push(`${prefix}: Unknown hardware button ID "${btn}" in "buttons".`);
+			}
+		}
+		if (Array.isArray(tip.combo)) {
+			const expectedButtons = [...new Set(tip.combo.flatMap(comboTokenToButtons))];
+			if (JSON.stringify(tip.buttons) !== JSON.stringify(expectedButtons)) {
+				errors.push(
+					`${prefix}: "buttons" ${JSON.stringify(tip.buttons)} does not match "combo" ${JSON.stringify(expectedButtons)}.`
+				);
 			}
 		}
 	}

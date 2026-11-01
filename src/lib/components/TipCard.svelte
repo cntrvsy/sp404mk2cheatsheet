@@ -5,28 +5,56 @@
 	interface Props {
 		tip: Tip;
 		isPinned: boolean;
+		isSelected?: boolean;
 		activeButtons: string[];
 		hideCategoryBadge?: boolean;
 		onTogglePin: (id: string) => void;
 		onSelectCategory: (category: Tip['category']) => void;
+		onSelectTip?: (id: string) => void;
 	}
 
 	let {
 		tip,
 		isPinned,
+		isSelected = false,
 		activeButtons,
 		hideCategoryBadge = false,
 		onTogglePin,
-		onSelectCategory
+		onSelectCategory,
+		onSelectTip
 	}: Props = $props();
 
 	function isComboPartActive(part: string): boolean {
-		return isComboTokenActive(part, activeButtons);
+		return isSelected || isComboTokenActive(part, activeButtons);
+	}
+
+	function handleCardClick(e: MouseEvent) {
+		const target = e.target as HTMLElement | null;
+		if (target?.closest('button, details, summary, a')) return;
+		onSelectTip?.(tip.id);
+	}
+
+	function handleCardKeydown(e: KeyboardEvent) {
+		if (e.target !== e.currentTarget) return;
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			onSelectTip?.(tip.id);
+		}
 	}
 </script>
 
 <div class="tip-card-container">
-	<article class="tip-card" class:tip-card--pinned={isPinned}>
+	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+	<article
+		class="tip-card"
+		class:tip-card--pinned={isPinned}
+		class:tip-card--selected={isSelected}
+		tabindex="0"
+		aria-label="{tip.action} — click to highlight buttons on faceplate"
+		onclick={handleCardClick}
+		onkeydown={handleCardKeydown}
+	>
 		<header class="tip-card__header">
 			<div class="tip-card__combo" aria-label="Button combination">
 				{#each tip.combo as part, idx (idx)}
@@ -103,7 +131,11 @@
 		border-radius: 0.6rem;
 		content-visibility: auto;
 		contain-intrinsic-block-size: auto 10.5rem;
-		transition: border-color 0.15s ease;
+		cursor: pointer;
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease,
+			background-color 0.15s ease;
 	}
 
 	@media (min-width: 600px) {
@@ -137,8 +169,16 @@
 	}
 
 	.tip-card--pinned {
-		border-color: #ea580c;
+		border-color: #9a3412;
 		background: #171920;
+	}
+
+	.tip-card--selected {
+		border-color: #f97316;
+		background: #191d26;
+		box-shadow:
+			0 0 0 1px rgba(249, 115, 22, 0.45),
+			0 6px 18px rgba(234, 88, 12, 0.14);
 	}
 
 	.tip-card__header {

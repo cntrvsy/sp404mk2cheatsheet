@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '@picocss/pico/css/pico.min.css';
 	import favicon from '#lib/assets/favicon.svg';
 	import type { LayoutProps } from './$types';
 
@@ -22,11 +21,40 @@
 <style>
 	:global(:root) {
 		color-scheme: dark;
-		--pico-font-size: 100%;
-		--pico-background-color: #0d0f13;
-		--pico-card-background-color: #161920;
-		--pico-primary: #f97316;
-		--pico-primary-hover: #ea580c;
+	}
+
+	:global(*, *::before, *::after) {
+		box-sizing: border-box;
+	}
+
+	:global(html, body) {
+		margin: 0;
+		padding: 0;
+		background-color: #0d0f13;
+		color: #e2e8f0;
+		font-family:
+			system-ui,
+			-apple-system,
+			'Segoe UI',
+			Roboto,
+			Ubuntu,
+			Cantarell,
+			'Noto Sans',
+			sans-serif;
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	:global(button, input, select, textarea) {
+		font: inherit;
+		color: inherit;
+	}
+
+	:global(.container) {
+		width: 100%;
+		max-width: 1360px;
+		margin-inline: auto;
+		padding-inline: clamp(0.85rem, 3vw, 2rem);
 	}
 
 	:global(.visually-hidden:where(:not(:focus-within, :active))) {
@@ -61,7 +89,6 @@
 	@media print {
 		:global(:root) {
 			color-scheme: light;
-			--pico-background-color: #ffffff;
 		}
 
 		:global(body) {
