@@ -13,7 +13,7 @@ const VALID_CATEGORIES = new Set([
 	'Pad Modes (SHIFT + Pad)'
 ]);
 
-const VALID_SOURCES = new Set(["C-Dub's Cheat Sheet", 'r/SP404 Community', 'Roland Manual']);
+const VALID_TIERS = new Set(['essential', 'deep-dive']);
 
 const VALID_BUTTON_IDS = new Set([
 	// Top Knobs
@@ -72,6 +72,7 @@ function comboTokenToButtons(token) {
 		return ['FILTER+DRIVE', 'RESONATOR', 'DELAY', 'ISOLATOR', 'DJFX LOOPER', 'MFX'];
 	}
 	if (t === 'DJFX LOOPER / ISOLATOR') return ['DJFX LOOPER', 'ISOLATOR'];
+	if (t === 'BANK A/F / B/G') return ['BANK A/F', 'BANK B/G'];
 	if (t === 'PAD / BANK') return ['PAD', 'BANK'];
 	if (t === 'Turn CTRL 1/2/3') return ['CTRL 1', 'CTRL 2', 'CTRL 3'];
 	if (t === 'Turn CTRL 3') return ['CTRL 3'];
@@ -136,6 +137,10 @@ for (const [index, tip] of tips.entries()) {
 		errors.push(`${prefix}: Invalid category "${tip.category}".`);
 	}
 
+	if (!VALID_TIERS.has(tip.tier)) {
+		errors.push(`${prefix}: "tier" must be one of: ${[...VALID_TIERS].join(', ')}.`);
+	}
+
 	if (!Array.isArray(tip.combo) || tip.combo.length === 0) {
 		errors.push(`${prefix}: "combo" must be a non-empty string array.`);
 	}
@@ -166,31 +171,27 @@ for (const [index, tip] of tips.entries()) {
 		errors.push(`${prefix}: "goal" must explain why/when the shortcut is useful.`);
 	}
 
+	if (tip.caveat !== undefined) {
+		if (typeof tip.caveat !== 'string' || tip.caveat.trim().length < 12) {
+			errors.push(`${prefix}: "caveat" must be a non-empty descriptive string when present.`);
+		}
+	}
+
 	if (!Array.isArray(tip.aliases) || tip.aliases.length === 0) {
 		errors.push(`${prefix}: "aliases" must be a non-empty array of search terms.`);
 	}
 
-	if (!Array.isArray(tip.sources) || tip.sources.length === 0) {
-		errors.push(
-			`${prefix}: "sources" is required to prevent unverified tips (allowed: ${[...VALID_SOURCES].join(', ')}).`
-		);
-	} else {
-		for (const src of tip.sources) {
-			if (!VALID_SOURCES.has(src)) {
-				errors.push(
-					`${prefix}: Unrecognized source "${src}". Allowed: ${[...VALID_SOURCES].join(', ')}.`
-				);
-			}
-		}
+	if ('sources' in tip) {
+		errors.push(`${prefix}: Deprecated "sources" field found; use "citation" only.`);
 	}
 
-	// Closed-loop Verbatim Quote Verification against docs/reference/
+	// Closed-loop Verbatim Quote Verification against docs/reference/roland-v550/
 	if (!tip.citation || typeof tip.citation !== 'object') {
 		errors.push(`${prefix}: Missing required "citation" ({ doc, page, quote }).`);
 	} else {
 		const { doc, page, quote } = tip.citation;
-		if (typeof doc !== 'string' || !doc.startsWith('docs/reference/')) {
-			errors.push(`${prefix}: citation.doc must be a path under "docs/reference/".`);
+		if (typeof doc !== 'string' || !doc.startsWith('docs/reference/roland-v550/')) {
+			errors.push(`${prefix}: citation.doc must be a path under "docs/reference/roland-v550/".`);
 		} else if (!Number.isInteger(page) || page < 1) {
 			errors.push(`${prefix}: citation.page must be a positive integer.`);
 		} else if (typeof quote !== 'string' || normalizeWhitespace(quote).length < 12) {

@@ -2,30 +2,28 @@
 
 A fast, visual, interactive shortcut finder and workflow companion for the **Roland SP-404MKII** (Official Firmware v5.50).
 
-> **Philosophy:** This site is **not** meant to replace the 175-page Roland Reference Manual. Instead, it serves as a single, searchable source of practical workflow ideas, hidden button combinations, and muscle-memory shortcuts—strictly verified against official Roland documentation and vetted community references.
+> **Philosophy:** This site is **not** meant to replace the 175-page Roland Reference Manual. Instead, it bridges the gap between YouTube tutorials and the official documentation—giving you a single, scannable source of foundational controls, hidden sub-mode shortcuts, and critical hardware `NOTE`/`MEMO` caveats, 100% verified against the official Roland SP-404MKII Reference Manual (v5.50).
 
 ---
 
 ## Key Features
 
 - **Bidirectional Hardware Faceplate ↔ Card Highlighting:**
-  - **Hardware → Cards:** Click any knob, FX button, function button, bank, or pad on the interactive SP-404MKII faceplate to filter the cheat sheet down to every shortcut that uses that control.
+  - **Hardware → Cards:** Click any knob, FX button, function button, bank, or pad on the interactive SP-404MKII faceplate to filter the cheat sheet down to every shortcut that uses that control (sorted from single-button fundamentals to multi-button combos).
   - **Card → Hardware:** Click any shortcut card to light up its exact button combination on the faceplate and preview the combo inside the circular OLED display without losing your current card list.
-- **Progressive Disclosure UX:** Keeps the hardware faceplate and cards calm by default—revealing `[SHIFT]` sub-labels when `SHIFT` is active (or hovered/focused) and DJ Mode (`CH1` / `CH2`) pad labels when `BANK D/I + E/J` are active.
-- **Goal & Slang Search (MiniSearch):** Search by what you are _trying to accomplish_ (e.g., _"stems"_, _"choke group"_, _"16 levels"_, _"finger drumming"_, _"sound generator"_, _"silent select"_) even if you don't know Roland's official menu terminology.
+- **1:1 Hardware Muscle Memory + Mobile Thumb Zoom:** Preserves the exact 1:1 physical row/column geometry of the SP-404MKII across desktop and mobile screens (including iPhone SE), with an instant `🔍 Thumb Zoom` toggle for expanded touch targets.
+- **Essentials vs. Deep Dive Filtering & `⚠️ Caveat` Callouts:** Filter between everyday foundational controls (`Essentials`) and B-tier sub-mode workflows (`Deep Dive`), with inline `⚠️` warnings highlighting destructive actions, voice-stealing costs, and Bus FX routing behavior.
+- **Goal & Slang Search (MiniSearch):** Search by what you are _trying to accomplish_ (e.g., _"stems"_, _"choke group"_, _"16 levels"_, _"lazy chop"_, _"sound generator"_, _"silent select"_) even if you don't know Roland's official menu terminology.
 - **My Sheet & Print View:** Pin your personal go-to shortcuts into a persistent `localStorage` sheet and print a clean 1-page physical studio sheet.
 
 ---
 
-## Committed Reference Corpus (`docs/reference/`)
+## Committed Reference Corpus (`docs/reference/roland-v550/`)
 
-To avoid unverified hearsay or custom-ROM drift, public crowd-sourced submissions are retired. Instead, the repository tracks a human-readable Markdown reference corpus in [`docs/reference/`](./docs/reference/):
+To avoid unverified hearsay or custom-ROM drift, public crowd-sourced submissions are retired. Every shortcut in the app is backed by the committed Markdown extraction of the **[Official Roland SP-404MKII Reference Manual (v5.50)](./docs/reference/roland-v550/INDEX.md)**:
 
-1. **[`docs/reference/roland-v550/`](./docs/reference/roland-v550/INDEX.md) — Official Roland SP-404MKII Reference Manual (v5.50)**
-   - Extracted into 12 chapter Markdown files with `<!-- [Page N] -->` anchors preserved on every page boundary, including the complete **[List of Shortcut Keys (Pages 160–164)](./docs/reference/roland-v550/11-appendix-shortcut-keys.md)** and **[Auto-Extracted Shortcuts & MEMO Blocks](./docs/reference/roland-v550/EXTRACTED_SHORTCUTS.md)**.
-2. **[`docs/reference/community/`](./docs/reference/community/INDEX.md) — Curated Community Reference Corpus**
-   - **[C-Dub's Cheat Sheet (Pages 1–15)](./docs/reference/community/c-dub-cheatsheet.md)**
-   - **[r/SP404 Community Tips & Tricks](./docs/reference/community/reddit-sp404-tips.md)**
+- Extracted into 12 chapter Markdown files with `<!-- [Page N] -->` anchors preserved on every page boundary.
+- Includes the complete **[List of Shortcut Keys (Pages 160–164)](./docs/reference/roland-v550/11-appendix-shortcut-keys.md)** and **[Auto-Extracted Shortcuts & MEMO Blocks](./docs/reference/roland-v550/EXTRACTED_SHORTCUTS.md)**.
 
 ---
 

@@ -82,22 +82,29 @@
 
 		<p class="tip-card__goal">{tip.goal}</p>
 
-		{#if (!hideCategoryBadge || tip.context) && (tip.context || !hideCategoryBadge)}
-			<div class="tip-card__meta">
-				{#if !hideCategoryBadge}
-					<button
-						type="button"
-						class="category-badge"
-						onclick={() => onSelectCategory(tip.category)}
-					>
-						{tip.category}
-					</button>
-				{/if}
-				{#if tip.context}
-					<span class="context-tag">{tip.context}</span>
-				{/if}
-			</div>
+		{#if tip.caveat}
+			<p class="tip-card__caveat">
+				<span class="tip-card__caveat-icon" aria-hidden="true">⚠️</span>
+				<span>{tip.caveat}</span>
+			</p>
 		{/if}
+
+		<div class="tip-card__meta">
+			{#if !hideCategoryBadge}
+				<button type="button" class="category-badge" onclick={() => onSelectCategory(tip.category)}>
+					{tip.category}
+				</button>
+			{/if}
+			{#if tip.tier === 'deep-dive'}
+				<span class="tier-badge tier-badge--deep">Deep Dive</span>
+			{/if}
+			<span class="manual-ref-badge" title={tip.citation.quote}>
+				Roland v5.50 · p. {tip.citation.page}
+			</span>
+			{#if tip.context}
+				<span class="context-tag">{tip.context}</span>
+			{/if}
+		</div>
 
 		{#if tip.steps && tip.steps.length > 0}
 			<details class="tip-card__steps">
@@ -250,12 +257,54 @@
 		color: #94a3b8;
 	}
 
+	.tip-card__caveat {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.35rem;
+		margin: 0.05rem 0 0;
+		padding: 0.35rem 0.5rem;
+		font-size: 0.76rem;
+		line-height: 1.38;
+		color: #fde68a;
+		background: rgba(245, 158, 11, 0.08);
+		border-inline-start: 2px solid #f59e0b;
+		border-radius: 0.25rem;
+	}
+
+	.tip-card__caveat-icon {
+		flex-shrink: 0;
+		font-size: 0.74rem;
+		line-height: 1.35;
+	}
+
 	.tip-card__meta {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.35rem;
 		margin-top: 0.15rem;
+	}
+
+	.tier-badge--deep {
+		padding: 0.1rem 0.4rem;
+		font-size: 0.64rem;
+		font-weight: 700;
+		letter-spacing: 0.02em;
+		color: #fdba74;
+		background: rgba(234, 88, 12, 0.14);
+		border: 1px solid rgba(249, 115, 22, 0.35);
+		border-radius: 0.25rem;
+	}
+
+	.manual-ref-badge {
+		padding: 0.1rem 0.4rem;
+		font-size: 0.65rem;
+		font-weight: 600;
+		color: #64748b;
+		background: #101319;
+		border: 1px solid #222731;
+		border-radius: 0.25rem;
+		font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
 	}
 
 	.category-badge {

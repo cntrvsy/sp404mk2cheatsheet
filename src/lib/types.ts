@@ -17,13 +17,7 @@ export const CATEGORIES: Category[] = [
 	'Pad Modes (SHIFT + Pad)'
 ];
 
-export type TipSource = "C-Dub's Cheat Sheet" | 'r/SP404 Community' | 'Roland Manual';
-
-export const TIP_SOURCES: TipSource[] = [
-	"C-Dub's Cheat Sheet",
-	'r/SP404 Community',
-	'Roland Manual'
-];
+export type TipTier = 'essential' | 'deep-dive';
 
 export interface TipCitation {
 	doc: string;
@@ -34,14 +28,15 @@ export interface TipCitation {
 export interface Tip {
 	id: string;
 	category: Category;
+	tier: TipTier;
 	combo: string[];
 	buttons: string[];
 	action: string;
 	context?: string;
 	goal: string;
+	caveat?: string;
 	aliases: string[];
 	steps?: string[];
-	sources: TipSource[];
 	citation: TipCitation;
 }
 
@@ -122,13 +117,15 @@ export function isComboTokenActive(comboPart: string, activeButtons: string[]): 
 			return true;
 		}
 
-		// Bank buttons: highlight "BANK", "BANK (x2)", "PAD / BANK", or specific "BANK A/F".."E/J"
+		// Bank buttons: highlight generic "BANK" / "BANK (x2)" / "PAD / BANK", or specific "BANK A/F".."E/J"
 		if (isBankButtonId(btn)) {
 			const shortBank = btn.replace(/^BANK\s+/, '');
-			if (/\bBANK\b/.test(upperPart)) {
-				return true;
-			}
-			if (shortBank !== 'BANK' && upperPart.includes(shortBank)) {
+			const hasSpecificBank = /\b(?:A\/F|B\/G|C\/H|D\/I|E\/J)\b/.test(upperPart);
+			if (hasSpecificBank) {
+				if (btn === 'BANK' || upperPart.includes(shortBank)) {
+					return true;
+				}
+			} else if (/\bBANK\b/.test(upperPart)) {
 				return true;
 			}
 			continue;

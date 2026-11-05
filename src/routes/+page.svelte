@@ -1,7 +1,13 @@
 <script lang="ts">
 	import MiniSearch from 'minisearch';
 	import rawTips from '#lib/data/tips.json';
-	import { CATEGORIES, matchesTipButton, type Category, type Tip } from '#lib/types.js';
+	import {
+		CATEGORIES,
+		matchesTipButton,
+		type Category,
+		type Tip,
+		type TipTier
+	} from '#lib/types.js';
 	import Faceplate from '#lib/components/Faceplate.svelte';
 	import TipCard from '#lib/components/TipCard.svelte';
 	import Keycap from '#lib/components/Keycap.svelte';
@@ -15,7 +21,7 @@
 	}
 
 	const miniSearch = new MiniSearch<IndexedTip>({
-		fields: ['action', 'aliasesText', 'comboText', 'goal', 'context', 'category'],
+		fields: ['action', 'aliasesText', 'comboText', 'goal', 'caveat', 'context', 'category'],
 		storeFields: ['id'],
 		searchOptions: {
 			boost: {
@@ -23,6 +29,7 @@
 				aliasesText: 3,
 				comboText: 2.5,
 				goal: 1.5,
+				caveat: 1.2,
 				context: 1
 			},
 			prefix: true,
@@ -40,6 +47,7 @@
 
 	let searchQuery = $state('');
 	let selectedCategory = $state<Category | 'ALL'>('ALL');
+	let selectedTier = $state<TipTier | 'ALL'>('ALL');
 	let activeButtons = $state<string[]>([]);
 	let selectedTipId = $state<string | null>(null);
 	let showOnlyPinned = $state(false);
@@ -67,14 +75,22 @@
 			list = list.filter((t) => t.category === selectedCategory);
 		}
 
-		// 3. Hardware Faceplate button filter (AND logic across selected buttons)
+		// 3. Tier filter (Essentials vs Deep Dive)
+		if (selectedTier !== 'ALL') {
+			list = list.filter((t) => t.tier === selectedTier);
+		}
+
+		// 4. Hardware Faceplate button filter (AND logic across selected buttons, sorted by fewest buttons first)
 		if (activeButtons.length > 0) {
 			list = list.filter((tip) =>
 				activeButtons.every((selectedBtn) => matchesTipButton(tip.buttons, selectedBtn))
 			);
+			if (q.length === 0) {
+				list = [...list].sort((a, b) => a.buttons.length - b.buttons.length);
+			}
 		}
 
-		// 4. Pinned ("My Sheet") filter
+		// 5. Pinned ("My Sheet") filter
 		if (showOnlyPinned) {
 			list = list.filter((t) => pinnedStore.has(t.id));
 		}
@@ -117,6 +133,7 @@
 	function clearAllFilters() {
 		searchQuery = '';
 		selectedCategory = 'ALL';
+		selectedTier = 'ALL';
 		activeButtons = [];
 		selectedTipId = null;
 		showOnlyPinned = false;
@@ -131,6 +148,7 @@
 	const hasActiveFilters = $derived(
 		searchQuery.trim().length > 0 ||
 			selectedCategory !== 'ALL' ||
+			selectedTier !== 'ALL' ||
 			activeButtons.length > 0 ||
 			showOnlyPinned
 	);
@@ -272,11 +290,43 @@
 					{/if}
 				</h2>
 
-				{#if showOnlyPinned && pinnedStore.ids.length > 0}
-					<button type="button" class="unpin-all-btn" onclick={() => pinnedStore.clear()}>
-						Clear Pinned
-					</button>
-				{/if}
+				<div class="results-header__controls">
+					<div class="tier-segmented" role="group" aria-label="Filter by shortcut depth">
+						<button
+							type="button"
+							class="tier-seg-btn"
+							class:tier-seg-btn--active={selectedTier === 'ALL'}
+							aria-pressed={selectedTier === 'ALL'}
+							onclick={() => (selectedTier = 'ALL')}
+						>
+							All
+						</button>
+						<button
+							type="button"
+							class="tier-seg-btn"
+							class:tier-seg-btn--active={selectedTier === 'essential'}
+							aria-pressed={selectedTier === 'essential'}
+							onclick={() => (selectedTier = 'essential')}
+						>
+							Essentials
+						</button>
+						<button
+							type="button"
+							class="tier-seg-btn"
+							class:tier-seg-btn--active={selectedTier === 'deep-dive'}
+							aria-pressed={selectedTier === 'deep-dive'}
+							onclick={() => (selectedTier = 'deep-dive')}
+						>
+							Deep Dive
+						</button>
+					</div>
+
+					{#if showOnlyPinned && pinnedStore.ids.length > 0}
+						<button type="button" class="unpin-all-btn" onclick={() => pinnedStore.clear()}>
+							Clear Pinned
+						</button>
+					{/if}
+				</div>
 			</div>
 
 			{#if filteredTips.length === 0}
@@ -702,6 +752,48 @@
 		font-size: 1rem;
 		font-weight: 800;
 		color: #cbd5e1;
+	}
+
+	.results-header__controls {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.tier-segmented {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.14rem;
+		background: #13161c;
+		border: 1px solid #262c38;
+		border-radius: 0.42rem;
+		gap: 0.12rem;
+	}
+
+	.tier-seg-btn {
+		padding: 0.18rem 0.55rem;
+		font-size: 0.72rem;
+		font-weight: 700;
+		color: #94a3b8;
+		background: transparent;
+		border: 0;
+		border-radius: 0.3rem;
+		cursor: pointer;
+		margin: 0;
+		transition:
+			color 0.12s ease,
+			background-color 0.12s ease;
+	}
+
+	.tier-seg-btn:hover:not(:disabled) {
+		color: #e2e8f0;
+	}
+
+	.tier-seg-btn--active {
+		background: #232834;
+		color: #fdba74;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 	}
 
 	.unpin-all-btn {
