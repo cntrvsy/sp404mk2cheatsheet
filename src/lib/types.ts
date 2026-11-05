@@ -25,6 +25,12 @@ export const TIP_SOURCES: TipSource[] = [
 	'Roland Manual'
 ];
 
+export interface TipCitation {
+	doc: string;
+	page: number;
+	quote: string;
+}
+
 export interface Tip {
 	id: string;
 	category: Category;
@@ -36,6 +42,7 @@ export interface Tip {
 	aliases: string[];
 	steps?: string[];
 	sources: TipSource[];
+	citation: TipCitation;
 }
 
 export type HardwareZone =

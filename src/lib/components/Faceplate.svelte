@@ -22,8 +22,9 @@
 	const highlightedButtons = $derived(selectedTip ? selectedTip.buttons : activeButtons);
 
 	const isShiftActive = $derived(highlightedButtons.includes('SHIFT'));
+	const isAnyPadActive = $derived(highlightedButtons.includes('PAD'));
 	const isDjModeActive = $derived(
-		highlightedButtons.includes('BANK B/G') && highlightedButtons.includes('BANK C/H')
+		highlightedButtons.includes('BANK D/I') && highlightedButtons.includes('BANK E/J')
 	);
 
 	// Zone 1 (Top): 4 Rotary Knobs (VOLUME, CTRL 1, CTRL 2, CTRL 3)
@@ -51,7 +52,7 @@
 	const patternSeqGroup = [
 		{ id: 'PATTERN SELECT', label: 'PATTERN SELECT', sub: 'UNDO' },
 		{ id: 'PATTERN EDIT', label: 'PATTERN EDIT', sub: 'MICROSCOPE' },
-		{ id: 'RECORD SETTING', label: 'RECORD SETTING', sub: 'COLOR / BPM' }
+		{ id: 'RECORD SETTING', label: 'RECORD SETTING', sub: 'SOUND GEN' }
 	];
 
 	const sampleEditGroup = [
@@ -62,12 +63,12 @@
 
 	const row2Sampling = [
 		{ id: 'DEL', label: 'DEL', sub: 'ERASE' },
-		{ id: 'REC', label: 'REC', sub: 'REHEARSAL' },
-		{ id: 'RESAMPLE', label: 'RESAMPLE', sub: 'MULTI PAD' }
+		{ id: 'REC', label: 'REC', sub: 'TR-REC' },
+		{ id: 'RESAMPLE', label: 'RESAMPLE', sub: 'MERGE' }
 	];
 
 	const row2SampleMode = [
-		{ id: 'BPM SYNC', label: 'BPM SYNC' },
+		{ id: 'BPM SYNC', label: 'BPM SYNC', sub: 'SYNC ALL' },
 		{ id: 'GATE', label: 'GATE', sub: 'ALL GATE' },
 		{ id: 'LOOP', label: 'LOOP', sub: 'PING-PONG' },
 		{ id: 'REVERSE', label: 'REVERSE', sub: 'PAD MUTE' },
@@ -77,21 +78,21 @@
 	const row3Left = [
 		{ id: 'EXIT', label: 'EXIT', sub: 'STOP ALL' },
 		{ id: 'COPY', label: 'COPY', sub: 'PROTECT' },
-		{ id: 'REMAIN', label: 'REMAIN', sub: 'BUS ROUTE' }
+		{ id: 'REMAIN', label: 'REMAIN', sub: 'LIVE MODE' }
 	];
 
 	const bankButtons = [
-		{ id: 'BANK A/F', label: 'A/F' },
-		{ id: 'BANK B/G', label: 'B/G' },
-		{ id: 'BANK C/H', label: 'C/H' },
-		{ id: 'BANK D/I', label: 'D/I' },
-		{ id: 'BANK E/J', label: 'E/J' }
+		{ id: 'BANK A/F', label: 'A/F', dj: false },
+		{ id: 'BANK B/G', label: 'B/G', dj: false },
+		{ id: 'BANK C/H', label: 'C/H', dj: false },
+		{ id: 'BANK D/I', label: 'D/I', dj: true },
+		{ id: 'BANK E/J', label: 'E/J', dj: true }
 	];
 
 	// Zone 4 (Bottom): 4x4 Performance Pads + Right Vertical 4-Button Column
 	const pads = [
-		{ id: 'PAD 1', num: '1', dj: 'BEND+', shift: 'FIXED VEL' },
-		{ id: 'PAD 2', num: '2', dj: 'BPM+', shift: '16 VEL' },
+		{ id: 'PAD 1', num: '1', dj: 'BEND+', shift: 'FIXED VELOCITY' },
+		{ id: 'PAD 2', num: '2', dj: 'BPM+', shift: '16 VELOCITY' },
 		{ id: 'PAD 3', num: '3', dj: 'BEND+', shift: 'CUE' },
 		{ id: 'PAD 4', num: '4', dj: 'BPM+', shift: 'CHROMATIC' },
 		{ id: 'PAD 5', num: '5', dj: 'BEND-', shift: 'EXCHANGE' },
@@ -297,7 +298,10 @@
 		<!-- Row 2: DEL + SAMPLING (REC, RESAMPLE) | BPM SYNC, GATE, LOOP, REVERSE, ROLL (SAMPLE MODE) -->
 		<div class="fn-row-2">
 			<div class="fn-group">
-				<span class="fn-group__title">SAMPLING</span>
+				<div class="fn-group__title-split" aria-hidden="true">
+					<span></span>
+					<span class="fn-group__title fn-group__title--sampling">SAMPLING</span>
+				</div>
 				<div class="fn-group__grid fn-group__grid--3">
 					{#each row2Sampling as btn (btn.id)}
 						<button
@@ -340,7 +344,7 @@
 		<!-- Row 3: EXIT, COPY, REMAIN | BANK (A/F, B/G, C/H, D/I, E/J) | SHIFT -->
 		<div class="fn-row-3">
 			<div class="fn-group">
-				<span class="fn-group__title">UTILITY</span>
+				<span class="fn-group__title" aria-hidden="true">&nbsp;</span>
 				<div class="fn-group__grid fn-group__grid--3">
 					{#each row3Left as btn (btn.id)}
 						<button
@@ -360,7 +364,12 @@
 			</div>
 
 			<div class="fn-group">
-				<span class="fn-group__title">BANK</span>
+				<div class="fn-group__title-bank">
+					<span class="fn-group__title">BANK</span>
+					<span class="fn-group__dj-tag" class:fn-group__dj-tag--active={isDjModeActive}>
+						┌─ DJ (D/I + E/J) ─┐
+					</span>
+				</div>
 				<div class="fn-group__grid fn-group__grid--6">
 					{#each bankButtons as bank (bank.id)}
 						<button
@@ -391,10 +400,10 @@
 	</div>
 
 	<!-- Zone 4 (Bottom): 4x4 Performance Pads + Right Vertical Column (BUS FX, HOLD, EXT SOURCE, SUB PAD) -->
-	<div class="zone-pads-header-bar">
+	<div class="zone-bottom-header">
 		<div class="dj-channel-brackets" aria-hidden="true">
-			<span class="dj-bracket">CH1 (1–2)</span>
-			<span class="dj-bracket">CH2 (3–4)</span>
+			<span class="dj-bracket" class:dj-bracket--active={isDjModeActive}>┌──── CH1 ────┐</span>
+			<span class="dj-bracket" class:dj-bracket--active={isDjModeActive}>┌──── CH2 ────┐</span>
 		</div>
 		<button
 			type="button"
@@ -403,7 +412,7 @@
 			aria-pressed={isSelected('PAD')}
 			onclick={() => onToggleButton('PAD')}
 		>
-			Any [PAD] Combo
+			Any [PAD]
 		</button>
 	</div>
 
@@ -415,6 +424,7 @@
 					type="button"
 					class="hw-pad"
 					class:hw-pad--active={isSelected(pad.id)}
+					class:hw-pad--any-active={isAnyPadActive && !isSelected(pad.id)}
 					aria-pressed={isSelected(pad.id)}
 					onclick={() => onToggleButton(pad.id)}
 				>
@@ -754,6 +764,38 @@
 		text-align: right;
 	}
 
+	.fn-group__title-split {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		gap: 0.3rem;
+		align-items: center;
+	}
+
+	.fn-group__title--sampling {
+		text-align: center;
+		border-bottom: 1px solid #2e3543;
+		padding-bottom: 0.05rem;
+	}
+
+	.fn-group__title-bank {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.25rem;
+	}
+
+	.fn-group__dj-tag {
+		font-size: 0.46rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		color: #64748b;
+		padding-inline-end: 16%;
+	}
+
+	.fn-group__dj-tag--active {
+		color: #fdba74;
+	}
+
 	.fn-group__grid {
 		display: grid;
 		gap: 0.3rem;
@@ -865,36 +907,43 @@
 	}
 
 	/* Zone 4 (Bottom): 4x4 Pads + Right Vertical Column (BUS FX, HOLD, EXT SOURCE, SUB PAD) */
-	.zone-pads-header-bar {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: safe center;
-		justify-content: space-between;
-		gap: 0.4rem;
+	.zone-bottom-header {
+		display: grid;
+		grid-template-columns: minmax(0, 4fr) minmax(66px, 1.05fr);
+		gap: 0.45rem;
+		align-items: center;
 		padding-top: 0.25rem;
 		border-top: 1px solid #1f2430;
 	}
 
 	.dj-channel-brackets {
-		display: flex;
-		gap: 0.75rem;
-		font-size: 0.54rem;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.38rem;
+		font-size: 0.5rem;
 		font-weight: 700;
 		color: #64748b;
 		letter-spacing: 0.04em;
+		text-align: center;
+	}
+
+	.dj-bracket--active {
+		color: #fdba74;
 	}
 
 	.any-pad-btn {
-		padding: 0.16rem 0.55rem;
-		font-size: 0.6rem;
-		font-weight: 600;
+		padding: 0.16rem 0.35rem;
+		font-size: 0.56rem;
+		font-weight: 700;
 		color: #94a3b8;
 		background: #1a1e26;
 		border: 1px solid #2e3543;
 		border-radius: 999px;
 		cursor: pointer;
 		margin: 0;
-		width: auto;
+		width: 100%;
+		text-align: center;
+		white-space: nowrap;
 	}
 
 	.any-pad-btn:hover:not(:disabled) {
@@ -1044,6 +1093,18 @@
 	.hw-pad--active .hw-pad__dj,
 	.hw-pad--active .hw-pad__num {
 		color: #ffffff;
+	}
+
+	/* Generic "Any [PAD]" highlight across the 4x4 grid when a tip uses 'PAD' */
+	.hw-pad--any-active {
+		background: rgba(234, 88, 12, 0.16);
+		border-color: #f97316;
+		border-style: dashed;
+		box-shadow: inset 0 0 8px rgba(249, 115, 22, 0.22);
+	}
+
+	.hw-pad--any-active .hw-pad__num {
+		color: #fdba74;
 	}
 
 	/* Fallback media query for wider viewports */

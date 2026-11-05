@@ -78,7 +78,36 @@ function comboTokenToButtons(token) {
 	if (t === 'BANK (x2)') return ['BANK'];
 	if (/VALUE/.test(t)) return ['VALUE'];
 	if (/MARK/.test(t)) return ['MARK'];
+	if (/REMAIN/.test(t)) return ['REMAIN'];
 	return [t.replace(/^(Hold|Push|Turn)\s+/i, '').trim()];
+}
+
+function normalizeWhitespace(str) {
+	return str.replace(/\s+/g, ' ').trim();
+}
+
+const docCache = new Map();
+
+function getPageText(docRelPath, pageNum) {
+	if (!docCache.has(docRelPath)) {
+		const absPath = path.resolve(docRelPath);
+		if (!fs.existsSync(absPath)) {
+			docCache.set(docRelPath, null);
+		} else {
+			docCache.set(docRelPath, fs.readFileSync(absPath, 'utf8'));
+		}
+	}
+	const content = docCache.get(docRelPath);
+	if (!content) return null;
+
+	const marker = `<!-- [Page ${pageNum}] -->`;
+	const startIdx = content.indexOf(marker);
+	if (startIdx === -1) return null;
+
+	const nextMarkerIdx = content.indexOf('<!-- [Page ', startIdx + marker.length);
+	const slice =
+		nextMarkerIdx === -1 ? content.slice(startIdx) : content.slice(startIdx, nextMarkerIdx);
+	return normalizeWhitespace(slice);
 }
 
 const raw = fs.readFileSync(TIPS_PATH, 'utf8');
@@ -154,6 +183,32 @@ for (const [index, tip] of tips.entries()) {
 			}
 		}
 	}
+
+	// Closed-loop Verbatim Quote Verification against docs/reference/
+	if (!tip.citation || typeof tip.citation !== 'object') {
+		errors.push(`${prefix}: Missing required "citation" ({ doc, page, quote }).`);
+	} else {
+		const { doc, page, quote } = tip.citation;
+		if (typeof doc !== 'string' || !doc.startsWith('docs/reference/')) {
+			errors.push(`${prefix}: citation.doc must be a path under "docs/reference/".`);
+		} else if (!Number.isInteger(page) || page < 1) {
+			errors.push(`${prefix}: citation.page must be a positive integer.`);
+		} else if (typeof quote !== 'string' || normalizeWhitespace(quote).length < 12) {
+			errors.push(`${prefix}: citation.quote must be at least 12 characters of verbatim text.`);
+		} else {
+			const pageText = getPageText(doc, page);
+			if (pageText === null) {
+				errors.push(`${prefix}: Could not find Page ${page} in "${doc}".`);
+			} else {
+				const normQuote = normalizeWhitespace(quote);
+				if (!pageText.includes(normQuote)) {
+					errors.push(
+						`${prefix}: Verbatim quote "${normQuote}" was NOT found on Page ${page} of "${doc}".`
+					);
+				}
+			}
+		}
+	}
 }
 
 if (errors.length > 0) {
@@ -162,5 +217,5 @@ if (errors.length > 0) {
 }
 
 console.log(
-	`✔ Validated ${tips.length} SP-404MKII tips (hardware IDs, schema, and verified sources).`
+	`✔ Validated ${tips.length} SP-404MKII tips (hardware IDs, 1:1 combo match, and verbatim quotes in docs/reference/).`
 );

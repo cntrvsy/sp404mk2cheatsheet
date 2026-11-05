@@ -16,7 +16,12 @@
 			"gate pulse",
 			"one shot"
 		],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 162,
+			"quote": "Switches the “one-shot playback” sample playback mode on/off."
+		}
 	},
 	{
 		"id": "hold-latch-sample",
@@ -27,7 +32,12 @@
 		"context": "Sample Mode",
 		"goal": "Keep a gated or looping sample playing hands-free without holding your finger on the pad.",
 		"aliases": ["latch", "sustain", "keep playing", "hands free"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/01-introduction-and-panel.md",
+			"page": 9,
+			"quote": "You can make the samples keep playing back even after you take your fingers off the pads"
+		}
 	},
 	{
 		"id": "stop-all-samples",
@@ -38,7 +48,12 @@
 		"context": "Or press EXIT 4 times rapidly",
 		"goal": "Immediately silence long tail samples, loops, or stuck audio.",
 		"aliases": ["panic", "silence", "kill audio", "stop sound", "exit x4", "all notes off"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Stops the playback of all samples."
+		}
 	},
 	{
 		"id": "pause-all-audio",
@@ -49,7 +64,12 @@
 		"context": "Works in Sample Playback, Pattern Play, and TR-REC",
 		"goal": "Freeze playback in place and resume from the exact same spot instead of restarting from bar 1.",
 		"aliases": ["freeze", "pause pattern", "stop in place", "tr-rec pause"],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Pauses the sample that’s currently playing back."
+		}
 	},
 	{
 		"id": "switch-alternate-bank",
@@ -57,7 +77,7 @@
 		"combo": ["BANK (x2)"],
 		"buttons": ["BANK"],
 		"action": "Switch between primary (A–E) and alternate (F–J) bank",
-		"context": "Press the active Bank button a second time",
+		"context": "Press the active Bank button a second time (blinks for Banks F–J)",
 		"goal": "Jump between Bank A and Bank F (or B and G, etc.) with one button press.",
 		"aliases": [
 			"bank f",
@@ -68,7 +88,12 @@
 			"second bank",
 			"double press bank"
 		],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+			"page": 74,
+			"quote": "Each time you press the bank [A/F] button, the bank switches between A and F."
+		}
 	},
 	{
 		"id": "ping-pong-loop",
@@ -79,7 +104,12 @@
 		"context": "Sample selected with LOOP enabled",
 		"goal": "Loop a sample forward then backward seamlessly to avoid harsh loop clicks on sustained textures.",
 		"aliases": ["back and forth", "bidirectional loop", "smooth loop", "crossfade"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Loops the sample by repeatedly playing back forward and then backward."
+		}
 	},
 	{
 		"id": "roll-time-division",
@@ -90,7 +120,12 @@
 		"context": "Hold ROLL + PAD to trigger roll at chosen division",
 		"goal": "Change note repeat speed between 1/4, 1/8, 1/16, 1/32, or triplets for hi-hat rolls and fills.",
 		"aliases": ["note repeat", "ratchet", "hi-hat roll", "stutter speed"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "This shows how to set the roll interval (how fast the roll repeats)."
+		}
 	},
 	{
 		"id": "rename-sample",
@@ -101,29 +136,40 @@
 		"context": "Select pad first, hold/press REMAIN, then scroll down with VALUE",
 		"goal": "Inspect sample details or give a pad a custom readable name on the OLED display.",
 		"aliases": ["title", "label sample", "pad info", "current pad menu", "file name"],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"],
+		"citation": {
+			"doc": "docs/reference/community/reddit-sp404-tips.md",
+			"page": 1,
+			"quote": "REMAIN (pad selected) and scroll down"
+		}
 	},
 	{
 		"id": "skip-back-recall",
 		"category": "Sample Playback",
 		"combo": ["MARK"],
 		"buttons": ["MARK"],
-		"action": "Recall last 40 seconds of audio (Skip Back Sampling)",
-		"context": "When MARK button is glowing after playing audio",
+		"action": "Recall last 25–40 seconds of audio (Skip-Back Sampling)",
+		"context": "When MARK button is blinking after playing audio (25s default; up to 40s with SBS Long)",
 		"goal": "Capture a happy accident or jam you just played without having pressed REC beforehand.",
 		"aliases": [
 			"retrospective record",
+			"25 seconds",
 			"40 seconds",
 			"capture jam",
 			"forgot to record",
 			"skipback"
 		],
 		"steps": [
-			"Press glowing MARK button to load the last 40s buffer",
+			"Press blinking MARK button to load the last 25–40s skip-back buffer",
 			"Press SUB PAD to preview; use CTRL 1 (Start) & CTRL 3 (End) to trim",
 			"Press REC → select destination PAD → press REC to save"
 		],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+			"page": 41,
+			"quote": "You can sample what you played up to 25 seconds ago (default) using the skip-back sampling function"
+		}
 	},
 	{
 		"id": "resample-multiple-pads",
@@ -134,7 +180,12 @@
 		"context": "Select pads to merge (Note: does not copy all individual parameters)",
 		"goal": "Quickly layer a kick and snare or chord pads onto a single new pad.",
 		"aliases": ["merge pads", "layer drums", "combine samples", "quick bounce"],
-		"sources": ["r/SP404 Community"]
+		"sources": ["r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Switches to sample merge mode."
+		}
 	},
 	{
 		"id": "pad-mute-mode",
@@ -142,7 +193,7 @@
 		"combo": ["SHIFT", "REVERSE", "REMAIN"],
 		"buttons": ["SHIFT", "REVERSE", "REMAIN"],
 		"action": "Latch Pad Mute Mode on (exit with EXIT or SHIFT + REVERSE)",
-		"context": "During Pattern Playback (Pads turn white when muted)",
+		"context": "During Pattern Playback (unmuted pads light white; muted pads turn red)",
 		"goal": "Drop drum or melodic parts in and out live during a pattern—or press REC inside Pad Mute Mode to record mute automation.",
 		"aliases": [
 			"track mute",
@@ -150,9 +201,15 @@
 			"drop drums",
 			"mute automation",
 			"perform pattern",
+			"red pads",
 			"white pads"
 		],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Keeps the [SHIFT] and [REVERSE] buttons in “pressed-down” state."
+		}
 	},
 	{
 		"id": "pad-mute-momentary",
@@ -163,7 +220,12 @@
 		"context": "Hold both SHIFT + REVERSE, tap pads to mute/unmute, release to return",
 		"goal": "Quickly mute or unmute a sample in a running pattern without staying locked in Pad Mute Mode.",
 		"aliases": ["quick mute", "silence track", "pattern mute"],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Switches the pad mute on/off."
+		}
 	},
 	{
 		"id": "copy-specific-pattern-samples",
@@ -181,11 +243,16 @@
 			"selective copy"
 		],
 		"steps": [
-			"In PATTERN SELECT, press COPY and select source pattern PAD",
-			"Press REMAIN, then tap the specific sample PADs you want to include",
-			"Press REMAIN again, select destination empty pattern PAD, and press COPY / VALUE"
+			"In PATTERN SELECT, press COPY, select source pattern PAD, then destination pattern PAD",
+			"Press REMAIN, then tap the specific sample PADs you want to extract (lit white)",
+			"Press REMAIN again, then press COPY or push VALUE to save"
 		],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+			"page": 86,
+			"quote": "You can create a pattern using only specific samples that were taken from a pattern"
+		}
 	},
 	{
 		"id": "delete-sample-in-pattern",
@@ -193,10 +260,15 @@
 		"combo": ["Hold DEL", "PAD"],
 		"buttons": ["DEL", "PAD"],
 		"action": "Delete all notes of a specific sample from a pattern",
-		"context": "In PATTERN EDIT mode (Pads with notes light up blue)",
+		"context": "In PATTERN EDIT mode (Pads with notes light up blue; confirm with VALUE)",
 		"goal": "Wipe a single bad drum part or bassline from a pattern without erasing the rest of the loop.",
 		"aliases": ["clear track", "remove instrument", "erase pad from pattern", "blue pad delete"],
-		"sources": ["r/SP404 Community"]
+		"sources": ["r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/community/reddit-sp404-tips.md",
+			"page": 1,
+			"quote": "(In PATTERN EDIT): Hold DEL, select pad (should be blue)"
+		}
 	},
 	{
 		"id": "erase-mode-live",
@@ -207,7 +279,12 @@
 		"context": "While in Pattern Record (press DEL again to return to record)",
 		"goal": "Erase only specific hits of a sound as the loop passes over them.",
 		"aliases": ["spot erase", "scrub notes", "delete single hit", "pattern record del"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+			"page": 66,
+			"quote": "Press the [DEL] button while recording a pattern to enter erase mode"
+		}
 	},
 	{
 		"id": "bounce-pattern-to-pad",
@@ -230,7 +307,12 @@
 			"Press PATTERN SELECT to switch destination from Pattern to Sample Bank",
 			"Choose an empty destination PAD and press COPY (or push VALUE) to bounce"
 		],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+			"page": 73,
+			"quote": "Here’s how to convert a pattern that’s assigned to a pad into a sample, and then assign that sample to a pad."
+		}
 	},
 	{
 		"id": "rehearsal-mode",
@@ -241,7 +323,12 @@
 		"context": "While already recording a pattern (REC LED blinks)",
 		"goal": "Practice playing a part over the looping pattern without committing notes until you press REC again.",
 		"aliases": ["practice", "audition pattern", "overdub test", "try out notes"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+			"page": 66,
+			"quote": "While you’re recording a pattern, the unit switches between rehearsal and recording mode each time you press the [REC] button."
+		}
 	},
 	{
 		"id": "pattern-undo",
@@ -252,7 +339,12 @@
 		"context": "While recording or overdubbing a pattern",
 		"goal": "Revert a bad take immediately (remaining undo steps show on the left of the OLED).",
 		"aliases": ["oops", "revert", "take back", "16 undo"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Undoes the data you just inputted (recorded)."
+		}
 	},
 	{
 		"id": "microscope-mode",
@@ -260,10 +352,15 @@
 		"combo": ["Hold PATTERN EDIT", "PAD"],
 		"buttons": ["PATTERN EDIT", "PAD"],
 		"action": "Enter Microscope Mode for step/substep note editing",
-		"context": "In PATTERN EDIT (or within TR-REC substeps)",
-		"goal": "Inspect and nudge individual note events, micro-timing, or substep triggers on a specific pad.",
+		"context": "Within TR-REC (select sample with SUB PAD + PAD, then hold PATTERN EDIT + step PAD)",
+		"goal": "Inspect and nudge individual note events, micro-timing, pitch, or velocity on a specific step.",
 		"aliases": ["micro timing", "nudge note", "list edit", "step inspector", "event list"],
-		"sources": ["r/SP404 Community"]
+		"sources": ["r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+			"page": 71,
+			"quote": "Press pads [1]–[16] while holding down the [PATTERN EDIT] button to select notes that are already recorded."
+		}
 	},
 	{
 		"id": "tr-rec-mode",
@@ -271,16 +368,21 @@
 		"combo": ["PATTERN SELECT", "REC", "REMAIN"],
 		"buttons": ["PATTERN SELECT", "REC", "REMAIN"],
 		"action": "Enter TR-REC step sequencer mode",
-		"context": "On Pattern Record Setting screen, press REMAIN to switch from Real-Time to TR-REC",
+		"context": "On Pattern Record Setting screen, press REMAIN to switch from Real-Time to TR-REC (or SHIFT + REC during playback)",
 		"goal": "Program drum steps on the 16-pad grid like a classic Roland TR-808/909.",
 		"aliases": ["step sequencer", "808 style", "grid sequencing", "x0x"],
 		"steps": [
 			"Press PATTERN SELECT → REC → select empty PAD",
-			"Press REMAIN to switch to TR-REC (or press REC then REMAIN)",
+			"Press REMAIN to switch to TR-REC (or press SHIFT + REC during pattern playback)",
 			"Hold SUB PAD + press a PAD to select sound without placing a step",
 			"Use VALUE encoder to switch bars; CTRL 1 for Substep type; CTRL 3 for Velocity"
 		],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+			"page": 67,
+			"quote": "Press the [REMAIN] button, and switch the pattern recording method to “TR-REC”."
+		}
 	},
 	{
 		"id": "tr-rec-motion-recording",
@@ -291,7 +393,12 @@
 		"context": "While TR-REC pattern is running",
 		"goal": "Automate pitch slides, velocity ramps, or ratchets per step in real time.",
 		"aliases": ["parameter lock", "p-lock", "step automation", "pitch automation"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 164,
+			"quote": "You can record the motion of [CTRL 1] knob in the steps."
+		}
 	},
 	{
 		"id": "efx-motion-recording",
@@ -299,10 +406,15 @@
 		"combo": ["MARK"],
 		"buttons": ["MARK"],
 		"action": "Start Effects Motion Recording (FX Automation) in a pattern",
-		"context": "While recording a pattern (START/END toggles Motion On/Off; SHIFT + MARK deletes motion)",
+		"context": "While recording a pattern (START/END toggles Motion Play On/Off; SHIFT + MARK spot-erases motion)",
 		"goal": "Automate filter sweeps, delay throws, or effect toggles directly inside a pattern loop.",
 		"aliases": ["fx automation", "record knob movements", "delete automation", "motion erase"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+			"page": 77,
+			"quote": "The message “MOTION REC START” is shown (EFX MOTION REC)."
+		}
 	},
 	{
 		"id": "quantize-after-recording",
@@ -310,10 +422,15 @@
 		"combo": ["PATTERN EDIT", "PAD", "RECORD SETTING", "VALUE"],
 		"buttons": ["PATTERN EDIT", "PAD", "RECORD SETTING", "VALUE"],
 		"action": "Quantize a pattern after recording",
-		"context": "In PATTERN EDIT → select pattern PAD → press RECORD SETTING or push VALUE",
-		"goal": "Tighten timing (Grid via CTRL 2, Strength % via CTRL 3) non-destructively or save to a pad.",
+		"context": "In PATTERN EDIT → select pattern PAD → press RECORD SETTING → select sample PADs → push VALUE",
+		"goal": "Tighten timing (Grid via CTRL 2, Strength % via CTRL 3) for specific pads in a recorded pattern.",
 		"aliases": ["fix timing", "post quantize", "swing", "grid strength"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+			"page": 82,
+			"quote": "You can quantize the notes of a pattern that you’ve inputted in real time."
+		}
 	},
 	{
 		"id": "pattern-chain",
@@ -321,16 +438,21 @@
 		"combo": ["PATTERN SELECT", "Hold HOLD", "PAD"],
 		"buttons": ["PATTERN SELECT", "HOLD", "PAD"],
 		"action": "Create and play a Pattern Chain (Song Mode)",
-		"context": "In PATTERN SELECT, hold HOLD (pads flash green) + press PAD to choose Chain Slot 1–16",
-		"goal": "Sequence patterns in order to build or resample a complete song arrangement.",
+		"context": "In PATTERN SELECT, hold HOLD + press PAD to choose Chain Slot 1–16",
+		"goal": "Sequence up to 16 patterns in order to build or resample/bounce a complete song arrangement.",
 		"aliases": ["song mode", "arrange patterns", "chain slot", "green flashing pads"],
 		"steps": [
 			"In PATTERN SELECT, hold HOLD + press a PAD to select one of 16 Chain Slots",
 			"Tap pattern PADs in the order you want them to play",
-			"Press REMAIN to set repeat count for steps; press SUB PAD to play chain",
-			"To resample a chain: PATTERN SELECT → RESAMPLE → destination PAD → HOLD + Chain PAD → SUB PAD"
+			"Press REMAIN to toggle repeat; press SUB PAD to play chain",
+			"To bounce a chain to a pad: PATTERN SELECT → COPY → HOLD + Chain PAD → destination PAD → COPY"
 		],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+			"page": 74,
+			"quote": "While holding down the [HOLD] button, press pads [1]–[16] to select the pattern chain number (1–16) to record."
+		}
 	},
 	{
 		"id": "delete-pattern",
@@ -341,7 +463,12 @@
 		"context": "In PATTERN SELECT mode",
 		"goal": "Clear a single pattern pad or wipe an entire bank of patterns at once.",
 		"aliases": ["erase pattern", "clear pattern bank", "del exit"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+			"page": 88,
+			"quote": "Press the [VALUE] knob or [DEL] button."
+		}
 	},
 	{
 		"id": "lock-loop-point",
@@ -350,20 +477,30 @@
 		"buttons": ["START/END", "REMAIN"],
 		"action": "Lock Loop Point while adjusting Start Point",
 		"context": "On START/END sample edit screen",
-		"goal": "Prevent the Loop point from shifting when you move the Start point past it.",
+		"goal": "Prevent the Start point from moving beyond the Loop point or End point.",
 		"aliases": ["keep loop point", "freeze loop marker", "start point move"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/05-editing-samples.md",
+			"page": 48,
+			"quote": "On: Prevents the start point from being moved beyond the loop"
+		}
 	},
 	{
 		"id": "preview-end-of-sample",
 		"category": "Sample Edit & Chop",
 		"combo": ["START/END", "ROLL"],
 		"buttons": ["START/END", "ROLL"],
-		"action": "Play only the last 4 seconds of a sample",
-		"context": "On START/END sample edit screen",
+		"action": "Preview the last several seconds before the End point of a sample",
+		"context": "On START/END sample edit screen (hold ROLL)",
 		"goal": "Quickly audition and fine-tune the End point of a long sample without listening from the very beginning.",
 		"aliases": ["audition end", "tail preview", "last 4 seconds", "long sample trim"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/05-editing-samples.md",
+			"page": 48,
+			"quote": "While this button is pressed, you can preview the sound several"
+		}
 	},
 	{
 		"id": "snap-zero-crossing",
@@ -371,10 +508,15 @@
 		"combo": ["START/END", "RESAMPLE"],
 		"buttons": ["START/END", "RESAMPLE"],
 		"action": "Toggle Snap to Zero-Crossing",
-		"context": "On START/END or CHOP edit screen",
+		"context": "On START/END or CHOP edit screen (enabled when RESAMPLE is lit)",
 		"goal": "Eliminate clicks and pops at sample start/end/chop points by snapping markers to zero amplitude.",
 		"aliases": ["remove click", "pop free", "zero cross", "clean chop"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/05-editing-samples.md",
+			"page": 49,
+			"quote": "Moves the start point to the zero cross-point (*) that’s closest to the"
+		}
 	},
 	{
 		"id": "chop-menu",
@@ -391,7 +533,12 @@
 			"Auto Chop: Push VALUE → AUTO MARK → CTRL 2 chooses TIME DIVISION, LEVEL, or TRANSIENT",
 			"Assign to Pads: Push VALUE → ASSIGN TO PAD → press MARK to auto-select pads → push VALUE twice"
 		],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Splits the sample at the marker positions, and assigns the resulting"
+		}
 	},
 	{
 		"id": "truncate-sample",
@@ -402,7 +549,12 @@
 		"context": "On START/END screen, push VALUE encoder to open menu",
 		"goal": "Free up memory and normalize/chop accurately by trimming unused audio before Start and after End.",
 		"aliases": ["trim permanent", "crop audio", "cut excess"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/05-editing-samples.md",
+			"page": 49,
+			"quote": "Trims (deletes) the sample’s audio regions before the start point and after the end point."
+		}
 	},
 	{
 		"id": "groove-humanize-sample",
@@ -410,10 +562,15 @@
 		"combo": ["PITCH/SPEED", "ROLL"],
 		"buttons": ["PITCH/SPEED", "ROLL"],
 		"action": "Access Groove / Humanization settings for sample",
-		"context": "On PITCH/SPEED screen, press ROLL",
-		"goal": "Add subtle timing/pitch humanization or groove variance to static samples.",
+		"context": "On PITCH/SPEED screen, press ROLL (CTRL 1 = Humanize, CTRL 2 = Rate, CTRL 3 = Groove)",
+		"goal": "Add subtle timing/pitch humanization or 8-/16-beat swing templates to static loops.",
 		"aliases": ["humanize", "swing sample", "random variation", "feel"],
-		"sources": ["r/SP404 Community"]
+		"sources": ["r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/05-editing-samples.md",
+			"page": 58,
+			"quote": "You can add a unique rhythmic character to a sample to make it groove."
+		}
 	},
 	{
 		"id": "copy-pitch-speed-bank",
@@ -424,7 +581,12 @@
 		"context": "On PITCH/SPEED or ENVELOPE (SHIFT + PITCH/SPEED) screen",
 		"goal": "Batch-edit volume, tuning, or release tails across all 16 pads in the current bank simultaneously.",
 		"aliases": ["bank wide edit", "all pads volume", "batch pitch", "copy settings to bank"],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 162,
+			"quote": "Lets you simultaneously edit the parameters of samples that are registered to the"
+		}
 	},
 	{
 		"id": "copy-pitch-speed-mute-group",
@@ -435,29 +597,44 @@
 		"context": "On PITCH/SPEED screen (Mute Group pads will flash)",
 		"goal": "Change tuning, speed, or volume across all chopped slices of a sample without affecting drums in the same bank.",
 		"aliases": ["edit all chops", "slice group pitch", "mute group batch edit", "chops volume"],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 163,
+			"quote": "Lets you simultaneously edit the parameters of samples that are registered to the"
+		}
 	},
 	{
 		"id": "vinyl-varispeed-toggle",
 		"category": "Pitch, Speed & Env",
-		"combo": ["PITCH/SPEED", "SHIFT", "Push VALUE"],
+		"combo": ["PITCH/SPEED", "Hold SHIFT", "Turn VALUE"],
 		"buttons": ["PITCH/SPEED", "SHIFT", "VALUE"],
-		"action": "Switch between VINYL Mode and VARISPEED (Backing / Ensemble)",
-		"context": "On PITCH/SPEED screen",
+		"action": "Switch between VINYL Mode and VARI Mode (Backing / Ensemble)",
+		"context": "On PITCH/SPEED screen, hold SHIFT and turn the VALUE knob",
 		"goal": "Choose classic Vinyl repitching (pitch & speed linked) or independent pitch/time-stretch (Backing for drums, Ensemble for chords/bass).",
 		"aliases": ["time stretch", "repitch", "algorithm", "backing", "ensemble", "vinyl mode"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/05-editing-samples.md",
+			"page": 57,
+			"quote": "Turns VINYL mode on/off."
+		}
 	},
 	{
 		"id": "sample-pan-mono",
 		"category": "Pitch, Speed & Env",
 		"combo": ["PITCH/SPEED", "Hold SHIFT", "Turn CTRL 3"],
 		"buttons": ["PITCH/SPEED", "SHIFT", "CTRL 3"],
-		"action": "Adjust Sample Panning or force Stereo sample to MONO (L/R)",
-		"context": "On PITCH/SPEED screen",
+		"action": "Adjust Sample Panning or force Stereo sample to MONO (Left/Right)",
+		"context": "On PITCH/SPEED screen (L:50–R:50, MONO Left, or MONO Right)",
 		"goal": "Pan individual drums left/right or collapse a stereo breakbeat/bass sample to mono.",
 		"aliases": ["pan left right", "mono sample", "stereo to mono", "width"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/05-editing-samples.md",
+			"page": 57,
+			"quote": "Sets the stereo position (pan) of the sample."
+		}
 	},
 	{
 		"id": "envelope-menu",
@@ -468,18 +645,28 @@
 		"context": "CTRL 1 = Attack, CTRL 2 = Hold, CTRL 3 = Release",
 		"goal": "Fade in a sample (Attack) or add a smooth fade-out tail (Release) so chops don't cut off abruptly.",
 		"aliases": ["adsr", "fade in", "fade out", "attack release", "declick tail"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Sets how the volume changes when the sample plays back."
+		}
 	},
 	{
 		"id": "auto-detect-bpm",
 		"category": "Pitch, Speed & Env",
-		"combo": ["PITCH/SPEED", "Push VALUE"],
+		"combo": ["PITCH/SPEED", "Turn/Push VALUE"],
 		"buttons": ["PITCH/SPEED", "VALUE"],
-		"action": "Auto-detect or manually set fine decimal BPM (MANU-F)",
-		"context": "On PITCH/SPEED screen (Turn VALUE to select MANU or MANU-F for decimals)",
+		"action": "Auto-detect sample BPM or manually set integer/decimal BPM (MANU / MANU-F)",
+		"context": "On PITCH/SPEED screen (Turn VALUE for AUTO/MANU/MANU-F; Push VALUE on AUTO to scan BPM range)",
 		"goal": "Set exact loop tempo or scan BPM within a target range so half/double-time loops sync properly.",
 		"aliases": ["tap tempo", "decimal bpm", "detect tempo", "manu-f", "loop bpm"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/05-editing-samples.md",
+			"page": 57,
+			"quote": "Sets the sample tempo. When this is set to AUTO,"
+		}
 	},
 	{
 		"id": "swap-bus-1-2",
@@ -490,7 +677,12 @@
 		"context": "Anytime",
 		"goal": "Instantly reverse the serial routing order of your Bus 1 and Bus 2 effects (e.g., Filter into Delay vs. Delay into Filter).",
 		"aliases": ["flip bus", "reverse fx order", "swap bus 1 and 2", "exchange bus fx"],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 162,
+			"quote": "You can swap the effects of BUS 1 and BUS 2."
+		}
 	},
 	{
 		"id": "toggle-bus-3-4",
@@ -501,7 +693,12 @@
 		"context": "Anytime",
 		"goal": "Bypass or engage your master chain effects (like 303 Vinyl Sim + Compressor on Bus 3/4) for instant A/B comparison.",
 		"aliases": ["master fx bypass", "turn off bus 3 4", "a/b master chain"],
-		"sources": ["r/SP404 Community"]
+		"sources": ["r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 162,
+			"quote": "Temporarily bypasses BUS 3 and BUS 4."
+		}
 	},
 	{
 		"id": "mute-bus-fx",
@@ -512,7 +709,12 @@
 		"context": "Dry pads (lit white) continue playing",
 		"goal": "Drop out the main beat routed through Bus 1/2 while letting reverb/delay tails ring out or keeping a dry vocal/drum playing.",
 		"aliases": ["bus mute", "kill dry", "effect tail drop"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Temporarily turns off the audio sent to the bus"
+		}
 	},
 	{
 		"id": "save-efx-params",
@@ -528,7 +730,12 @@
 			"startup fx params",
 			"default knob values"
 		],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Saves the main parameters of the effects assigned to BUS 1 and BUS 2."
+		}
 	},
 	{
 		"id": "keep-mfx-screen-visible",
@@ -539,7 +746,12 @@
 		"context": "While in an effect menu, press REMAIN + the FX button",
 		"goal": "Stop the effect parameter screen from auto-closing after a few seconds while you tweak knobs.",
 		"aliases": ["pin fx menu", "hold effect screen", "stop menu timeout", "stay on fx screen"],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 162,
+			"quote": "Makes the effect edit screen keep displaying."
+		}
 	},
 	{
 		"id": "view-mfx-without-activating",
@@ -550,7 +762,12 @@
 		"context": "Press REMAIN first, then the FX button",
 		"goal": "Check or preset knob parameters before dropping the effect into a live performance.",
 		"aliases": ["preview fx", "check effect settings", "silent fx edit"],
-		"sources": ["r/SP404 Community"]
+		"sources": ["r/SP404 Community"],
+		"citation": {
+			"doc": "docs/reference/community/reddit-sp404-tips.md",
+			"page": 1,
+			"quote": "View MFX screen without activating effect"
+		}
 	},
 	{
 		"id": "grab-momentary-fx",
@@ -561,7 +778,12 @@
 		"context": "Hold VALUE encoder down, press FX button(s), release to disengage",
 		"goal": "Punch in a quick DJFX Looper stutter, Isolator cut, or Delay throw for one beat and snap right back.",
 		"aliases": ["punch in fx", "momentary effect", "fx grab", "temporary effect"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 162,
+			"quote": "Applies effects only while you hold down the effect buttons (EFFECT GRAB)."
+		}
 	},
 	{
 		"id": "mfx-pages-shortcut",
@@ -580,7 +802,12 @@
 			"page 2",
 			"page 3"
 		],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 163,
+			"quote": "Displays the MFX LIST from #17 onwards."
+		}
 	},
 	{
 		"id": "mfx-second-param-page",
@@ -591,7 +818,12 @@
 		"context": "When a down-arrow icon appears on the FX screen",
 		"goal": "Adjust the bottom row of effect parameters (4–6) using CTRL 1–3 knobs.",
 		"aliases": ["sub parameters", "effect page 2", "6 knobs", "arrow down fx"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet"],
+		"citation": {
+			"doc": "docs/reference/community/c-dub-cheatsheet.md",
+			"page": 9,
+			"quote": "Hold VALUE ENCODER to access second parameter page"
+		}
 	},
 	{
 		"id": "assign-pad-bus-routing",
@@ -602,7 +834,12 @@
 		"context": "Select BUS 1 or BUS 2 first with BUS FX, then hold REMAIN + tap PAD (or BANK)",
 		"goal": "Route drums to Bus 1 (Compressor) and samples to Bus 2 (Filter), or exclude a pad from effects completely (White LED).",
 		"aliases": ["bus assignment", "dry pad", "exclude from fx", "bus 1 bus 2 routing", "white pad"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Specifies the output destination bus for each sample."
+		}
 	},
 	{
 		"id": "ext-source-input-settings",
@@ -613,7 +850,12 @@
 		"context": "CTRL 2 switches between EXT IN (external only) and MIX (internal + external)",
 		"goal": "Record only your external synth/phone/mic without capturing internal playing pads, or add Input FX.",
 		"aliases": ["ext in", "mix routing", "input fx", "usb audio record", "microphone", "guitar"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Displays the input settings screen."
+		}
 	},
 	{
 		"id": "toggle-gate-bank",
@@ -624,7 +866,12 @@
 		"context": "Sample Mode",
 		"goal": "Turn off Gate for an entire bank of drum hits or chops at once instead of tapping Gate 16 times.",
 		"aliases": ["all pads gate", "bank gate off", "batch gate"],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Turns the GATE parameter for all samples in the selected bank on/off."
+		}
 	},
 	{
 		"id": "bank-volume",
@@ -635,7 +882,12 @@
 		"context": "Hold SHIFT and press the Bank button (A/F–E/J)",
 		"goal": "Balance a loud drum bank against a quiet sample bank without editing individual pads or changing master VOLUME.",
 		"aliases": ["bank level", "group volume", "turn down bank"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Adjusts the volume for the specified bank overall."
+		}
 	},
 	{
 		"id": "delete-bank",
@@ -646,7 +898,12 @@
 		"context": "Press DEL + EXIT, select the Bank (or PAD), then press DEL to confirm",
 		"goal": "Wipe a whole bank clean in seconds instead of deleting 16 pads one by one.",
 		"aliases": ["clear bank", "wipe bank", "erase 16 pads"],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 162,
+			"quote": "Deletes all samples or patterns in a bank."
+		}
 	},
 	{
 		"id": "copy-bank-or-project",
@@ -657,7 +914,12 @@
 		"context": "Use CTRL 3 to choose target Project; COPY > CTRL 3 also copies single pads across Projects",
 		"goal": "Move your favorite drum kit bank or pattern bank into a brand new project.",
 		"aliases": ["duplicate bank", "export bank to project", "move kit", "copy between projects"],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 163,
+			"quote": "Copies all samples or patterns in a bank to a different bank."
+		}
 	},
 	{
 		"id": "protect-bank",
@@ -668,7 +930,12 @@
 		"context": "Sample Mode",
 		"goal": "Lock finished banks so you can't accidentally overwrite or delete a sample live.",
 		"aliases": ["lock bank", "read only", "prevent delete", "safe mode"],
-		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community"]
+		"sources": ["C-Dub's Cheat Sheet", "r/SP404 Community", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "This function prevents the samples and patterns assigned to a pad from"
+		}
 	},
 	{
 		"id": "select-project",
@@ -679,7 +946,12 @@
 		"context": "Press PAD to load, COPY to duplicate project, DEL to delete project",
 		"goal": "Switch between your 16 projects on the SD card or duplicate a project as a backup before experimenting.",
 		"aliases": ["switch project", "load project", "new project", "duplicate project"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Displays the SELECT PROJECT screen."
+		}
 	},
 	{
 		"id": "fixed-velocity-mode",
@@ -690,7 +962,12 @@
 		"context": "SHIFT + PAD 1 (FIXED VEL)",
 		"goal": "Trigger samples at maximum 127 volume regardless of how softly or hard you hit the pads.",
 		"aliases": ["full level", "max velocity", "constant volume", "pad sensitivity"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Sets the sample’s velocity so that it always plays back at 127"
+		}
 	},
 	{
 		"id": "16-velocity-mode",
@@ -701,7 +978,12 @@
 		"context": "PAD 13 = quietest, PAD 4 = loudest",
 		"goal": "Play subtle ghost notes and dynamic hi-hat/snare rolls across 16 progressive volume levels.",
 		"aliases": ["16 levels", "ghost notes", "velocity staircase", "dynamic hi-hats"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Changes a sample’s velocity (volume) in steps when it plays back."
+		}
 	},
 	{
 		"id": "cue-headphone-audition",
@@ -712,7 +994,12 @@
 		"context": "Pads light up GREEN when sent to Cue",
 		"goal": "Preview sounds in your headphones during a live set without sending them to the main Line Out.",
 		"aliases": ["headphone preview", "dj cue", "green pads", "monitor only"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Adjusts the balance of the audio you monitor via the PHONES jack."
+		}
 	},
 	{
 		"id": "chromatic-mode",
@@ -729,7 +1016,12 @@
 			"Push VALUE encoder to cycle Scales (Chromatic, Major, Minor, Dorian, Phrygian, etc.)",
 			"To record into a pattern: Enter Pattern Record → press REC for Rehearsal → press SHIFT + PAD 4 → press REC to record notes"
 		],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Lets you play back samples (changing their pitches) as a chromatic scale"
+		}
 	},
 	{
 		"id": "exchange-swap-pads",
@@ -740,7 +1032,12 @@
 		"context": "Select first PAD → select second PAD → press COPY (or push VALUE)",
 		"goal": "Rearrange your drum kit layout on the 4x4 grid without needing an empty temporary pad.",
 		"aliases": ["swap pads", "move sample", "reorganize kit", "switch pad positions"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Exchanges (swaps) the sample or pattern data saved in different pads."
+		}
 	},
 	{
 		"id": "init-sample-params",
@@ -751,7 +1048,12 @@
 		"context": "Select PAD → press SHIFT + PAD 6 → confirm with VALUE",
 		"goal": "Revert a sample back to its original un-pitched, un-trimmed factory state.",
 		"aliases": ["reset sample", "clear pitch", "default parameters", "init param"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Initializes the sample parameters for the selected pad."
+		}
 	},
 	{
 		"id": "pad-link",
@@ -762,7 +1064,12 @@
 		"context": "Tap pads to link together, press EXIT when done",
 		"goal": "Layer a kick + sub-bass or snare + clap so hitting one pad fires all linked pads simultaneously.",
 		"aliases": ["layer pads", "stack drums", "link pads", "simultaneous trigger"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Lets you play back all the pads at the same time that are assigned to a"
+		}
 	},
 	{
 		"id": "mute-groups",
@@ -779,7 +1086,12 @@
 			"monophonic chops",
 			"stop overlapping"
 		],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Groups together samples that you don’t want to play together"
+		}
 	},
 	{
 		"id": "metronome-toggle",
@@ -790,7 +1102,12 @@
 		"context": "Adjust click volume in Utility > Click",
 		"goal": "Turn the click track on or off while recording or practicing patterns.",
 		"aliases": ["click track", "tempo click", "metronome"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Turns the metronome on/off."
+		}
 	},
 	{
 		"id": "count-in-mode",
@@ -801,7 +1118,12 @@
 		"context": "WAIT starts recording automatically as soon as input audio exceeds threshold",
 		"goal": "Add a 1- or 2-bar count-in before pattern recording, or use WAIT for threshold-triggered sampling.",
 		"aliases": ["pre-roll", "threshold record", "auto start sampling", "wait mode"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Adds a count-in before sampling or pattern recording begins."
+		}
 	},
 	{
 		"id": "tap-tempo-menu",
@@ -812,7 +1134,12 @@
 		"context": "Tap SUB PAD repeatedly to set tempo, or turn VALUE encoder",
 		"goal": "Tap in the master/bank tempo by ear and sync all BPM-Sync enabled pads in the bank.",
 		"aliases": ["set bpm", "master tempo", "tap sub pad"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Lets you set the tempo in an intuitive way by tapping the pad in time"
+		}
 	},
 	{
 		"id": "gain-noise-gate",
@@ -823,7 +1150,12 @@
 		"context": "Quick shortcut to Gain/Input staging parameters",
 		"goal": "Prevent hot line inputs from clipping with the Attenuator or gate out background hum on the Mic/Guitar jack.",
 		"aliases": ["clipping", "input too loud", "attenuator", "noise gate", "hum"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Displays the UTILITY MENU > SYSTEM > GAIN tab."
+		}
 	},
 	{
 		"id": "utility-menu",
@@ -834,7 +1166,12 @@
 		"context": "Set Knob Mode (Direct vs. Catch) or Sub Pad Mode (Retrigger vs. Skip Back)",
 		"goal": "Configure system preferences, MIDI channels, SD card full backups, and Catch knob behavior.",
 		"aliases": ["knob catch", "system settings", "sd backup", "midi settings"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Displays the UTILITY MENU screen."
+		}
 	},
 	{
 		"id": "import-export-sd",
@@ -845,7 +1182,12 @@
 		"context": "Browse WAV/AIFF files on SD card to load onto pads",
 		"goal": "Load drum kits from your SD card or export finished samples/patterns without a computer.",
 		"aliases": ["load wav", "sd card browser", "export stems", "format sd card"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Displays the UTILITY MENU > IMPORT (IMPORT/EXPORT MENU)."
+		}
 	},
 	{
 		"id": "pad-led-settings",
@@ -856,7 +1198,12 @@
 		"context": "Customize pad trigger feel and custom RGB color coding",
 		"goal": "Adjust pad velocity sensitivity for your finger-drumming style or color-code pads by instrument.",
 		"aliases": ["pad color", "rgb led", "pad sensitivity", "velocity curve"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Displays the UTILITY MENU > PAD SET (PAD SETTING)."
+		}
 	},
 	{
 		"id": "efx-routing-bus-3-4",
@@ -874,7 +1221,12 @@
 			"efx favorites",
 			"customize top buttons"
 		],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 160,
+			"quote": "Displays the UTILITY MENU > EFX SET (EFX SETTING) screen."
+		}
 	},
 	{
 		"id": "input-fx-recording",
@@ -896,15 +1248,20 @@
 			"Press RECORD SETTING and push the VALUE encoder to select and tweak Input FX",
 			"Press EXIT twice, select your destination PAD, and press REC to start recording"
 		],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet"],
+		"citation": {
+			"doc": "docs/reference/community/c-dub-cheatsheet.md",
+			"page": 5,
+			"quote": "VALUE ENCODER - push to add effects to the incoming audio"
+		}
 	},
 	{
 		"id": "pattern-edit-parameters",
 		"category": "Pattern Sequencer",
 		"combo": ["PATTERN EDIT", "PAD"],
 		"buttons": ["PATTERN EDIT", "PAD"],
-		"action": "Edit Pattern BPM, Bar Length, or Duplicate / Crop Bars",
-		"context": "In PATTERN EDIT: CTRL 1 = BPM, CTRL 3 = Length, Push VALUE = Duplicate or Crop",
+		"action": "Edit Pattern BPM, Loop Start, Length, or Duplicate / Crop Bars",
+		"context": "In PATTERN EDIT: CTRL 1 = BPM, CTRL 2 = Loop Start, CTRL 3 = Length, Push VALUE = Duplicate or Crop",
 		"goal": "Change a pattern's tempo, double/duplicate a 2-bar loop into 4 bars so you can add variations, or crop excess bars.",
 		"aliases": [
 			"duplicate pattern bars",
@@ -913,7 +1270,12 @@
 			"crop pattern",
 			"bars"
 		],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+			"page": 80,
+			"quote": "You can change the length of a pattern or change the range within which it plays back."
+		}
 	},
 	{
 		"id": "queue-next-pattern",
@@ -921,10 +1283,15 @@
 		"combo": ["PATTERN SELECT", "PAD"],
 		"buttons": ["PATTERN SELECT", "PAD"],
 		"action": "Queue the next pattern to play seamlessly after current loop finishes",
-		"context": "While a pattern is already playing in PATTERN SELECT mode (pads flash purple)",
+		"context": "While a pattern is playing in PATTERN SELECT mode (or hold SUB PAD + PAD to switch immediately)",
 		"goal": "Transition smoothly between song sections live—tap the next pattern pad anytime and it will wait until the current bar loop completes.",
 		"aliases": ["switch pattern", "cue pattern", "next pattern", "live arrangement", "purple pads"],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet", "Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+			"page": 64,
+			"quote": "When you press the other pads [1]–[16] while the pattern is playing back, this places the next pattern to play back in standby."
+		}
 	},
 	{
 		"id": "external-fx-processor",
@@ -949,23 +1316,134 @@
 			"line in effects",
 			"thru fx"
 		],
-		"sources": ["C-Dub's Cheat Sheet"]
+		"sources": ["C-Dub's Cheat Sheet"],
+		"citation": {
+			"doc": "docs/reference/community/c-dub-cheatsheet.md",
+			"page": 15,
+			"quote": "External source connected to the line inputs on the rear of the"
+		}
 	},
 	{
 		"id": "dj-mode-enter-controls",
 		"category": "Sample Playback",
-		"combo": ["BANK B/G", "BANK C/H"],
-		"buttons": ["BANK B/G", "BANK C/H"],
+		"combo": ["BANK D/I", "BANK E/J"],
+		"buttons": ["BANK D/I", "BANK E/J"],
 		"action": "Enter DJ Mode (Dual-Deck CH1 / CH2 Performance Mixer)",
-		"context": "Press BANK B/G + C/H simultaneously; Pads 1–16 become CH1/CH2 transport controls",
+		"context": "Press BANK D/I + E/J simultaneously; Pads 1–16 become CH1/CH2 transport controls",
 		"goal": "Mix two tracks live using CH1 (left pads: BEND+/-, BPM+/-, |<<, SYNC, ▶/⏸, CUE) and CH2 (right pads).",
 		"aliases": ["dj mode", "ch1", "ch2", "pitch bend", "sync decks", "crossfader", "dual deck"],
 		"steps": [
-			"Press BANK B/G and BANK C/H at the same time to enter DJ Mode",
+			"Press BANK D/I and BANK E/J at the same time to enter DJ Mode",
 			"Pads 1 & 5 = CH1 Pitch Bend +/- | Pads 2 & 6 = CH1 BPM +/- (Pads 3/7 & 4/8 for CH2)",
 			"Pad 9 = CH1 Restart (|<<) | Pad 10 = CH1 Beat Sync (Pads 11 & 12 for CH2)",
 			"Pad 13 = CH1 Play/Pause (▶/⏸) | Pad 14 = CH1 Headphone Cue (Pads 15 & 16 for CH2)"
 		],
-		"sources": ["Roland Manual"]
+		"sources": ["Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+			"page": 93,
+			"quote": "Press the bank [D/I] button and the [E/J] button simultaneously."
+		}
+	},
+	{
+		"id": "sound-generator-mode",
+		"category": "Sample Playback",
+		"combo": ["SHIFT", "RECORD SETTING"],
+		"buttons": ["SHIFT", "RECORD SETTING"],
+		"action": "Enter Sound Generator Mode (Synth Bass & Pitched Tones)",
+		"context": "Press SHIFT + RECORD SETTING in Sample Mode (v4.04+ / v5.50)",
+		"goal": "Generate clean synth waveforms (sine, triangle, saw, bass) at custom pitches and save them directly to pads without an external synth.",
+		"aliases": ["synth", "oscillator", "808 sub bass", "tone generator", "sound generator"],
+		"sources": ["Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Switches to sound generator mode."
+		}
+	},
+	{
+		"id": "sync-all-bank",
+		"category": "Banks & Projects",
+		"combo": ["SHIFT", "BPM SYNC"],
+		"buttons": ["SHIFT", "BPM SYNC"],
+		"action": "Toggle BPM Sync ON/OFF for all 16 samples in current Bank",
+		"context": "Sample Mode",
+		"goal": "Sync or unsync every loop and chop in the active bank to the master tempo with a single combo.",
+		"aliases": ["all pads bpm sync", "bank sync", "batch bpm sync"],
+		"sources": ["Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Turns the BPM SYNC parameter for all samples in the selected bank on/"
+		}
+	},
+	{
+		"id": "live-mode-lock",
+		"category": "Sample Playback",
+		"combo": ["SHIFT", "Hold REMAIN (3s)"],
+		"buttons": ["SHIFT", "REMAIN"],
+		"action": "Toggle Live Mode (disable sampling & edit buttons during performance)",
+		"context": "Hold SHIFT + REMAIN for at least 3 seconds",
+		"goal": "Lock out REC, DEL, RESAMPLE, and edit buttons during a live set so an accidental bump never interrupts playback.",
+		"aliases": ["lock buttons", "performance lock", "disable record", "live mode"],
+		"sources": ["Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Use this to disable buttons that are not used when playing live"
+		}
+	},
+	{
+		"id": "looper-skipback-switch",
+		"category": "Sample Playback",
+		"combo": ["SHIFT", "Push VALUE"],
+		"buttons": ["SHIFT", "VALUE"],
+		"action": "Switch [MARK] button between Skip-Back Sampling and Looper Mode",
+		"context": "Hold SHIFT and press the VALUE encoder",
+		"goal": "Toggle whether pressing MARK recalls the last 40 seconds of audio (Skip-Back) or opens the real-time Looper.",
+		"aliases": ["looper mode", "switch mark button", "sbs", "live looper"],
+		"sources": ["Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 161,
+			"quote": "Switches the function to be recalled when you press the [MARK] button."
+		}
+	},
+	{
+		"id": "silent-pad-select",
+		"category": "Sample Playback",
+		"combo": ["Hold VALUE", "PAD"],
+		"buttons": ["VALUE", "PAD"],
+		"action": "Select a sample or pattern pad silently without triggering audio",
+		"context": "Hold down the VALUE knob and press any PAD 1–16",
+		"goal": "Select a pad to edit its Start/End, Pitch, or Bus routing during a live session without making a sound.",
+		"aliases": ["silent select", "mute select", "select without playing", "quiet pad select"],
+		"sources": ["Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 162,
+			"quote": "Selects a sample (no sound is produced)."
+		}
+	},
+	{
+		"id": "delete-efx-motion",
+		"category": "Pattern Sequencer",
+		"combo": ["DEL", "MARK"],
+		"buttons": ["DEL", "MARK"],
+		"action": "Delete recorded EFX Motion automation from a pattern",
+		"context": "On the PATTERN EDIT screen (or DEL + REVERSE to delete Pad Mute automation)",
+		"goal": "Clear unwanted filter sweeps or effect automation from a pattern while keeping all your recorded notes intact.",
+		"aliases": [
+			"clear automation",
+			"erase motion rec",
+			"delete fx motion",
+			"pad mute motion erase"
+		],
+		"sources": ["Roland Manual"],
+		"citation": {
+			"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+			"page": 162,
+			"quote": "Deletes the effect operations recorded using EFX MOTION REC from a"
+		}
 	}
 ]
