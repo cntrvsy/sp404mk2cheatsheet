@@ -54,7 +54,7 @@
 		width: 100%;
 		max-width: 1360px;
 		margin-inline: auto;
-		padding-inline: clamp(0.85rem, 3vw, 2rem);
+		padding-inline: clamp(0.45rem, 2.5vw, 2rem);
 	}
 
 	:global(.visually-hidden:where(:not(:focus-within, :active))) {

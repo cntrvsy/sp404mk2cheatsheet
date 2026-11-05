@@ -27,6 +27,8 @@
 		highlightedButtons.includes('BANK D/I') && highlightedButtons.includes('BANK E/J')
 	);
 
+	let isThumbZoom = $state(false);
+
 	// Zone 1 (Top): 4 Rotary Knobs (VOLUME, CTRL 1, CTRL 2, CTRL 3)
 	const topKnobs = [
 		{ id: 'VOLUME', label: 'VOLUME', sub: 'MIN / MAX' },
@@ -127,11 +129,26 @@
 	class="faceplate"
 	class:faceplate--shift={isShiftActive}
 	class:faceplate--dj={isDjModeActive}
+	class:faceplate--thumb-zoom={isThumbZoom}
 	aria-label="Interactive SP-404MKII Hardware Panel"
 >
 	<div class="faceplate__branding">
-		<span class="brand-roland">Roland</span>
-		<span class="brand-model">SP-404MKII</span>
+		<div class="brand-identity">
+			<span class="brand-roland">Roland</span>
+			<span class="brand-model">SP-404MKII</span>
+		</div>
+		<button
+			type="button"
+			class="layout-mode-btn"
+			class:layout-mode-btn--active={isThumbZoom}
+			aria-pressed={isThumbZoom}
+			onclick={() => (isThumbZoom = !isThumbZoom)}
+			title={isThumbZoom
+				? 'Return to 1:1 hardware layout'
+				: 'Expand middle section for easier thumb tapping'}
+		>
+			{isThumbZoom ? '1:1 Hardware' : 'Thumbs Mode'}
+		</button>
 	</div>
 
 	<!-- Zone 1 (Top): 4 Rotary Knobs (VOLUME, CTRL 1, CTRL 2, CTRL 3) -->
@@ -462,8 +479,8 @@
 		inline-size: 100%;
 		display: flex;
 		flex-direction: column;
-		gap: 0.65rem;
-		padding: clamp(0.7rem, 2.5vw, 1rem);
+		gap: clamp(0.45rem, 1.8vw, 0.65rem);
+		padding: clamp(0.45rem, 2.2vw, 1rem);
 		background: #13161c;
 		border: 1px solid #262b36;
 		border-radius: 0.85rem;
@@ -473,18 +490,24 @@
 
 	@supports (font-size: 1cqi) {
 		.faceplate {
-			padding: clamp(0.65rem, 2.8cqi, 1rem);
+			padding: clamp(0.42rem, 2.4cqi, 1rem);
 		}
 	}
 
 	.faceplate__branding {
 		display: flex;
 		flex-wrap: wrap;
-		align-items: baseline;
+		align-items: center;
 		justify-content: space-between;
 		gap: 0.35rem 0.5rem;
 		padding-bottom: 0.35rem;
 		border-bottom: 1px solid #222731;
+	}
+
+	.brand-identity {
+		display: flex;
+		align-items: baseline;
+		gap: 0.45rem;
 	}
 
 	.brand-roland {
@@ -500,6 +523,34 @@
 		font-weight: 900;
 		letter-spacing: 0.08em;
 		color: #e2e8f0;
+	}
+
+	.layout-mode-btn {
+		padding: 0.16rem 0.5rem;
+		font-size: 0.56rem;
+		font-weight: 700;
+		color: #94a3b8;
+		background: #1a1e26;
+		border: 1px solid #2e3543;
+		border-radius: 999px;
+		cursor: pointer;
+		margin: 0;
+		line-height: 1.2;
+		transition:
+			color 0.12s ease,
+			border-color 0.12s ease,
+			background-color 0.12s ease;
+	}
+
+	.layout-mode-btn:hover:not(:disabled) {
+		color: #e2e8f0;
+		border-color: #64748b;
+	}
+
+	.layout-mode-btn--active {
+		background: rgba(234, 88, 12, 0.18);
+		color: #fdba74;
+		border-color: #f97316;
 	}
 
 	/* Zone 1 (Top): 4 Knobs (VOLUME, CTRL 1, CTRL 2, CTRL 3) */
@@ -611,29 +662,40 @@
 		line-height: 1.1;
 	}
 
-	/* Zone 2 (Upper-Mid): Direct FX + Circular OLED Display Bezel */
+	/* Zone 2 (Upper-Mid): Direct FX + Circular OLED Display Bezel (1:1 Hardware Geometry by default) */
 	.zone-fx-display {
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: 0.45rem;
+		grid-template-columns: 1fr 1.38fr 1fr;
+		gap: clamp(0.25rem, 1.4cqi, 0.45rem);
 		align-items: center;
 	}
 
 	.fx-column {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 0.35rem;
+		display: flex;
+		flex-direction: column;
+		gap: clamp(0.24rem, 1.2cqi, 0.35rem);
 		min-inline-size: 0;
+	}
+
+	.fx-column--left .hw-btn--fx-top,
+	.fx-column--left .hw-btn--fx-bot {
+		margin-inline-end: -0.15rem;
+	}
+
+	.fx-column--right .hw-btn--fx-top,
+	.fx-column--right .hw-btn--fx-bot {
+		margin-inline-start: -0.15rem;
 	}
 
 	.oled-bezel {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0.55rem;
+		padding: clamp(0.38rem, 2cqi, 0.7rem);
 		background: #0f1117;
 		border: 1.5px solid #262b36;
-		border-radius: 1.1rem;
+		border-radius: 999px;
+		aspect-ratio: 1.05 / 1;
 	}
 
 	.oled-screen {
@@ -719,11 +781,11 @@
 		width: auto;
 	}
 
-	/* Zone 3 (Middle): 3 Function Rows + VALUE Encoder */
+	/* Zone 3 (Middle): 3 Function Rows + VALUE Encoder (1:1 Hardware Geometry by default) */
 	.zone-functions {
 		display: flex;
 		flex-direction: column;
-		gap: 0.45rem;
+		gap: clamp(0.32rem, 1.4cqi, 0.45rem);
 		padding-top: 0.25rem;
 		border-top: 1px solid #1f2430;
 	}
@@ -732,9 +794,20 @@
 	.fn-row-2,
 	.fn-row-3 {
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: 0.35rem;
+		gap: clamp(0.2rem, 1.1cqi, 0.35rem);
 		align-items: end;
+	}
+
+	.fn-row-1 {
+		grid-template-columns: 3fr 3fr 1.2fr;
+	}
+
+	.fn-row-2 {
+		grid-template-columns: 3fr 5fr;
+	}
+
+	.fn-row-3 {
+		grid-template-columns: 3fr 6fr;
 	}
 
 	.fn-group {
@@ -798,7 +871,7 @@
 
 	.fn-group__grid {
 		display: grid;
-		gap: 0.3rem;
+		gap: clamp(0.16rem, 0.9cqi, 0.3rem);
 	}
 
 	.fn-group__grid--3 {
@@ -819,7 +892,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		padding: 0.3rem 0.18rem;
+		padding: clamp(0.18rem, 0.8cqi, 0.3rem) clamp(0.06rem, 0.5cqi, 0.18rem);
 		margin: 0;
 		background: #1c2029;
 		color: #e2e8f0;
@@ -828,7 +901,7 @@
 		box-shadow: 0 2px 0 #0b0d12;
 		cursor: pointer;
 		text-align: center;
-		min-block-size: 2.2rem;
+		min-block-size: 2.15rem;
 		min-inline-size: 0;
 		transition:
 			transform 0.08s ease,
@@ -843,15 +916,15 @@
 
 	.hw-btn--fx {
 		flex-direction: row;
-		gap: 0.25rem;
-		min-block-size: 1.95rem;
+		gap: clamp(0.14rem, 0.7cqi, 0.25rem);
+		min-block-size: 1.9rem;
 		border-radius: 999px;
-		padding-inline: 0.4rem;
+		padding-inline: clamp(0.22rem, 1.1cqi, 0.4rem);
 	}
 
 	.hw-btn__led {
-		width: 0.35rem;
-		height: 0.35rem;
+		width: 0.32rem;
+		height: 0.32rem;
 		border-radius: 50%;
 		background: #384152;
 		flex-shrink: 0;
@@ -862,15 +935,16 @@
 	}
 
 	.hw-btn__label {
-		font-size: clamp(0.52rem, 1.55vw, 0.6rem);
+		font-size: clamp(0.42rem, 1.55vw, 0.58rem);
 		font-weight: 700;
-		line-height: 1.12;
-		letter-spacing: 0.01em;
+		line-height: 1.08;
+		letter-spacing: -0.01em;
+		overflow-wrap: break-word;
 	}
 
 	@supports (font-size: 1cqi) {
 		.hw-btn__label {
-			font-size: clamp(0.52rem, 1.5cqi, 0.6rem);
+			font-size: clamp(0.41rem, 1.5cqi, 0.58rem);
 		}
 	}
 
@@ -1107,114 +1181,65 @@
 		color: #fdba74;
 	}
 
-	/* Fallback media query for wider viewports */
-	@media (min-width: 540px) {
-		.zone-fx-display {
-			grid-template-columns: 1fr 1.45fr 1fr;
-		}
-
-		.fx-column {
-			display: flex;
-			flex-direction: column;
-		}
-
-		.oled-bezel {
-			border-radius: 999px;
-			aspect-ratio: 1 / 1;
-			padding: 0.85rem;
-		}
-
-		.fn-row-1 {
-			grid-template-columns: 3fr 3fr 1.25fr;
-		}
-
-		.fn-row-2 {
-			grid-template-columns: 3fr 5fr;
-		}
-
-		.fn-row-3 {
-			grid-template-columns: 3fr 6fr;
-		}
+	/* Optional Thumb Zoom Mode: expands FX and Middle Function rows into full-width thumb-friendly rows */
+	.faceplate--thumb-zoom .zone-fx-display {
+		grid-template-columns: 1fr;
+		gap: 0.45rem;
 	}
 
-	/* Size-aware container query rules */
-	@supports (container-type: inline-size) {
-		@media (min-width: 540px) {
-			.zone-fx-display {
-				grid-template-columns: 1fr;
-			}
+	.faceplate--thumb-zoom .fx-column {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.35rem;
+	}
 
-			.fx-column {
-				display: grid;
-				grid-template-columns: repeat(3, minmax(0, 1fr));
-			}
+	.faceplate--thumb-zoom .fx-column--left .hw-btn--fx-top,
+	.faceplate--thumb-zoom .fx-column--left .hw-btn--fx-bot,
+	.faceplate--thumb-zoom .fx-column--right .hw-btn--fx-top,
+	.faceplate--thumb-zoom .fx-column--right .hw-btn--fx-bot {
+		margin-inline: 0;
+	}
 
-			.oled-bezel {
-				border-radius: 1.1rem;
-				aspect-ratio: auto;
-				padding: 0.55rem;
-			}
+	.faceplate--thumb-zoom .oled-bezel {
+		border-radius: 1rem;
+		aspect-ratio: auto;
+		padding: 0.55rem;
+	}
 
-			.fn-row-1,
-			.fn-row-2,
-			.fn-row-3 {
-				grid-template-columns: 1fr;
-			}
-		}
+	.faceplate--thumb-zoom .fn-row-1,
+	.faceplate--thumb-zoom .fn-row-2,
+	.faceplate--thumb-zoom .fn-row-3 {
+		grid-template-columns: 1fr;
+		gap: 0.4rem;
+	}
 
-		@container faceplate (min-width: 355px) {
-			.zone-fx-display {
-				grid-template-columns: 1fr 1.4fr 1fr;
-			}
+	.faceplate--thumb-zoom .fn-group__grid {
+		gap: 0.32rem;
+	}
 
-			.fx-column {
-				display: flex;
-				flex-direction: column;
-			}
+	.faceplate--thumb-zoom .hw-btn {
+		min-block-size: 2.65rem;
+		padding: 0.32rem 0.22rem;
+	}
 
-			.fx-column--left .hw-btn--fx-top,
-			.fx-column--left .hw-btn--fx-bot {
-				margin-inline-end: -0.2rem;
-			}
-
-			.fx-column--right .hw-btn--fx-top,
-			.fx-column--right .hw-btn--fx-bot {
-				margin-inline-start: -0.2rem;
-			}
-
-			.oled-bezel {
-				border-radius: 999px;
-				aspect-ratio: 1.05 / 1;
-				padding: 0.65rem;
-			}
-
-			.fn-row-1 {
-				grid-template-columns: 3fr 3fr 1.25fr;
-			}
-
-			.fn-row-2 {
-				grid-template-columns: 3fr 5fr;
-			}
-
-			.fn-row-3 {
-				grid-template-columns: 3fr 6fr;
-			}
-		}
+	.faceplate--thumb-zoom .hw-btn__label {
+		font-size: 0.58rem;
 	}
 
 	@media (pointer: coarse) {
 		.hw-btn {
-			min-block-size: 2.55rem;
+			min-block-size: 2.35rem;
 		}
 
 		.hw-btn--fx {
-			min-block-size: 2.2rem;
+			min-block-size: 2.05rem;
 		}
 
 		.any-pad-btn,
-		.oled-clear-btn {
-			min-block-size: 2rem;
-			padding-inline: 0.65rem;
+		.oled-clear-btn,
+		.layout-mode-btn {
+			min-block-size: 1.9rem;
+			padding-inline: 0.6rem;
 		}
 	}
 </style>
