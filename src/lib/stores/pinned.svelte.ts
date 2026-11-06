@@ -43,6 +43,12 @@ class PinnedStore {
 		this.save();
 	}
 
+	addMany(ids: string[]) {
+		const set = new Set([...this.ids, ...ids]);
+		this.ids = Array.from(set);
+		this.save();
+	}
+
 	clear() {
 		this.ids = [];
 		this.save();

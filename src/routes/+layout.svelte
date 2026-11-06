@@ -100,7 +100,7 @@
 		<!-- Left: Instrument Identity -->
 		<div class="brand-group">
 			<a href={resolve('/')} class="brand-badge" aria-label="Roland SP-404MKII Cheat Sheet home">
-				<span class="brand-badge__accent">404</span>
+				<img src={asset('icon.svg')} alt="404" width="24" height="24" />
 			</a>
 			<div class="brand-text">
 				<div class="brand-title-row">
@@ -485,14 +485,6 @@
 	.brand-badge:hover {
 		border-color: #ea580c;
 	}
-
-	.brand-badge__accent {
-		color: #ea580c;
-		font-weight: 900;
-		font-size: 0.76rem;
-		letter-spacing: -0.04em;
-	}
-
 	.brand-title-row {
 		display: flex;
 		align-items: baseline;

@@ -16,7 +16,7 @@
 	import Keycap from '#lib/components/Keycap.svelte';
 	import { pinnedStore } from '#lib/stores/pinned.svelte.js';
 	import { uiStore } from '#lib/stores/ui.svelte.js';
-	import { Star, Printer, SlidersHorizontal } from '@lucide/svelte';
+	import { Star, Printer, SlidersHorizontal, Plus, Sparkles } from '@lucide/svelte';
 
 	const tips = rawTips as Tip[];
 	const aliasesMap = rawAliases as TipAliasesMap;
@@ -104,6 +104,68 @@
 
 		return list;
 	});
+
+	// In "My Sheet" view: when searching or filtering, also find matching unpinned tips from master library
+	const availableUnpinnedTips = $derived.by(() => {
+		if (!isPinnedView) return [];
+		const q = searchQuery.trim();
+		const isFiltering =
+			q.length > 0 ||
+			selectedCategory !== 'ALL' ||
+			selectedTier !== 'ALL' ||
+			activeButtons.length > 0;
+
+		if (!isFiltering) return [];
+
+		let list = tips.filter((t) => !pinnedStore.has(t.id));
+
+		if (q.length > 0) {
+			const rawResults = miniSearch.search(q);
+			const topScore = rawResults[0]?.score ?? 0;
+			const results = rawResults.filter((r) => r.score >= topScore * 0.3);
+			const matchedIds = new Map(results.map((r, index) => [r.id as string, index]));
+			list = list
+				.filter((t) => matchedIds.has(t.id))
+				.sort((a, b) => (matchedIds.get(a.id) ?? 0) - (matchedIds.get(b.id) ?? 0));
+		}
+
+		if (selectedCategory !== 'ALL') {
+			list = list.filter((t) => t.category === selectedCategory);
+		}
+
+		if (selectedTier !== 'ALL') {
+			list = list.filter((t) => t.tier === selectedTier);
+		}
+
+		if (activeButtons.length > 0) {
+			list = list.filter((tip) =>
+				activeButtons.every((selectedBtn) => matchesTipButton(tip.buttons, selectedBtn))
+			);
+			if (q.length === 0) {
+				list = [...list].sort((a, b) => a.buttons.length - b.buttons.length);
+			}
+		}
+
+		return list;
+	});
+
+	function addStarterPack(type: 'essentials' | 'chop' | 'fx') {
+		let ids: string[] = [];
+		if (type === 'essentials') {
+			ids = tips
+				.filter((t) => t.tier === 'essential')
+				.slice(0, 12)
+				.map((t) => t.id);
+		} else if (type === 'chop') {
+			ids = tips.filter((t) => t.category === 'Sample Edit & Chop').map((t) => t.id);
+		} else if (type === 'fx') {
+			ids = tips
+				.filter((t) => t.category === 'FX & Routing')
+				.slice(0, 8)
+				.map((t) => t.id);
+		}
+		pinnedStore.addMany(ids);
+	}
 
 	const isGroupedByCategory = $derived(
 		selectedCategory === 'ALL' &&
@@ -250,7 +312,9 @@
 			<input
 				id="shortcut-search"
 				type="search"
-				placeholder="Search shortcuts (e.g. 'stems', 'choke', 'one shot', 'tr-rec', 'dj mode')..."
+				placeholder={isPinnedView
+					? "Search to filter or add to your sheet (e.g. 'stems', 'resample', 'vinyl sim')..."
+					: "Search shortcuts (e.g. 'stems', 'choke', 'one shot', 'tr-rec', 'dj mode')..."}
 				bind:value={searchQuery}
 				autocomplete="off"
 			/>
@@ -451,31 +515,64 @@
 			</div>
 
 			{#if filteredTips.length === 0}
-				<div class="empty-state">
-					<h3>No matching shortcuts found</h3>
-					<p>
-						{#if isPinnedView && pinnedStore.ids.length === 0}
-							Your studio sheet is currently empty. Click the <strong>Pin</strong> button on any card
-							in the cheat sheet to pin your favorite shortcuts here, then print or export a clean 1-page
-							PDF for your desk!
-						{:else}
+				{#if isPinnedView && availableUnpinnedTips.length > 0}
+					<div class="empty-pinned-notice">
+						<p>
+							None of your currently pinned shortcuts match this filter. Showing <strong
+								>{availableUnpinnedTips.length}</strong
+							>
+							available shortcuts below from the master library that you can add:
+						</p>
+					</div>
+				{:else if isPinnedView && pinnedStore.ids.length === 0}
+					<div class="empty-state empty-state--mysheet">
+						<div class="starter-badge">
+							<Sparkles size={20} class="starter-badge-icon" />
+						</div>
+						<h3>Your Custom Studio Sheet is Empty</h3>
+						<p>
+							Build your personal desk reference. Search any workflow above (e.g. <em>"stems"</em>,
+							<em>"resample"</em>, <em>"vinyl sim"</em>) to add shortcuts, or pick a starter kit:
+						</p>
+						<div class="starter-kits-row">
+							<button
+								type="button"
+								class="starter-kit-btn"
+								onclick={() => addStarterPack('essentials')}
+							>
+								<Plus size={14} />
+								<span>Add 12 Essentials</span>
+							</button>
+							<button type="button" class="starter-kit-btn" onclick={() => addStarterPack('chop')}>
+								<Plus size={14} />
+								<span>Sample Edit & Chop (6)</span>
+							</button>
+							<button type="button" class="starter-kit-btn" onclick={() => addStarterPack('fx')}>
+								<Plus size={14} />
+								<span>FX & Routing (8)</span>
+							</button>
+						</div>
+						<div class="starter-browse-row">
+							<button
+								type="button"
+								class="tool-btn tool-btn--accent"
+								onclick={() => uiStore.setViewMode('all')}
+							>
+								Browse All 101 Shortcuts
+							</button>
+						</div>
+					</div>
+				{:else}
+					<div class="empty-state">
+						<h3>No matching shortcuts found</h3>
+						<p>
 							Try removing one of the selected faceplate buttons or broadening your search term.
-						{/if}
-					</p>
-					{#if isPinnedView && pinnedStore.ids.length === 0}
-						<button
-							type="button"
-							class="tool-btn tool-btn--accent"
-							onclick={() => uiStore.setViewMode('all')}
-						>
-							Browse All 101 Shortcuts
-						</button>
-					{:else}
+						</p>
 						<button type="button" class="tool-btn" onclick={clearAllFilters}>
 							Reset Filters
 						</button>
-					{/if}
-				</div>
+					</div>
+				{/if}
 			{:else if isGroupedByCategory}
 				<div class="category-sections">
 					{#each groupedSections as section (section.category)}
@@ -526,6 +623,44 @@
 						</li>
 					{/each}
 				</ul>
+			{/if}
+
+			{#if isPinnedView && availableUnpinnedTips.length > 0}
+				<section class="unpinned-section" aria-label="Available shortcuts from master library">
+					<div class="unpinned-section__header">
+						<div class="unpinned-title-group">
+							<Plus size={16} class="unpinned-icon" />
+							<div>
+								<h3 class="unpinned-title">
+									Available in Master Library ({availableUnpinnedTips.length})
+								</h3>
+								<p class="unpinned-subtitle">
+									Matching shortcuts not yet in your sheet. Click the <strong>Star</strong> on any card
+									to add it.
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<ul class="tips-grid" role="list">
+						{#each availableUnpinnedTips as tip (tip.id)}
+							<li>
+								<TipCard
+									{tip}
+									isPinned={pinnedStore.has(tip.id)}
+									isSelected={selectedTipId === tip.id}
+									{activeButtons}
+									hideCategoryBadge={false}
+									onTogglePin={(id) => pinnedStore.toggle(id)}
+									onSelectTip={toggleSelectTip}
+									onSelectCategory={(cat) => {
+										selectedCategory = selectedCategory === cat ? 'ALL' : cat;
+									}}
+								/>
+							</li>
+						{/each}
+					</ul>
+				</section>
 			{/if}
 		</section>
 	</div>
@@ -997,6 +1132,121 @@
 		margin-inline: auto;
 	}
 
+	/* Empty State & Starter Kits */
+	.empty-state--mysheet {
+		background: linear-gradient(180deg, #13161c 0%, #161a23 100%);
+		border: 1px solid #2a3344;
+		padding: 2.25rem 1.5rem;
+	}
+
+	.starter-badge {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: 50%;
+		background: rgba(234, 88, 12, 0.12);
+		border: 1px solid rgba(234, 88, 12, 0.3);
+		margin-bottom: 0.75rem;
+	}
+
+	:global(.starter-badge-icon) {
+		color: #f97316;
+	}
+
+	.starter-kits-row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 0.6rem;
+		margin-top: 1.25rem;
+		margin-bottom: 1rem;
+	}
+
+	.starter-kit-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.38rem;
+		padding: 0.45rem 0.85rem;
+		font-size: 0.78rem;
+		font-weight: 700;
+		color: #fdba74;
+		background: #1b202a;
+		border: 1px solid rgba(234, 88, 12, 0.35);
+		border-radius: 0.45rem;
+		cursor: pointer;
+		transition: all 0.15s ease;
+	}
+
+	.starter-kit-btn:hover {
+		background: rgba(234, 88, 12, 0.18);
+		border-color: #ea580c;
+		color: #ffffff;
+		transform: translateY(-1px);
+	}
+
+	.starter-browse-row {
+		margin-top: 0.5rem;
+	}
+
+	.empty-pinned-notice {
+		background: #151921;
+		border: 1px solid #252d3d;
+		border-radius: 0.5rem;
+		padding: 0.75rem 1rem;
+		margin-bottom: 1.25rem;
+		font-size: 0.82rem;
+		color: #94a3b8;
+		line-height: 1.4;
+	}
+
+	.empty-pinned-notice strong {
+		color: #f1f5f9;
+	}
+
+	/* Unpinned "Available in Master Library" Section */
+	.unpinned-section {
+		margin-top: 2rem;
+		padding-top: 1.5rem;
+		border-top: 1px dashed #262e3d;
+	}
+
+	.unpinned-section__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		margin-bottom: 1rem;
+	}
+
+	.unpinned-title-group {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.6rem;
+	}
+
+	:global(.unpinned-icon) {
+		color: #ea580c;
+		margin-top: 0.2rem;
+		flex-shrink: 0;
+	}
+
+	.unpinned-title {
+		margin: 0;
+		font-size: 0.95rem;
+		font-weight: 800;
+		color: #f1f5f9;
+		letter-spacing: 0.01em;
+	}
+
+	.unpinned-subtitle {
+		margin: 0.15rem 0 0 0;
+		font-size: 0.76rem;
+		color: #94a3b8;
+	}
+
 	@media (pointer: coarse) {
 		.tool-btn {
 			min-block-size: 2.35rem;
@@ -1023,7 +1273,9 @@
 		.results-header,
 		.mysheet-banner,
 		.modal-backdrop,
-		.empty-state {
+		.empty-state,
+		.empty-pinned-notice,
+		.unpinned-section {
 			display: none !important;
 		}
 
