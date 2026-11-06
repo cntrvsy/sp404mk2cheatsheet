@@ -85,4 +85,13 @@
 			padding-inline: 0.65rem;
 		}
 	}
+
+	@media print {
+		.keycap {
+			background: #f1f5f9 !important;
+			color: #0f172a !important;
+			border: 1px solid #475569 !important;
+			box-shadow: none !important;
+		}
+	}
 </style>

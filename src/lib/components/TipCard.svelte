@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { isComboTokenActive, type Tip } from '#lib/types.js';
+	import { Star, TriangleAlert } from '@lucide/svelte';
 	import Keycap from './Keycap.svelte';
 
 	interface Props {
@@ -73,7 +74,7 @@
 				aria-label="Pin {tip.action} to My Sheet"
 				onclick={() => onTogglePin(tip.id)}
 			>
-				<span aria-hidden="true">{isPinned ? '★' : '☆'}</span>
+				<Star size={14} class={isPinned ? 'star-icon star-icon--filled' : 'star-icon'} />
 				<span class="pin-btn__text">{isPinned ? 'Pinned' : 'Pin'}</span>
 			</button>
 		</header>
@@ -84,7 +85,7 @@
 
 		{#if tip.caveat && isSelected}
 			<p class="tip-card__caveat">
-				<span class="tip-card__caveat-icon" aria-hidden="true">⚠️</span>
+				<TriangleAlert size={14} class="tip-card__caveat-icon" />
 				<span>{tip.caveat}</span>
 			</p>
 		{/if}
@@ -99,7 +100,10 @@
 				Roland v5.50 · p. {tip.citation.page}
 			</span>
 			{#if tip.caveat && !isSelected}
-				<span class="caveat-indicator" title={tip.caveat}>⚠️ Note</span>
+				<span class="caveat-indicator" title={tip.caveat}>
+					<TriangleAlert size={12} />
+					<span>Note</span>
+				</span>
 			{/if}
 			{#if tip.context}
 				<span class="context-tag">{tip.context}</span>
@@ -217,8 +221,8 @@
 		display: inline-flex;
 		align-items: center;
 		flex-shrink: 0;
-		gap: 0.25rem;
-		padding: 0.18rem 0.45rem;
+		gap: 0.3rem;
+		padding: 0.2rem 0.5rem;
 		font-size: 0.72rem;
 		font-weight: 600;
 		color: #64748b;
@@ -228,6 +232,10 @@
 		cursor: pointer;
 		margin: 0;
 		width: auto;
+	}
+
+	:global(.star-icon--filled) {
+		fill: currentColor;
 	}
 
 	.pin-btn:hover:not(:disabled) {
@@ -260,9 +268,9 @@
 	.tip-card__caveat {
 		display: flex;
 		align-items: flex-start;
-		gap: 0.35rem;
+		gap: 0.45rem;
 		margin: 0.05rem 0 0;
-		padding: 0.35rem 0.5rem;
+		padding: 0.4rem 0.55rem;
 		font-size: 0.76rem;
 		line-height: 1.38;
 		color: #fde68a;
@@ -271,10 +279,10 @@
 		border-radius: 0.25rem;
 	}
 
-	.tip-card__caveat-icon {
+	:global(.tip-card__caveat-icon) {
 		flex-shrink: 0;
-		font-size: 0.74rem;
-		line-height: 1.35;
+		color: #f59e0b;
+		margin-top: 0.1rem;
 	}
 
 	.tip-card__meta {
@@ -286,12 +294,15 @@
 	}
 
 	.caveat-indicator {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
 		padding: 0.1rem 0.4rem;
 		font-size: 0.64rem;
 		font-weight: 600;
-		color: #cbd5e1;
-		background: #1a1e26;
-		border: 1px solid #2e3543;
+		color: #fbbf24;
+		background: rgba(245, 158, 11, 0.1);
+		border: 1px solid rgba(245, 158, 11, 0.25);
 		border-radius: 0.25rem;
 	}
 
@@ -373,20 +384,41 @@
 		.tip-card {
 			background: #ffffff !important;
 			color: #000000 !important;
-			border: 1px solid #94a3b8 !important;
+			border: 1px solid #cbd5e1 !important;
+			box-shadow: none !important;
 			break-inside: avoid;
-			padding: 0.6rem !important;
-			gap: 0.3rem !important;
+			page-break-inside: avoid;
+			padding: 0.65rem 0.75rem !important;
+			gap: 0.35rem !important;
 		}
 
-		.tip-card__action,
-		.tip-card__goal,
+		.tip-card__action {
+			color: #0f172a !important;
+			font-size: 0.88rem !important;
+		}
+
+		.tip-card__goal {
+			color: #334155 !important;
+			font-size: 0.78rem !important;
+			line-height: 1.4 !important;
+		}
+
 		.tip-card__steps ol {
 			color: #000000 !important;
 		}
 
-		.pin-btn {
+		.tip-card__meta,
+		.pin-btn,
+		.tip-card__steps summary {
 			display: none !important;
+		}
+
+		.tip-card__caveat {
+			background: #fefce8 !important;
+			border: 1px solid #fde047 !important;
+			color: #713f12 !important;
+			font-size: 0.74rem !important;
+			padding: 0.35rem 0.5rem !important;
 		}
 	}
 </style>

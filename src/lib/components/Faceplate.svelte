@@ -1,4 +1,25 @@
 <script lang="ts">
+	/**
+	 * @file Faceplate.svelte
+	 * @description Interactive Hardware Faceplate Controller & Visualizer
+	 *
+	 * This component renders the physical instrument chassis and manages the bidirectional
+	 * hardware interaction:
+	 * 1. Hardware -> Cards (Active Filter): Clicking any knob, button, bank, or pad toggles
+	 *    its ID in `activeButtons`. The cards list filters in real-time to shortcuts that use it.
+	 * 2. Card -> Hardware (Inspector Highlight): Clicking a shortcut card sets `selectedTip`.
+	 *    The faceplate lights up the exact button combination and displays the combo in the
+	 *    circular OLED display.
+	 * 3. Spatial Muscle Memory: The faceplate maintains a 1:1 physical layout across all screen
+	 *    sizes (including phone viewports), with an optional `Thumb Zoom` toggle for thumb tapping.
+	 *
+	 * Adapting for Another Hardware Sampler (e.g. SP-303 or SP-404SX):
+	 * - Update the button data arrays (`topKnobs`, `leftFx`, `rightFx`, `fnRow1`, `pads`, etc.)
+	 *   to match the physical buttons and labels of the target machine.
+	 * - Update the pad grid dimensions (e.g. 2x4 for SP-303, 3x4 for SP-404SX, 4x4 for MKII).
+	 * - Replace or restyle the circular OLED display with the target device's screen (e.g. vintage
+	 *   orange 3-digit 7-segment LED for SP-303/404SX).
+	 */
 	import type { Tip } from '#lib/types.js';
 
 	interface Props {

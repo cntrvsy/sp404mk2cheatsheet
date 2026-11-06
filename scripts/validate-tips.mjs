@@ -1,3 +1,23 @@
+/**
+ * @file validate-tips.mjs
+ * @description Closed-Loop Verbatim Citation & Schema Validator
+ *
+ * This test suite guarantees the integrity of the cheatsheet:
+ * 1. Schema & Unique IDs: Ensures each tip has a kebab-case ID, valid category, and tier.
+ * 2. 1-to-1 Hardware Matching: Ensures `tip.buttons` strictly matches `tip.combo` tokens,
+ *    preventing false-positive highlights on the interactive Faceplate.
+ * 3. Verbatim Citation Verification: Reads the committed manual markdown under `docs/reference/`,
+ *    finds the `<!-- [Page N] -->` page anchor, and verifies that `citation.quote` appears
+ *    word-for-word in the manual.
+ * 4. Alias Anti-Bloat Bounds: Verifies 1:1 coverage in `src/lib/data/aliases.json` and ensures
+ *    no single alias is shared across >2 tips to prevent search dilution.
+ *
+ * Adapting for Another Device (e.g. SP-303 or SP-404SX):
+ * - Update `VALID_CATEGORIES` to match the target device's categories.
+ * - Update `VALID_BUTTON_IDS` with the target machine's hardware buttons (e.g. 8 pads instead of 16).
+ * - Update `comboTokenToButtons()` to parse machine-specific tokens (e.g. `[CANCEL] + [PAD]`).
+ */
+
 import fs from 'node:fs';
 import path from 'node:path';
 

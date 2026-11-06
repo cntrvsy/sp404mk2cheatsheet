@@ -1,3 +1,20 @@
+/**
+ * @file types.ts
+ * @description Central Data Contract & Hardware Mapping Schema
+ *
+ * This file defines the core interfaces and constants that connect:
+ * 1. The official documentation citations (doc, page, quote).
+ * 2. The cheat sheet tip entries (tips.json).
+ * 3. The colloquial search aliases (aliases.json).
+ * 4. The interactive hardware faceplate SVG/HTML components (Faceplate.svelte).
+ *
+ * If you are adapting this engine for another hardware sampler (e.g. Roland SP-303,
+ * SP-404SX, or an MPC/Elektron device):
+ * - Adjust `Category` and `CATEGORIES` to match the target device's workflow sections.
+ * - Adjust `BANK_BUTTON_IDS` and `DIRECT_FX_IDS` to match the target device's physical buttons.
+ * - Update `matchesTipButton()` and `isComboTokenActive()` for the target machine's button names.
+ */
+
 export type Category =
 	| 'Sample Playback'
 	| 'Pattern Sequencer'
