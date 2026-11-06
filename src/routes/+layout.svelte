@@ -4,8 +4,6 @@
 		Star,
 		Printer,
 		Download,
-		Check,
-		Wifi,
 		WifiOff,
 		Laptop,
 		Smartphone,
@@ -99,15 +97,20 @@
 
 <header class="site-header">
 	<div class="container header-inner">
+		<!-- Left: Instrument Identity -->
 		<div class="brand-group">
-			<div class="brand-badge" aria-hidden="true">404</div>
-			<div>
-				<h1 class="site-title">SP-404MKII Cheat Sheet</h1>
-				<p class="site-subtitle">Official Firmware v5.50 · 101 Verified Shortcuts</p>
+			<a href={resolve('/')} class="brand-badge" aria-label="Roland SP-404MKII Cheat Sheet home">
+				<span class="brand-badge__accent">404</span>
+			</a>
+			<div class="brand-text">
+				<div class="brand-title-row">
+					<span class="brand-model">SP-404MKII</span>
+					<span class="version-tag">v5.50</span>
+				</div>
 			</div>
 		</div>
 
-		<!-- Primary View Mode: Semantic Tablist (W3C Accessible) -->
+		<!-- Center: Recessed Hardware Segmented Control -->
 		<div class="view-tablist" role="tablist" aria-label="Cheat Sheet View Selection">
 			<button
 				type="button"
@@ -119,7 +122,8 @@
 				aria-controls="main-content"
 				onclick={() => uiStore.setViewMode('all')}
 			>
-				All Shortcuts
+				<span>All</span>
+				<span class="view-tab__count">101</span>
 			</button>
 
 			<button
@@ -133,67 +137,79 @@
 				onclick={() => uiStore.setViewMode('pinned')}
 			>
 				<Star
-					size={13}
+					size={12}
 					class={uiStore.viewMode === 'pinned' || pinnedStore.ids.length > 0
 						? 'star-icon star-icon--filled'
 						: 'star-icon'}
 				/>
 				<span>My Sheet</span>
-				<span class="view-tab__count">{pinnedStore.ids.length}</span>
+				{#if pinnedStore.ids.length > 0}
+					<span class="view-tab__count view-tab__count--active">{pinnedStore.ids.length}</span>
+				{/if}
 			</button>
 		</div>
 
-		<!-- Global Utility Actions -->
+		<!-- Right: Unified Studio Utilities & Status -->
 		<div class="header-utilities">
-			<!-- Offline / Studio Connection Indicator -->
+			<!-- Passive offline indicator: only appears if disconnected -->
 			{#if !pwaStore.isOnline}
-				<div class="status-pill status-pill--offline" title="Operating offline without network">
+				<div class="status-offline-pill" role="status" aria-label="Offline Mode">
 					<WifiOff size={13} />
 					<span>Offline</span>
 				</div>
-			{:else}
-				<div class="status-pill status-pill--ready" title="Installed and 100% available offline">
-					<Wifi size={13} />
-					<span>Offline Ready</span>
-				</div>
 			{/if}
 
+			<!-- Install / App Button -->
 			{#if !pwaStore.isInstalled}
 				<button
 					type="button"
-					class="header-action-btn header-action-btn--install"
+					class="studio-tool-btn"
 					onclick={() => pwaStore.promptInstall()}
 					aria-label="Install offline app for desktop or mobile"
-					title="Install as standalone offline app"
+					title="Get standalone offline app"
 				>
 					<Download size={14} />
-					<span>Get App</span>
+					<span class="btn-label-desktop">App</span>
 				</button>
-			{:else}
-				<div class="header-action-badge" title="Running as installed app">
-					<Check size={13} />
-					<span>Installed</span>
-				</div>
 			{/if}
 
+			<!-- Print / PDF Button -->
 			<button
 				type="button"
-				class="header-action-btn header-action-btn--primary"
+				class="studio-tool-btn"
 				onclick={() => uiStore.openPrintModal()}
 				aria-label="Print or Export cheat sheet to PDF"
+				title="Print or Save PDF"
 			>
 				<Printer size={14} />
-				<span>Print / PDF</span>
+				<span class="btn-label-desktop">PDF</span>
 			</button>
 
+			<!-- GitHub Source Link -->
 			<a
 				href="https://github.com/cntrvsy/sp404mk2cheatsheet"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="header-github-link"
-				aria-label="View SP-404MKII Cheat Sheet on GitHub"
+				class="studio-tool-btn studio-tool-btn--icon-only"
+				aria-label="View SP-404MKII Cheat Sheet source code on GitHub"
+				title="GitHub Repository"
 			>
-				GitHub
+				<svg
+					width="14"
+					height="14"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path
+						d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+					/>
+					<path d="M9 18c-4.51 2-5-2-7-2" />
+				</svg>
 			</a>
 		</div>
 	</div>
@@ -426,11 +442,11 @@
 		outline-offset: 2px;
 	}
 
-	/* Top Header Layout & Web Standards */
+	/* Top Header Layout & Pro Studio Hardware Bar */
 	.site-header {
-		background: #0f1218;
-		border-bottom: 1px solid #1e2430;
-		padding-block: 0.65rem;
+		background: #0d0f14;
+		border-bottom: 1px solid #1c222e;
+		padding-block: 0.5rem;
 		position: sticky;
 		top: 0;
 		z-index: 50;
@@ -438,171 +454,202 @@
 
 	.header-inner {
 		display: flex;
-		flex-wrap: wrap;
 		align-items: center;
 		justify-content: space-between;
-		gap: 0.75rem 1rem;
+		gap: 0.75rem;
+		min-height: 2.25rem;
 	}
 
+	/* Brand & Model Identity */
 	.brand-group {
 		display: flex;
 		align-items: center;
-		gap: 0.65rem;
-		min-inline-size: 0;
+		gap: 0.55rem;
+		text-decoration: none;
 	}
 
 	.brand-badge {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 2.25rem;
-		height: 2.25rem;
+		width: 1.85rem;
+		height: 1.85rem;
 		flex-shrink: 0;
-		border-radius: 0.45rem;
-		background: #1c2029;
-		border: 1px solid #363e4d;
-		color: #f8fafc;
+		border-radius: 0.35rem;
+		background: #141820;
+		border: 1px solid #2a3344;
+		text-decoration: none;
+		transition: border-color 0.15s ease;
+	}
+
+	.brand-badge:hover {
+		border-color: #ea580c;
+	}
+
+	.brand-badge__accent {
+		color: #ea580c;
 		font-weight: 900;
-		font-size: 0.82rem;
-		letter-spacing: -0.02em;
+		font-size: 0.76rem;
+		letter-spacing: -0.04em;
 	}
 
-	.site-title {
-		margin: 0;
-		font-size: clamp(1rem, 2.2vw, 1.15rem);
-		font-weight: 800;
-		color: #f8fafc;
-		line-height: 1.2;
+	.brand-title-row {
+		display: flex;
+		align-items: baseline;
+		gap: 0.4rem;
 	}
 
-	.site-subtitle {
-		margin: 0;
-		font-size: 0.74rem;
+	.brand-model {
+		font-size: 0.88rem;
+		font-weight: 900;
+		color: #f1f5f9;
+		letter-spacing: 0.04em;
+		line-height: 1;
+	}
+
+	.version-tag {
+		font-size: 0.62rem;
+		font-weight: 700;
 		color: #94a3b8;
+		background: #161b24;
+		border: 1px solid #252e3d;
+		padding: 0.1rem 0.35rem;
+		border-radius: 999px;
+		letter-spacing: 0.02em;
+		line-height: 1;
 	}
 
-	/* Semantic View Tablist (W3C Tab Pattern) */
+	/* Recessed Segmented Hardware Switcher */
 	.view-tablist {
 		display: inline-flex;
 		align-items: center;
-		background: #151820;
-		border: 1px solid #28303f;
-		border-radius: 0.5rem;
-		padding: 0.18rem;
-		gap: 0.2rem;
+		background: #090b0f;
+		border: 1px solid #1c222e;
+		border-radius: 999px;
+		padding: 0.15rem;
+		gap: 0.15rem;
+		box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
 	}
 
 	.view-tab {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.35rem;
-		padding: 0.35rem 0.75rem;
-		font-size: 0.78rem;
-		font-weight: 600;
+		padding: 0.28rem 0.65rem;
+		font-size: 0.74rem;
+		font-weight: 700;
 		color: #94a3b8;
 		background: transparent;
-		border: none;
-		border-radius: 0.38rem;
+		border: 1px solid transparent;
+		border-radius: 999px;
 		cursor: pointer;
-		transition: all 0.15s ease;
+		line-height: 1;
+		transition: all 0.12s ease;
 	}
 
 	.view-tab:hover:not(.view-tab--active) {
 		color: #e2e8f0;
-		background: rgba(255, 255, 255, 0.04);
+		background: rgba(255, 255, 255, 0.03);
 	}
 
 	.view-tab--active {
 		color: #ffffff;
-		background: #252c3a;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+		background: #1c222d;
+		border-color: #2e3849;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 	}
 
 	.view-tab__count {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0.05rem 0.38rem;
-		font-size: 0.68rem;
-		font-weight: 700;
+		padding: 0.08rem 0.35rem;
+		font-size: 0.64rem;
+		font-weight: 800;
 		border-radius: 999px;
-		background: #101319;
-		color: #cbd5e1;
+		background: #12151c;
+		color: #94a3b8;
+		line-height: 1;
 	}
 
 	.view-tab--active .view-tab__count {
-		background: #ea580c;
-		color: #ffffff;
+		background: #0d0f14;
+		color: #cbd5e1;
 	}
 
-	/* Global Utility Group */
+	.view-tab__count--active {
+		background: #ea580c !important;
+		color: #ffffff !important;
+	}
+
+	/* Studio Utilities */
 	.header-utilities {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 0.4rem;
 	}
 
-	.header-action-btn {
+	.status-offline-pill {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.35rem;
-		padding: 0.38rem 0.75rem;
-		font-size: 0.78rem;
+		gap: 0.3rem;
+		padding: 0.22rem 0.45rem;
+		font-size: 0.68rem;
 		font-weight: 700;
-		border-radius: 0.4rem;
-		cursor: pointer;
-		border: 1px solid transparent;
-		transition: all 0.15s ease;
+		border-radius: 999px;
+		background: rgba(239, 68, 68, 0.15);
+		border: 1px solid rgba(239, 68, 68, 0.4);
+		color: #f87171;
+		line-height: 1;
 	}
 
-	.header-action-btn--primary {
-		background: #ea580c;
-		border-color: #f97316;
-		color: #ffffff;
-	}
-
-	.header-action-btn--primary:hover {
-		background: #f97316;
-	}
-
-	.header-github-link {
+	.studio-tool-btn {
 		display: inline-flex;
 		align-items: center;
-		padding: 0.38rem 0.65rem;
-		font-size: 0.78rem;
-		font-weight: 600;
+		justify-content: center;
+		gap: 0.32rem;
+		height: 1.95rem;
+		padding: 0 0.55rem;
+		font-size: 0.74rem;
+		font-weight: 700;
 		color: #94a3b8;
-		background: #171b22;
-		border: 1px solid #2b3240;
-		border-radius: 0.4rem;
+		background: #13171f;
+		border: 1px solid #242c3b;
+		border-radius: 0.38rem;
+		cursor: pointer;
 		text-decoration: none;
-		transition: all 0.15s ease;
+		line-height: 1;
+		transition: all 0.12s ease;
 	}
 
-	.header-github-link:hover {
+	.studio-tool-btn:hover {
 		color: #ffffff;
-		border-color: #475569;
-		background: #1e2430;
+		background: #1c222d;
+		border-color: #3b4559;
+	}
+
+	.studio-tool-btn--icon-only {
+		width: 1.95rem;
+		padding: 0;
 	}
 
 	@media (max-width: 640px) {
-		.site-subtitle {
+		.brand-model {
 			display: none;
 		}
 
-		.header-inner {
-			justify-content: center;
+		.btn-label-desktop {
+			display: none;
 		}
 
-		.view-tablist {
-			order: 3;
-			width: 100%;
-			justify-content: center;
+		.studio-tool-btn {
+			width: 1.95rem;
+			padding: 0;
 		}
 
 		.view-tab {
-			flex: 1;
-			justify-content: center;
+			padding: 0.26rem 0.5rem;
+			font-size: 0.7rem;
 		}
 	}
 
@@ -665,56 +712,6 @@
 		font-size: 0.75rem;
 		color: #64748b;
 		line-height: 1.45;
-	}
-
-	/* Offline Status Pill & App Install Button */
-	.status-pill {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.32rem;
-		padding: 0.28rem 0.55rem;
-		font-size: 0.72rem;
-		font-weight: 700;
-		border-radius: 999px;
-		line-height: 1;
-		user-select: none;
-	}
-
-	.status-pill--ready {
-		background: rgba(34, 197, 94, 0.12);
-		border: 1px solid rgba(34, 197, 94, 0.3);
-		color: #4ade80;
-	}
-
-	.status-pill--offline {
-		background: rgba(239, 68, 68, 0.15);
-		border: 1px solid rgba(239, 68, 68, 0.4);
-		color: #f87171;
-	}
-
-	.header-action-btn--install {
-		background: #171c26;
-		border-color: #2e3849;
-		color: #cbd5e1;
-	}
-
-	.header-action-btn--install:hover {
-		background: #242c3b;
-		border-color: #64748b;
-		color: #ffffff;
-	}
-
-	.header-action-badge {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.3rem;
-		padding: 0.32rem 0.6rem;
-		font-size: 0.74rem;
-		font-weight: 700;
-		color: #4ade80;
-		background: rgba(34, 197, 94, 0.08);
-		border: 1px solid rgba(34, 197, 94, 0.25);
-		border-radius: 0.4rem;
 	}
 
 	/* PWA Install Modal */
