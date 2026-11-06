@@ -1,208 +1,73 @@
 # Roland SP-404MKII Interactive Cheat Sheet
 
-A fast, visual, interactive shortcut finder and workflow companion for the **Roland SP-404MKII** (Official Firmware v5.50).
+A fast, visual shortcut finder and hardware companion for the **Roland SP-404MKII** (Firmware v5.50), built with SvelteKit and TypeScript.
 
-> **Philosophy:** This site is **not** meant to replace the 175-page Roland Reference Manual. Instead, it bridges the gap between YouTube tutorials and the official documentation—giving you a single, scannable source of foundational controls, hidden sub-mode shortcuts, and critical hardware `NOTE`/`MEMO` caveats, 100% verified against the official Roland SP-404MKII Reference Manual (v5.50).
-
----
-
-## Key Features
-
-- **Bidirectional Hardware Faceplate ↔ Card Highlighting:**
-  - **Hardware → Cards:** Click any knob, FX button, function button, bank, or pad on the interactive SP-404MKII faceplate to filter the cheat sheet down to every shortcut that uses that control (sorted from single-button fundamentals to multi-button combos).
-  - **Card → Hardware:** Click any shortcut card to light up its exact button combination on the faceplate and preview the combo inside the circular OLED display without losing your current card list.
-- **1:1 Hardware Muscle Memory + Mobile Thumb Zoom:** Preserves the exact 1:1 physical row/column geometry of the SP-404MKII across desktop and mobile screens (including iPhone SE), with an instant `🔍 Thumb Zoom` toggle for expanded touch targets.
-- **Essentials vs. Deep Dive Filtering & Progressive `⚠️ Note` Callouts:** Filter between everyday foundational controls (`Essentials`) and B-tier sub-mode workflows (`Deep Dive`). Cards with hardware caveats display a subtle `⚠️ Note` indicator at first glance and expand the full warning when clicked.
-- **High-Precision DAW / MPC / Slang Search (`src/lib/data/aliases.json`):** A dedicated Rosetta Stone maps cross-gear terminology from MPC, Ableton, FL Studio, Elektron, and Koala (e.g., _"one shot"_, _"full level"_, _"16 levels"_, _"choke group"_, _"p-lock"_, _"fx send"_, _"lazy chop"_) directly to specific `tip.id`s without cluttering the card UI or flooding search results.
-- **My Sheet Studio Builder & Print to PDF:** Pin your personal go-to shortcuts into a custom studio sheet and export/print a clean, ink-optimized 1–2 page PDF formatted specifically for your physical desk setup.
+🔗 **Live Tool:** [frstudios.co.ke](https://frstudios.co.ke)
 
 ---
 
-## License & Attribution
+## Features
 
-- Built with ❤️ by **[frstudios](https://frstudios.co.ke)**.
-- Repository: **[github.com/cntrvsy/sp404mk2cheatsheet](https://github.com/cntrvsy/sp404mk2cheatsheet)**.
-- Released under the **[MIT License](./LICENSE)**.
-- _Disclaimer:_ Roland and SP-404MKII are registered trademarks of Roland Corporation. This project is an independent educational tool verified against the official Roland v5.50 Reference Manual.
-
----
-
-## Committed Reference Corpus (`docs/reference/roland-v550/`)
-
-To avoid unverified hearsay or custom-ROM drift, public crowd-sourced submissions are retired. Every shortcut in the app is backed by the committed Markdown extraction of the **[Official Roland SP-404MKII Reference Manual (v5.50)](./docs/reference/roland-v550/INDEX.md)**:
-
-- Extracted into 12 chapter Markdown files with `<!-- [Page N] -->` anchors preserved on every page boundary.
-- Includes the complete **[List of Shortcut Keys (Pages 160–164)](./docs/reference/roland-v550/11-appendix-shortcut-keys.md)** and **[Auto-Extracted Shortcuts & MEMO Blocks](./docs/reference/roland-v550/EXTRACTED_SHORTCUTS.md)**.
+- **Bidirectional Hardware Highlighting:** Click knobs, pads, or buttons on the virtual faceplate to filter matching shortcuts. Click any card to preview the button combo and OLED screen state.
+- **Physical Muscle-Memory Layout:** Preserves 1:1 hardware geometry across mobile and desktop, with a thumb-zoom toggle for touch targets.
+- **Cross-Gear DAW / Slang Search:** Search using MPC, Ableton, FL Studio, or community terms (_"choke group"_, _"one shot"_, _"16 levels"_, _"lazy chop"_, _"resample bounce"_) via [`src/lib/data/aliases.json`](./src/lib/data/aliases.json).
+- **Curated Studio Sheet & PDF:** Pin go-to shortcuts into a custom sheet and export a high-density, ink-friendly 1–2 page reference table.
+- **Strict Verification:** 101 shortcuts with verbatim citations checked against the official Roland Reference Manual on every build.
 
 ---
 
-## Ingesting a New PDF Document (`npm run docs:ingest`)
+## Verification Pipeline
 
-Whenever a new official manual or reference PDF is released (e.g., a future Roland Firmware v6.0 Reference Manual), run the ingestion pipeline to extract it into its own dedicated folder under `docs/reference/<slug>/`:
+To eliminate hearsay and firmware drift, all data is verified against the manual:
 
-```sh
-npm run docs:ingest -- --pdf /path/to/SP-404mk2_v600_reference.pdf --slug roland-v600 --title "Roland SP-404MKII Reference Manual v6.00"
-```
-
-What [`scripts/ingest-pdf.mjs`](./scripts/ingest-pdf.mjs) generates in `docs/reference/<slug>/`:
-
-- `INDEX.md` — Source filename, page count, SHA-256 hash, and chapter index.
-- Chapter `.md` files with `<!-- [Page N] -->` markers for exact page citations.
-- `EXTRACTED_SHORTCUTS.md` — Auto-siphoned `MEMO`, `NOTE`, and bracketed `[BUTTON] + [BUTTON]` combinations so you can easily `diff` shortcut changes between firmware versions.
-
----
-
-## Closed-Loop Tip Verification (`scripts/validate-tips.mjs`)
-
-Every tip in [`src/lib/data/tips.json`](./src/lib/data/tips.json) is checked automatically by [`scripts/validate-tips.mjs`](./scripts/validate-tips.mjs) on `npm run check` and in GitHub Actions CI:
-
-1. **Strict 1-to-1 `combo` ↔ `buttons` Matching:** `tip.buttons` must match the exact canonical hardware button IDs represented in `tip.combo`—preventing false-positive highlights on the faceplate.
-2. **Verbatim Quote Verification:** Every tip requires a `citation` object (`{ doc, page, quote }`). The validator opens `citation.doc`, locates `<!-- [Page N] -->`, and verifies that `citation.quote` **literally exists verbatim on that page**. Any hallucinated or unverified shortcut immediately fails the build.
-3. **Anti-Bloat Alias Bounds (`src/lib/data/aliases.json`):** Validates 1:1 `tip.id` coverage in [`src/lib/data/aliases.json`](./src/lib/data/aliases.json) and enforces that no single alias string is shared across more than 2 tips.
+- **Reference Corpus ([`docs/reference/roland-v550/`](./docs/reference/roland-v550/)):** Roland v5.50 manual chapters extracted with page anchors (`<!-- [Page N] -->`).
+- **Closed-Loop CI Validator ([`scripts/validate-tips.mjs`](./scripts/validate-tips.mjs)):** Runs during `npm run check` to ensure:
+  1. Tip `buttons` exactly match the hardware IDs in `combo`.
+  2. Each tip's `citation.quote` exists verbatim on the referenced manual page.
+  3. Search aliases in `aliases.json` maintain 1:1 coverage without keyword bloat.
+- **PDF Ingestion ([`scripts/ingest-pdf.mjs`](./scripts/ingest-pdf.mjs)):** Parses new manuals into chapter markdown files with auto-extracted shortcuts:
+  ```sh
+  npm run docs:ingest -- --pdf /path/to/manual.pdf --slug roland-v600 --title "Roland SP-404MKII Manual v6.00"
+  ```
 
 ---
 
-## Porting to Other Samplers (SP-303, SP-404SX, SP-404 OG, etc.)
+## Porting to Other Samplers (SP-303, SP-404SX, etc.)
 
-This repository was designed as a modular, hardware-agnostic cheat sheet engine. If you want to create an interactive cheat sheet for the **Roland SP-303**, **SP-404SX**, **SP-404 OG**, or an **Elektron / MPC device**, follow this 5-step blueprint:
+The engine is modular and can be adapted for any hardware device:
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        HARDWARE SAMPLER ENGINE                         │
-├─────────────────────────┬─────────────────────────┬────────────────────┤
-│ 1. INGEST & CITATION    │ 2. DATA CONTRACT & MAP  │ 3. UI & HARDWARE   │
-│ scripts/ingest-pdf.mjs  │ src/lib/data/tips.json  │ Faceplate.svelte   │
-│ (Extracts manual to md) │ src/lib/data/aliases    │ (Interactive SVG)  │
-│ scripts/validate-tips   │ src/lib/types.ts        │ TipCard.svelte     │
-│ (Verbatim quote test)   │ (Button & Category IDs) │ (+page.svelte)     │
-└─────────────────────────┴─────────────────────────┴────────────────────┘
-```
-
-### Step 1: Ingest the Device Manual
-
-Run the PDF ingestion pipeline on the official owner's manual (e.g. `SP-303_OM.pdf`):
-
-```sh
-npm run docs:ingest -- --pdf /path/to/SP-303_OM.pdf --slug roland-sp303 --title "Roland SP-303 Owner's Manual"
-```
-
-This extracts the manual into `docs/reference/roland-sp303/` with page boundary anchors (`<!-- [Page N] -->`) and auto-siphoned bracketed shortcuts.
-
-### Step 2: Define Hardware Buttons & Categories
-
-Edit [`src/lib/types.ts`](./src/lib/types.ts):
-
-- Update `Category` and `CATEGORIES` for your device (e.g. SP-303 has _Sampling_, _Playback_, _Effects_, _Pattern Sequencer_).
-- Update button ID definitions (e.g. an SP-303 has 8 pads `PAD 1`–`PAD 8` and banks `BANK A`–`BANK B`; an SP-404SX has 12 pads and banks `BANK A`–`BANK J`).
-- Adjust helper functions (`matchesTipButton`, `isComboTokenActive`) to recognize your machine's button naming conventions.
-
-### Step 3: Align the Test Suite
-
-Edit [`scripts/validate-tips.mjs`](./scripts/validate-tips.mjs):
-
-- Update `VALID_CATEGORIES` and `VALID_BUTTON_IDS` with your new definitions.
-- Update `comboTokenToButtons()` to parse machine-specific tokens (such as `[CANCEL] + [PAD]`, `[TIME STRETCH]`, etc.).
-
-### Step 4: Author Verified Tips & Producer Slang
-
-- **`src/lib/data/tips.json`**: Add your shortcuts with exact verbatim quotes and page numbers from the ingested manual.
-- **`src/lib/data/aliases.json`**: Map colloquial producer phrases (e.g. _"vinyl sim compression"_, _"mark chop"_, _"resample bounce"_) directly to your new `tip.id`s.
-- Run `npm run check` to verify every shortcut quote matches the manual verbatim.
-
-### Step 5: Adapt the Faceplate Component
-
-Edit [`src/lib/components/Faceplate.svelte`](./src/lib/components/Faceplate.svelte):
-
-- Update the physical layout data arrays (`topKnobs`, `fxButtons`, `pads`) to match the hardware front panel.
-  - _Example SP-303_: 3 top knobs, 8 pads (2 rows of 4), 6 effect buttons, and vintage orange 7-segment LED display.
-  - _Example SP-404SX_: 3 top knobs, 12 pads (3 rows of 4), and central 3-digit LED display.
-- The bidirectional state machine (`activeButtons` filtering cards, `selectedTip` highlighting buttons) is decoupled and works automatically.
+1. **Ingest Manual:** Run `npm run docs:ingest -- --pdf <file.pdf> --slug <id> --title "<title>"` to generate anchored chapter markdown.
+2. **Define Hardware Types ([`src/lib/types.ts`](./src/lib/types.ts)):** Update `Category`, `CATEGORIES`, and button IDs (e.g. 8 pads for SP-303, 12 for SP-404SX).
+3. **Update Validator ([`scripts/validate-tips.mjs`](./scripts/validate-tips.mjs)):** Align `VALID_CATEGORIES` and `comboTokenToButtons()` with your machine's conventions.
+4. **Author Tips & Slang:** Populate [`src/lib/data/tips.json`](./src/lib/data/tips.json) with verbatim quotes and map colloquial terms in [`src/lib/data/aliases.json`](./src/lib/data/aliases.json).
+5. **Adapt Faceplate ([`src/lib/components/Faceplate.svelte`](./src/lib/components/Faceplate.svelte)):** Adjust the SVG layout and control arrays (`topKnobs`, `fxButtons`, `pads`) to match the hardware's front panel.
 
 ---
 
-## Porting to Other Samplers (SP-303, SP-404SX, SP-404 OG, etc.)
-
-This repository was designed as a modular, hardware-agnostic cheat sheet engine. If you want to create an interactive cheat sheet for the **Roland SP-303**, **SP-404SX**, **SP-404 OG**, or an **Elektron / MPC device**, follow this 5-step blueprint:
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        HARDWARE SAMPLER ENGINE                         │
-├─────────────────────────┬─────────────────────────┬────────────────────┤
-│ 1. INGEST & CITATION    │ 2. DATA CONTRACT & MAP  │ 3. UI & HARDWARE   │
-│ scripts/ingest-pdf.mjs  │ src/lib/data/tips.json  │ Faceplate.svelte   │
-│ (Extracts manual to md) │ src/lib/data/aliases    │ (Interactive SVG)  │
-│ scripts/validate-tips   │ src/lib/types.ts        │ TipCard.svelte     │
-│ (Verbatim quote test)   │ (Button & Category IDs) │ (+page.svelte)     │
-└─────────────────────────┴─────────────────────────┴────────────────────┘
-```
-
-### Step 1: Ingest the Device Manual
-
-Run the PDF ingestion pipeline on the official owner's manual (e.g. `SP-303_OM.pdf`):
-
-```sh
-npm run docs:ingest -- --pdf /path/to/SP-303_OM.pdf --slug roland-sp303 --title "Roland SP-303 Owner's Manual"
-```
-
-This extracts the manual into `docs/reference/roland-sp303/` with page boundary anchors (`<!-- [Page N] -->`) and auto-siphoned bracketed shortcuts.
-
-### Step 2: Define Hardware Buttons & Categories
-
-Edit [`src/lib/types.ts`](./src/lib/types.ts):
-
-- Update `Category` and `CATEGORIES` for your device (e.g. SP-303 has _Sampling_, _Playback_, _Effects_, _Pattern Sequencer_).
-- Update button ID definitions (e.g. an SP-303 has 8 pads `PAD 1`–`PAD 8` and banks `BANK A`–`BANK B`; an SP-404SX has 12 pads and banks `BANK A`–`BANK J`).
-- Adjust helper functions (`matchesTipButton`, `isComboTokenActive`) to recognize your machine's button naming conventions.
-
-### Step 3: Align the Test Suite
-
-Edit [`scripts/validate-tips.mjs`](./scripts/validate-tips.mjs):
-
-- Update `VALID_CATEGORIES` and `VALID_BUTTON_IDS` with your new definitions.
-- Update `comboTokenToButtons()` to parse machine-specific tokens (such as `[CANCEL] + [PAD]`, `[TIME STRETCH]`, etc.).
-
-### Step 4: Author Verified Tips & Producer Slang
-
-- **`src/lib/data/tips.json`**: Add your shortcuts with exact verbatim quotes and page numbers from the ingested manual.
-- **`src/lib/data/aliases.json`**: Map colloquial producer phrases (e.g. _"vinyl sim compression"_, _"mark chop"_, _"resample bounce"_) directly to your new `tip.id`s.
-- Run `npm run check` to verify every shortcut quote matches the manual verbatim.
-
-### Step 5: Adapt the Faceplate Component
-
-Edit [`src/lib/components/Faceplate.svelte`](./src/lib/components/Faceplate.svelte):
-
-- Update the physical layout data arrays (`topKnobs`, `fxButtons`, `pads`) to match the hardware front panel.
-  - _Example SP-303_: 3 top knobs, 8 pads (2 rows of 4), 6 effect buttons, and vintage orange 7-segment LED display.
-  - _Example SP-404SX_: 3 top knobs, 12 pads (3 rows of 4), and central 3-digit LED display.
-- The bidirectional state machine (`activeButtons` filtering cards, `selectedTip` highlighting buttons) is decoupled and works automatically.
-
----
-
-## Local Development
+## Development
 
 ```sh
 # Install dependencies
 npm install
 
-# Start local dev server (includes Svelte Inspector via Alt+X)
+# Start development server
 npm run dev
 
-# Validate tips.json (schema + 1:1 buttons + verbatim quotes) & run svelte-check
+# Run tip citation validator and Svelte type-checking
 npm run check
 
-# Check formatting and ESLint rules
+# Check code formatting and ESLint rules
 npm run lint
 
-# Build static production site into ./build
+# Build static production site (./build)
 npm run build
 ```
 
 ---
 
-## Deployment (GitHub Pages)
+## License & Attribution
 
-Automated deployment is configured in [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml):
-
-1. In your GitHub repository, navigate to **Settings → Pages**.
-2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
-3. Push to `main`. GitHub Actions will run `npm run check` (executing the verbatim tip validator and `svelte-check`), build the static site with `BASE_PATH` configured in [`vite.config.ts`](./vite.config.ts), and publish to GitHub Pages.
+- Built with ❤️ by **[frstudios](https://frstudios.co.ke)**
+- Repository: **[github.com/cntrvsy/sp404mk2cheatsheet](https://github.com/cntrvsy/sp404mk2cheatsheet)**
+- Licensed under the **[MIT License](./LICENSE)**
+- _Disclaimer:_ Roland and SP-404MKII are registered trademarks of Roland Corporation. This project is an independent educational tool.
