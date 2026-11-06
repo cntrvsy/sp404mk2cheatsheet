@@ -2,7 +2,7 @@
 
 A fast, visual shortcut finder and hardware companion for the **Roland SP-404MKII** (Firmware v5.50), built with SvelteKit and TypeScript.
 
-🔗 **Live Tool:** [frstudios.co.ke](https://frstudios.co.ke)
+🔗 **Live Tool:** [SP-404MKII Cheat Sheet](https://cntrvsy.github.io/sp404mk2cheatsheet/)
 
 ---
 
