@@ -819,6 +819,28 @@
 		.workspace__panel {
 			position: sticky;
 			top: 4.5rem;
+			max-height: calc(100dvh - 5.25rem);
+			overflow-y: auto;
+			overscroll-behavior: contain;
+			scrollbar-width: thin;
+			scrollbar-color: #334155 transparent;
+		}
+
+		.workspace__panel::-webkit-scrollbar {
+			width: 5px;
+		}
+
+		.workspace__panel::-webkit-scrollbar-track {
+			background: transparent;
+		}
+
+		.workspace__panel::-webkit-scrollbar-thumb {
+			background-color: #334155;
+			border-radius: 999px;
+		}
+
+		.workspace__panel::-webkit-scrollbar-thumb:hover {
+			background-color: #475569;
 		}
 
 		.mobile-panel-bar {

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+	<defs>
+		<linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+			<stop offset="0%" stop-color="#181c24"/>
+			<stop offset="100%" stop-color="#0c0e12"/>
+		</linearGradient>
+		<linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+			<stop offset="0%" stop-color="#f97316"/>
+			<stop offset="100%" stop-color="#ea580c"/>
+		</linearGradient>
+	</defs>
+
+	<!-- Outer Chassis -->
+	<rect x="24" y="24" width="464" height="464" rx="88" fill="url(#bgGrad)" stroke="#2a3240" stroke-width="8"/>
+	<rect x="36" y="36" width="440" height="440" rx="76" fill="none" stroke="#ea580c" stroke-width="3" opacity="0.4"/>
+
+	<!-- Top Knobs (4 Rotary dials) -->
+	<circle cx="118" cy="100" r="22" fill="#1b2029" stroke="#475569" stroke-width="4"/>
+	<line x1="118" y1="84" x2="118" y2="96" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+
+	<circle cx="210" cy="100" r="22" fill="#1b2029" stroke="#475569" stroke-width="4"/>
+	<line x1="210" y1="84" x2="210" y2="96" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+
+	<circle cx="302" cy="100" r="22" fill="#1b2029" stroke="#475569" stroke-width="4"/>
+	<line x1="302" y1="84" x2="302" y2="96" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+
+	<circle cx="394" cy="100" r="22" fill="#1b2029" stroke="#475569" stroke-width="4"/>
+	<line x1="394" y1="84" x2="394" y2="96" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+
+	<!-- Central Circular OLED Display Screen -->
+	<circle cx="256" cy="204" r="64" fill="#06080b" stroke="#334155" stroke-width="7"/>
+	<circle cx="256" cy="204" r="50" fill="#090d13" stroke="#f97316" stroke-width="2.5" opacity="0.8"/>
+	<text x="256" y="214" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="900" fill="#ea580c" text-anchor="middle" letter-spacing="2">404</text>
+
+	<!-- 4x4 Performance Pads Grid -->
+	<!-- Row 1 (Pads 1-4) -->
+	<rect x="96" y="292" width="68" height="42" rx="8" fill="#1c212b" stroke="#384354" stroke-width="3"/>
+	<rect x="176" y="292" width="68" height="42" rx="8" fill="#1c212b" stroke="#384354" stroke-width="3"/>
+	<rect x="268" y="292" width="68" height="42" rx="8" fill="#1c212b" stroke="#384354" stroke-width="3"/>
+	<rect x="348" y="292" width="68" height="42" rx="8" fill="#1c212b" stroke="#384354" stroke-width="3"/>
+
+	<!-- Row 2 (Pads 5-8) -->
+	<rect x="96" y="344" width="68" height="42" rx="8" fill="#1c212b" stroke="#384354" stroke-width="3"/>
+	<rect x="176" y="344" width="68" height="42" rx="8" fill="#ea580c" stroke="#fdba74" stroke-width="3"/>
+	<rect x="268" y="344" width="68" height="42" rx="8" fill="#1c212b" stroke="#384354" stroke-width="3"/>
+	<rect x="348" y="344" width="68" height="42" rx="8" fill="#1c212b" stroke="#384354" stroke-width="3"/>
+
+	<!-- Row 3 (Pads 9-12) -->
+	<rect x="96" y="396" width="68" height="42" rx="8" fill="#1c212b" stroke="#384354" stroke-width="3"/>
+	<rect x="176" y="396" width="68" height="42" rx="8" fill="#1c212b" stroke="#384354" stroke-width="3"/>
+	<rect x="268" y="396" width="68" height="42" rx="8" fill="#ea580c" stroke="#fdba74" stroke-width="3"/>
+	<rect x="348" y="396" width="68" height="42" rx="8" fill="#1c212b" stroke="#384354" stroke-width="3"/>
+</svg>

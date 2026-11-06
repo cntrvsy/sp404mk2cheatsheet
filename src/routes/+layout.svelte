@@ -1,11 +1,39 @@
 <script lang="ts">
-	import favicon from '#lib/assets/favicon.svg';
-	import { Heart, Star, Printer } from '@lucide/svelte';
+	import {
+		Heart,
+		Star,
+		Printer,
+		Download,
+		Check,
+		Wifi,
+		WifiOff,
+		Laptop,
+		Smartphone,
+		Radio,
+		Zap,
+		Layers,
+		Share2,
+		X
+	} from '@lucide/svelte';
+	import { asset, resolve } from '$app/paths';
+	import { browser } from '$app/env';
 	import { pinnedStore } from '#lib/stores/pinned.svelte.js';
 	import { uiStore } from '#lib/stores/ui.svelte.js';
+	import { pwaStore } from '#lib/stores/pwa.svelte.js';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
+
+	$effect(() => {
+		if (browser) {
+			pwaStore.init();
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.register(`${resolve('/')}service-worker.js`).catch(() => {
+					// Service worker registration error handled silently
+				});
+			}
+		}
+	});
 
 	const jsonLd = JSON.stringify({
 		'@context': 'https://schema.org',
@@ -27,7 +55,12 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href={asset('icon.svg')} type="image/svg+xml" />
+	<link rel="manifest" href={asset('manifest.webmanifest')} />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link rel="apple-touch-icon" href={asset('icon-192.png')} />
 	<title>Roland SP-404MKII Interactive Cheat Sheet & Button Lookup</title>
 	<meta
 		name="description"
@@ -112,6 +145,37 @@
 
 		<!-- Global Utility Actions -->
 		<div class="header-utilities">
+			<!-- Offline / Studio Connection Indicator -->
+			{#if !pwaStore.isOnline}
+				<div class="status-pill status-pill--offline" title="Operating offline without network">
+					<WifiOff size={13} />
+					<span>Offline</span>
+				</div>
+			{:else}
+				<div class="status-pill status-pill--ready" title="Installed and 100% available offline">
+					<Wifi size={13} />
+					<span>Offline Ready</span>
+				</div>
+			{/if}
+
+			{#if !pwaStore.isInstalled}
+				<button
+					type="button"
+					class="header-action-btn header-action-btn--install"
+					onclick={() => pwaStore.promptInstall()}
+					aria-label="Install offline app for desktop or mobile"
+					title="Install as standalone offline app"
+				>
+					<Download size={14} />
+					<span>Get App</span>
+				</button>
+			{:else}
+				<div class="header-action-badge" title="Running as installed app">
+					<Check size={13} />
+					<span>Installed</span>
+				</div>
+			{/if}
+
 			<button
 				type="button"
 				class="header-action-btn header-action-btn--primary"
@@ -170,6 +234,129 @@
 		</p>
 	</div>
 </footer>
+
+{#if pwaStore.showInstallModal}
+	<div
+		class="pwa-modal-backdrop"
+		onclick={() => pwaStore.closeInstallModal()}
+		onkeydown={(e) => e.key === 'Escape' && pwaStore.closeInstallModal()}
+		role="presentation"
+	>
+		<div
+			class="pwa-modal-box"
+			role="dialog"
+			tabindex="-1"
+			aria-modal="true"
+			aria-labelledby="pwa-modal-title"
+			onclick={(e) => e.stopPropagation()}
+			onkeydown={(e) => e.stopPropagation()}
+		>
+			<div class="pwa-modal-header">
+				<div class="pwa-modal-title-group">
+					<Download size={20} class="pwa-modal-icon" />
+					<div>
+						<h2 id="pwa-modal-title" class="pwa-modal-title">
+							Install SP-404MKII Offline Companion
+						</h2>
+						<p class="pwa-modal-subtitle">
+							Fast, standalone studio reference that works 100% without internet
+						</p>
+					</div>
+				</div>
+				<button
+					type="button"
+					class="pwa-modal-close"
+					onclick={() => pwaStore.closeInstallModal()}
+					aria-label="Close install instructions"
+				>
+					<X size={18} />
+				</button>
+			</div>
+
+			<div class="pwa-features-grid">
+				<div class="pwa-feature-item">
+					<Zap size={16} class="pwa-feature-icon" />
+					<div>
+						<strong>Zero Internet Required</strong>
+						<p>Take it on planes, trains, gigs, or off-grid studios without Wi-Fi.</p>
+					</div>
+				</div>
+				<div class="pwa-feature-item">
+					<Layers size={16} class="pwa-feature-icon" />
+					<div>
+						<strong>Standalone Window</strong>
+						<p>Runs in its own window without browser toolbars, tabs, or address bars.</p>
+					</div>
+				</div>
+				<div class="pwa-feature-item">
+					<Star size={16} class="pwa-feature-icon" />
+					<div>
+						<strong>Saved Studio Sheets</strong>
+						<p>Custom pinned shortcuts and print layouts persist locally on your machine.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="pwa-platform-guide">
+				<h3 class="pwa-guide-heading">How to Install on Your Device:</h3>
+
+				<div class="pwa-platform-card">
+					<div class="platform-card-header">
+						<Laptop size={16} />
+						<span>Mac, Windows, or Linux (Chrome, Edge, Brave)</span>
+					</div>
+					<p>
+						Click the <strong>Install</strong> icon in your browser address bar (top right), or
+						click
+						<strong>Install to Device</strong> below.
+					</p>
+				</div>
+
+				<div class="pwa-platform-card">
+					<div class="platform-card-header">
+						<Smartphone size={16} />
+						<span>iPhone & iPad (Safari)</span>
+					</div>
+					<p>
+						Tap the <strong>Share</strong> button <Share2 size={13} class="inline-icon" /> at the bottom
+						of Safari, then choose <strong>Add to Home Screen</strong>.
+					</p>
+				</div>
+
+				<div class="pwa-platform-card">
+					<div class="platform-card-header">
+						<Radio size={16} />
+						<span>Android (Chrome)</span>
+					</div>
+					<p>
+						Tap the <strong>three dots menu</strong> (⋮) in the top-right corner and choose
+						<strong>Install App</strong> or <strong>Add to Home screen</strong>.
+					</p>
+				</div>
+			</div>
+
+			<div class="pwa-modal-actions">
+				{#if pwaStore.canInstall}
+					<button
+						type="button"
+						class="pwa-btn pwa-btn--primary"
+						onclick={() => pwaStore.promptInstall()}
+					>
+						<Download size={15} />
+						<span>Install to Device</span>
+					</button>
+				{/if}
+				<button
+					type="button"
+					class="pwa-btn pwa-btn--secondary"
+					onclick={() => pwaStore.closeInstallModal()}
+				>
+					Got It
+				</button>
+			</div>
+		</div>
+	</div>
+{/if}
 
 <style>
 	:global(:root) {
@@ -480,8 +667,252 @@
 		line-height: 1.45;
 	}
 
+	/* Offline Status Pill & App Install Button */
+	.status-pill {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.32rem;
+		padding: 0.28rem 0.55rem;
+		font-size: 0.72rem;
+		font-weight: 700;
+		border-radius: 999px;
+		line-height: 1;
+		user-select: none;
+	}
+
+	.status-pill--ready {
+		background: rgba(34, 197, 94, 0.12);
+		border: 1px solid rgba(34, 197, 94, 0.3);
+		color: #4ade80;
+	}
+
+	.status-pill--offline {
+		background: rgba(239, 68, 68, 0.15);
+		border: 1px solid rgba(239, 68, 68, 0.4);
+		color: #f87171;
+	}
+
+	.header-action-btn--install {
+		background: #171c26;
+		border-color: #2e3849;
+		color: #cbd5e1;
+	}
+
+	.header-action-btn--install:hover {
+		background: #242c3b;
+		border-color: #64748b;
+		color: #ffffff;
+	}
+
+	.header-action-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		padding: 0.32rem 0.6rem;
+		font-size: 0.74rem;
+		font-weight: 700;
+		color: #4ade80;
+		background: rgba(34, 197, 94, 0.08);
+		border: 1px solid rgba(34, 197, 94, 0.25);
+		border-radius: 0.4rem;
+	}
+
+	/* PWA Install Modal */
+	.pwa-modal-backdrop {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.78);
+		backdrop-filter: blur(4px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+		z-index: 1000;
+	}
+
+	.pwa-modal-box {
+		background: #13171f;
+		border: 1px solid #2a3344;
+		border-radius: 0.75rem;
+		max-width: 540px;
+		width: 100%;
+		max-height: 90vh;
+		overflow-y: auto;
+		padding: 1.5rem;
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+		color: #e2e8f0;
+	}
+
+	.pwa-modal-header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-bottom: 1rem;
+		border-bottom: 1px solid #222938;
+	}
+
+	.pwa-modal-title-group {
+		display: flex;
+		gap: 0.75rem;
+		align-items: center;
+	}
+
+	:global(.pwa-modal-icon) {
+		color: #f97316;
+		flex-shrink: 0;
+	}
+
+	.pwa-modal-title {
+		margin: 0;
+		font-size: 1.15rem;
+		font-weight: 800;
+		color: #f8fafc;
+	}
+
+	.pwa-modal-subtitle {
+		margin: 0.2rem 0 0 0;
+		font-size: 0.78rem;
+		color: #94a3b8;
+	}
+
+	.pwa-modal-close {
+		background: transparent;
+		border: none;
+		color: #94a3b8;
+		cursor: pointer;
+		padding: 0.25rem;
+		border-radius: 0.25rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.pwa-modal-close:hover {
+		color: #ffffff;
+		background: #1f2633;
+	}
+
+	.pwa-features-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
+		padding: 1.15rem 0;
+		border-bottom: 1px solid #222938;
+	}
+
+	.pwa-feature-item {
+		display: flex;
+		gap: 0.75rem;
+		align-items: flex-start;
+	}
+
+	:global(.pwa-feature-icon) {
+		color: #fdba74;
+		flex-shrink: 0;
+		margin-top: 0.15rem;
+	}
+
+	.pwa-feature-item strong {
+		display: block;
+		font-size: 0.85rem;
+		color: #f1f5f9;
+	}
+
+	.pwa-feature-item p {
+		margin: 0.15rem 0 0 0;
+		font-size: 0.76rem;
+		color: #94a3b8;
+	}
+
+	.pwa-platform-guide {
+		padding: 1rem 0;
+	}
+
+	.pwa-guide-heading {
+		margin: 0 0 0.75rem 0;
+		font-size: 0.82rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #cbd5e1;
+		font-weight: 800;
+	}
+
+	.pwa-platform-card {
+		background: #181d27;
+		border: 1px solid #283142;
+		border-radius: 0.5rem;
+		padding: 0.75rem 0.85rem;
+		margin-bottom: 0.65rem;
+	}
+
+	.platform-card-header {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.82rem;
+		font-weight: 700;
+		color: #f8fafc;
+		margin-bottom: 0.35rem;
+	}
+
+	.pwa-platform-card p {
+		margin: 0;
+		font-size: 0.76rem;
+		color: #94a3b8;
+		line-height: 1.4;
+	}
+
+	:global(.inline-icon) {
+		display: inline;
+		vertical-align: -0.15em;
+		color: #38bdf8;
+	}
+
+	.pwa-modal-actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: 0.65rem;
+		padding-top: 0.75rem;
+	}
+
+	.pwa-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.45rem 0.95rem;
+		font-size: 0.82rem;
+		font-weight: 700;
+		border-radius: 0.4rem;
+		cursor: pointer;
+		border: 1px solid transparent;
+		transition: all 0.12s ease;
+	}
+
+	.pwa-btn--primary {
+		background: #ea580c;
+		border-color: #f97316;
+		color: #ffffff;
+	}
+
+	.pwa-btn--primary:hover {
+		background: #f97316;
+	}
+
+	.pwa-btn--secondary {
+		background: #1e2430;
+		border-color: #333d4f;
+		color: #cbd5e1;
+	}
+
+	.pwa-btn--secondary:hover {
+		background: #2a3344;
+		color: #ffffff;
+	}
+
 	@media print {
-		.site-header {
+		.site-header,
+		.pwa-modal-backdrop {
 			display: none !important;
 		}
 

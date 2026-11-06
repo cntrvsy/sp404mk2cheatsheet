@@ -1263,4 +1263,130 @@
 			padding-inline: 0.6rem;
 		}
 	}
+
+	/* Compact Vertical Viewport Modes (Laptops & Lower Screen Heights) */
+	@media (min-width: 860px) and (max-height: 880px) {
+		.faceplate:not(.faceplate--thumb-zoom) {
+			gap: 0.35rem;
+			padding: 0.45rem 0.65rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .faceplate__branding {
+			padding-bottom: 0.2rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .brand-roland {
+			font-size: 0.72rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .brand-model {
+			font-size: 0.78rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .zone-knobs {
+			padding: 0.22rem 0.35rem;
+			gap: 0.25rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-knob__dial {
+			width: 1.55rem;
+			height: 1.55rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-knob__dial--encoder {
+			width: 1.45rem;
+			height: 1.45rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .oled-bezel {
+			padding: 0.28rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .oled-screen {
+			min-height: 2.35rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .zone-fn {
+			gap: 0.28rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-btn {
+			min-block-size: 1.78rem;
+			padding: 0.12rem 0.1rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-btn--fx {
+			min-block-size: 1.62rem;
+			padding-inline: 0.25rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-btn--side {
+			min-block-size: 2.15rem;
+			padding: 0.15rem 0.1rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .zone-pads {
+			gap: 0.26rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .zone-pad-side-col {
+			gap: 0.26rem;
+			padding-inline-start: 0.25rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-pad {
+			aspect-ratio: 1.3 / 1;
+			padding: 0.24rem 0.3rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-pad__num {
+			font-size: 0.76rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-pad__shift {
+			font-size: 0.48rem;
+		}
+	}
+
+	@media (min-width: 860px) and (max-height: 760px) {
+		.faceplate:not(.faceplate--thumb-zoom) {
+			gap: 0.25rem;
+			padding: 0.35rem 0.5rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-knob__dial {
+			width: 1.35rem;
+			height: 1.35rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-knob__dial--encoder {
+			width: 1.25rem;
+			height: 1.25rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .oled-screen {
+			min-height: 2.1rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-btn {
+			min-block-size: 1.55rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-btn--fx {
+			min-block-size: 1.45rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-btn--side {
+			min-block-size: 1.85rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-pad {
+			aspect-ratio: 1.55 / 1;
+			padding: 0.16rem 0.25rem;
+		}
+
+		.faceplate:not(.faceplate--thumb-zoom) .hw-pad__num {
+			font-size: 0.7rem;
+		}
+	}
 </style>
