@@ -16,7 +16,7 @@
 	import Keycap from '#lib/components/Keycap.svelte';
 	import { pinnedStore } from '#lib/stores/pinned.svelte.js';
 	import { uiStore } from '#lib/stores/ui.svelte.js';
-	import { Star, Printer, SlidersHorizontal, Plus, Sparkles } from '@lucide/svelte';
+	import { Star, Printer, SlidersHorizontal, Plus, Sparkles, Layers } from '@lucide/svelte';
 
 	const tips = rawTips as Tip[];
 	const aliasesMap = rawAliases as TipAliasesMap;
@@ -296,7 +296,8 @@
 						class="mysheet-btn mysheet-btn--secondary"
 						onclick={() => uiStore.setViewMode('all')}
 					>
-						← Back to All 101 Shortcuts
+						<Layers size={14} />
+						<span>Back to All 101 Shortcuts</span>
 					</button>
 				</div>
 			</div>
@@ -555,10 +556,11 @@
 						<div class="starter-browse-row">
 							<button
 								type="button"
-								class="tool-btn tool-btn--accent"
+								class="starter-browse-btn"
 								onclick={() => uiStore.setViewMode('all')}
 							>
-								Browse All 101 Shortcuts
+								<Layers size={14} />
+								<span>Browse All 101 Shortcuts</span>
 							</button>
 						</div>
 					</div>
@@ -1188,7 +1190,53 @@
 	}
 
 	.starter-browse-row {
-		margin-top: 0.5rem;
+		display: flex;
+		justify-content: center;
+		margin-top: 0.75rem;
+	}
+
+	.starter-browse-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		padding: 0.45rem 1rem;
+		font-size: 0.8rem;
+		font-weight: 600;
+		color: #94a3b8;
+		background: #141822;
+		border: 1px solid #273042;
+		border-radius: 0.45rem;
+		cursor: pointer;
+		transition: all 0.15s ease;
+	}
+
+	.starter-browse-btn:hover {
+		background: #1a202c;
+		border-color: #ea580c;
+		color: #f8fafc;
+	}
+
+	.tool-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.4rem;
+		padding: 0.45rem 0.95rem;
+		font-size: 0.8rem;
+		font-weight: 600;
+		background: #141822;
+		border: 1px solid #273042;
+		border-radius: 0.45rem;
+		color: #94a3b8;
+		cursor: pointer;
+		margin-top: 1rem;
+		transition: all 0.15s ease;
+	}
+
+	.tool-btn:hover {
+		background: #1a202c;
+		border-color: #ea580c;
+		color: #ffffff;
 	}
 
 	.empty-pinned-notice {
@@ -1483,13 +1531,14 @@
 	}
 
 	.mysheet-btn--secondary {
-		background: #171b22;
-		border-color: #334155;
-		color: #cbd5e1;
+		background: #141822;
+		border-color: #273042;
+		color: #94a3b8;
 	}
 
 	.mysheet-btn--secondary:hover {
-		background: #1e2430;
+		background: #1a202c;
+		border-color: #ea580c;
 		color: #f8fafc;
 	}
 
