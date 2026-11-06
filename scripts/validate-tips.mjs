@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const TIPS_PATH = path.resolve('src/lib/data/tips.json');
+const ALIASES_PATH = path.resolve('src/lib/data/aliases.json');
 
 const VALID_CATEGORIES = new Set([
 	'Sample Playback',
@@ -119,6 +120,12 @@ if (!Array.isArray(tips) || tips.length === 0) {
 	process.exit(1);
 }
 
+if (!fs.existsSync(ALIASES_PATH)) {
+	console.error('❌ aliases.json not found at src/lib/data/aliases.json.');
+	process.exit(1);
+}
+const aliasesMap = JSON.parse(fs.readFileSync(ALIASES_PATH, 'utf8'));
+
 const seenIds = new Set();
 const errors = [];
 
@@ -177,8 +184,23 @@ for (const [index, tip] of tips.entries()) {
 		}
 	}
 
-	if (!Array.isArray(tip.aliases) || tip.aliases.length === 0) {
-		errors.push(`${prefix}: "aliases" must be a non-empty array of search terms.`);
+	if ('aliases' in tip) {
+		errors.push(
+			`${prefix}: Inline "aliases" found in tips.json; move to src/lib/data/aliases.json.`
+		);
+	}
+
+	const tipAliases = aliasesMap[tip.id];
+	if (!Array.isArray(tipAliases) || tipAliases.length === 0) {
+		errors.push(`${prefix}: Missing or empty entry in src/lib/data/aliases.json for "${tip.id}".`);
+	} else {
+		for (const a of tipAliases) {
+			if (typeof a !== 'string' || a.trim().length < 2 || a !== a.toLowerCase()) {
+				errors.push(
+					`${prefix}: Invalid alias "${a}" in aliases.json (must be lowercase string >= 2 chars).`
+				);
+			}
+		}
 	}
 
 	if ('sources' in tip) {
@@ -212,11 +234,32 @@ for (const [index, tip] of tips.entries()) {
 	}
 }
 
+const aliasFrequency = new Map();
+for (const [key, list] of Object.entries(aliasesMap)) {
+	if (!seenIds.has(key)) {
+		errors.push(`aliases.json: Orphan key "${key}" does not match any tip.id in tips.json.`);
+	}
+	if (Array.isArray(list)) {
+		for (const a of list) {
+			if (!aliasFrequency.has(a)) aliasFrequency.set(a, []);
+			aliasFrequency.get(a).push(key);
+		}
+	}
+}
+
+for (const [alias, ids] of aliasFrequency.entries()) {
+	if (ids.length > 2) {
+		errors.push(
+			`aliases.json: Alias "${alias}" is shared by ${ids.length} tips (${ids.join(', ')}); max allowed is 2 to prevent search bloat.`
+		);
+	}
+}
+
 if (errors.length > 0) {
-	console.error('❌ tips.json validation failed:\n' + errors.map((e) => `  - ${e}`).join('\n'));
+	console.error('❌ Validation failed:\n' + errors.map((e) => `  - ${e}`).join('\n'));
 	process.exit(1);
 }
 
 console.log(
-	`✔ Validated ${tips.length} SP-404MKII tips (hardware IDs, 1:1 combo match, and verbatim quotes in docs/reference/).`
+	`✔ Validated ${tips.length} SP-404MKII tips + ${Object.keys(aliasesMap).length} alias entries (1:1 hardware IDs, verbatim Roland quotes, and anti-bloat alias bounds).`
 );

@@ -1,11 +1,13 @@
 <script lang="ts">
 	import MiniSearch from 'minisearch';
 	import rawTips from '#lib/data/tips.json';
+	import rawAliases from '#lib/data/aliases.json';
 	import {
 		CATEGORIES,
 		matchesTipButton,
 		type Category,
 		type Tip,
+		type TipAliasesMap,
 		type TipTier
 	} from '#lib/types.js';
 	import Faceplate from '#lib/components/Faceplate.svelte';
@@ -14,6 +16,7 @@
 	import { pinnedStore } from '#lib/stores/pinned.svelte.js';
 
 	const tips = rawTips as Tip[];
+	const aliasesMap = rawAliases as TipAliasesMap;
 
 	interface IndexedTip extends Tip {
 		aliasesText: string;
@@ -21,26 +24,25 @@
 	}
 
 	const miniSearch = new MiniSearch<IndexedTip>({
-		fields: ['action', 'aliasesText', 'comboText', 'goal', 'caveat', 'context', 'category'],
+		fields: ['action', 'aliasesText', 'comboText', 'goal'],
 		storeFields: ['id'],
 		searchOptions: {
+			combineWith: 'AND',
 			boost: {
-				action: 3,
-				aliasesText: 3,
-				comboText: 2.5,
-				goal: 1.5,
-				caveat: 1.2,
-				context: 1
+				action: 4,
+				aliasesText: 3.5,
+				comboText: 3,
+				goal: 1
 			},
-			prefix: true,
-			fuzzy: 0.2
+			prefix: (term) => term.length >= 2,
+			fuzzy: (term) => (term.length >= 4 ? 0.2 : false)
 		}
 	});
 
 	miniSearch.addAll(
 		tips.map((t) => ({
 			...t,
-			aliasesText: t.aliases.join(' '),
+			aliasesText: (aliasesMap[t.id] ?? []).join(' '),
 			comboText: t.combo.join(' ')
 		}))
 	);
@@ -60,10 +62,12 @@
 	const filteredTips = $derived.by(() => {
 		let list = tips;
 
-		// 1. Search query via MiniSearch
+		// 1. Search query via MiniSearch (with relative score cutoff to suppress weak prose noise)
 		const q = searchQuery.trim();
 		if (q.length > 0) {
-			const results = miniSearch.search(q);
+			const rawResults = miniSearch.search(q);
+			const topScore = rawResults[0]?.score ?? 0;
+			const results = rawResults.filter((r) => r.score >= topScore * 0.3);
 			const matchedIds = new Map(results.map((r, index) => [r.id as string, index]));
 			list = list
 				.filter((t) => matchedIds.has(t.id))

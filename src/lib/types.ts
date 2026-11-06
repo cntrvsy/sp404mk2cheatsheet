@@ -35,10 +35,11 @@ export interface Tip {
 	context?: string;
 	goal: string;
 	caveat?: string;
-	aliases: string[];
 	steps?: string[];
 	citation: TipCitation;
 }
+
+export type TipAliasesMap = Record<string, string[]>;
 
 export type HardwareZone =
 	'top-knobs' | 'fx-display' | 'fn-row-1' | 'fn-row-2' | 'fn-row-3' | 'pads' | 'pad-side-col';

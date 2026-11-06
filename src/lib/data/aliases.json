@@ -1,0 +1,509 @@
+{
+	"gate-playback-toggle": [
+		"gate",
+		"trigger mode",
+		"one tap play",
+		"hold pad to play",
+		"drum trigger",
+		"one-shot",
+		"one shot",
+		"hold to play",
+		"note on off"
+	],
+	"loop-playback-toggle": ["loop", "repeat sample", "cycle", "stop loop", "retrigger loop"],
+	"reverse-playback-toggle": ["reverse", "backwards", "flip sample", "reverse cymbal"],
+	"bpm-sync-toggle": ["bpm sync", "tempo lock", "warp", "match tempo", "sync loop", "time stretch"],
+	"roll-pad-trigger": [
+		"roll",
+		"note repeat",
+		"stutter",
+		"ratchet build",
+		"faster roll",
+		"ratchet",
+		"mpc note repeat"
+	],
+	"bus-fx-toggle": ["bus 1", "bus 2", "switch bus", "blinking bus fx", "effect bus select"],
+	"copy-sample-pad": ["copy pad", "duplicate sample", "copy to another project", "clone pad"],
+	"delete-sample-pad": ["delete pad", "erase sample", "clear pad", "remove sample"],
+	"one-shot-playback": [
+		"retrigger",
+		"finger drumming",
+		"double hit",
+		"double press",
+		"ambient loop",
+		"gate pulse",
+		"one shot",
+		"one-shot",
+		"retrigger sample",
+		"drum trigger"
+	],
+	"hold-latch-sample": [
+		"latch",
+		"sustain",
+		"keep playing",
+		"hands free",
+		"latch pad",
+		"sustain pad"
+	],
+	"stop-all-samples": [
+		"panic",
+		"silence",
+		"kill audio",
+		"stop sound",
+		"exit x4",
+		"all notes off",
+		"stop everything",
+		"stuck sample"
+	],
+	"pause-all-audio": ["freeze", "pause pattern", "stop in place", "tr-rec pause"],
+	"switch-alternate-bank": [
+		"bank f",
+		"bank g",
+		"bank h",
+		"bank i",
+		"bank j",
+		"second bank",
+		"double press bank"
+	],
+	"ping-pong-loop": ["back and forth", "bidirectional loop", "smooth loop", "crossfade"],
+	"roll-time-division": [
+		"note repeat",
+		"ratchet",
+		"hi-hat roll",
+		"stutter speed",
+		"ratchet rate",
+		"roll speed"
+	],
+	"rename-sample": ["title", "label sample", "pad info", "current pad menu", "file name"],
+	"skip-back-recall": [
+		"retrospective record",
+		"25 seconds",
+		"40 seconds",
+		"capture jam",
+		"forgot to record",
+		"skipback",
+		"retroactive record",
+		"capture midi",
+		"dump log",
+		"always recording"
+	],
+	"resample-multiple-pads": [
+		"merge pads",
+		"layer drums",
+		"combine samples",
+		"quick bounce",
+		"consolidate",
+		"flatten",
+		"freeze",
+		"print fx",
+		"bounce pads"
+	],
+	"pad-mute-mode": [
+		"track mute",
+		"solo",
+		"drop drums",
+		"mute automation",
+		"perform pattern",
+		"red pads",
+		"white pads",
+		"stem mute",
+		"mute tracks"
+	],
+	"pad-mute-momentary": ["quick mute", "silence track", "pattern mute"],
+	"copy-specific-pattern-samples": [
+		"split pattern",
+		"extract track",
+		"copy drums only",
+		"pattern variation",
+		"selective copy"
+	],
+	"delete-sample-in-pattern": [
+		"clear track",
+		"remove instrument",
+		"erase pad from pattern",
+		"blue pad delete"
+	],
+	"erase-mode-live": ["spot erase", "scrub notes", "delete single hit", "pattern record del"],
+	"bounce-pattern-to-pad": [
+		"stems",
+		"export audio",
+		"render pattern",
+		"convert pattern to sample",
+		"offline bounce",
+		"extract stems",
+		"explode pattern",
+		"consolidate pattern"
+	],
+	"rehearsal-mode": ["practice", "audition pattern", "overdub test", "try out notes"],
+	"pattern-undo": ["oops", "revert", "take back", "16 undo"],
+	"microscope-mode": [
+		"micro timing",
+		"nudge note",
+		"list edit",
+		"step inspector",
+		"event list",
+		"piano roll",
+		"nudge notes",
+		"step edit"
+	],
+	"tr-rec-mode": ["step sequencer", "808 style", "grid sequencing", "x0x"],
+	"tr-rec-motion-recording": [
+		"parameter lock",
+		"p-lock",
+		"step automation",
+		"pitch automation",
+		"trig conditions",
+		"substep"
+	],
+	"efx-motion-recording": [
+		"fx automation",
+		"record knob movements",
+		"delete automation",
+		"motion erase",
+		"p-lock",
+		"parameter lock",
+		"record knob"
+	],
+	"quantize-after-recording": ["fix timing", "post quantize", "swing", "grid strength"],
+	"pattern-chain": [
+		"song mode",
+		"arrange patterns",
+		"chain slot",
+		"green flashing pads",
+		"playlist"
+	],
+	"delete-pattern": ["erase pattern", "clear pattern bank", "del exit"],
+	"lock-loop-point": ["keep loop point", "freeze loop marker", "start point move"],
+	"preview-end-of-sample": ["audition end", "tail preview", "last 4 seconds", "long sample trim"],
+	"snap-zero-crossing": ["remove click", "pop free", "zero cross", "clean chop"],
+	"chop-menu": [
+		"slice sample",
+		"lazy chop",
+		"auto chop",
+		"transient slice",
+		"time division chop",
+		"auto slice"
+	],
+	"truncate-sample": [
+		"trim permanent",
+		"crop audio",
+		"cut excess",
+		"trim audio",
+		"delete unused audio"
+	],
+	"groove-humanize-sample": [
+		"humanize",
+		"swing sample",
+		"random variation",
+		"feel",
+		"swing",
+		"shuffle"
+	],
+	"copy-pitch-speed-bank": [
+		"bank wide edit",
+		"all pads volume",
+		"batch pitch",
+		"copy settings to bank"
+	],
+	"copy-pitch-speed-mute-group": [
+		"edit all chops",
+		"slice group pitch",
+		"mute group batch edit",
+		"chops volume"
+	],
+	"vinyl-varispeed-toggle": [
+		"time stretch",
+		"repitch",
+		"algorithm",
+		"backing",
+		"ensemble",
+		"vinyl mode",
+		"warp",
+		"re-pitch",
+		"varispeed"
+	],
+	"sample-pan-mono": ["pan left right", "mono sample", "stereo to mono", "width"],
+	"envelope-menu": [
+		"adsr",
+		"fade in",
+		"fade out",
+		"attack release",
+		"declick tail",
+		"de-click",
+		"pop click"
+	],
+	"auto-detect-bpm": ["tap tempo", "decimal bpm", "detect tempo", "manu-f", "loop bpm"],
+	"swap-bus-1-2": ["flip bus", "reverse fx order", "swap bus 1 and 2", "exchange bus fx"],
+	"toggle-bus-3-4": [
+		"master fx bypass",
+		"turn off bus 3 4",
+		"a/b master chain",
+		"master fx",
+		"insert fx",
+		"master compressor",
+		"bypass master fx"
+	],
+	"mute-bus-fx": [
+		"bus mute",
+		"kill dry",
+		"effect tail drop",
+		"fx tails",
+		"reverb tail",
+		"delay spillover"
+	],
+	"save-efx-params": [
+		"save effect preset",
+		"remember fx settings",
+		"startup fx params",
+		"default knob values"
+	],
+	"keep-mfx-screen-visible": [
+		"pin fx menu",
+		"hold effect screen",
+		"stop menu timeout",
+		"stay on fx screen"
+	],
+	"view-mfx-without-activating": ["preview fx", "check effect settings", "silent fx edit"],
+	"grab-momentary-fx": [
+		"punch in fx",
+		"momentary effect",
+		"fx grab",
+		"temporary effect",
+		"momentary fx",
+		"performance fx"
+	],
+	"mfx-pages-shortcut": [
+		"cloud delay",
+		"backspin",
+		"sfx reverb",
+		"mfx list",
+		"fast effect select",
+		"page 2",
+		"page 3"
+	],
+	"mfx-second-param-page": ["sub parameters", "effect page 2", "6 knobs", "arrow down fx"],
+	"assign-pad-bus-routing": [
+		"bus assignment",
+		"dry pad",
+		"exclude from fx",
+		"bus 1 bus 2 routing",
+		"white pad",
+		"fx send",
+		"bus send",
+		"bypass fx",
+		"unrouted"
+	],
+	"ext-source-input-settings": [
+		"ext in",
+		"mix routing",
+		"input fx",
+		"usb audio record",
+		"microphone",
+		"guitar"
+	],
+	"toggle-gate-bank": ["all pads gate", "bank gate off", "batch gate"],
+	"bank-volume": ["bank level", "group volume", "turn down bank"],
+	"delete-bank": ["clear bank", "wipe bank", "erase 16 pads"],
+	"copy-bank-or-project": [
+		"duplicate bank",
+		"export bank to project",
+		"move kit",
+		"copy between projects"
+	],
+	"protect-bank": ["lock bank", "read only", "prevent delete", "safe mode"],
+	"select-project": ["switch project", "load project", "new project", "duplicate project"],
+	"fixed-velocity-mode": [
+		"full level",
+		"max velocity",
+		"constant volume",
+		"pad sensitivity",
+		"127 velocity",
+		"constant velocity"
+	],
+	"16-velocity-mode": [
+		"16 levels",
+		"ghost notes",
+		"velocity staircase",
+		"dynamic hi-hats",
+		"mpc 16 levels",
+		"velocity pad",
+		"hi-hat dynamics"
+	],
+	"cue-headphone-audition": [
+		"headphone preview",
+		"dj cue",
+		"green pads",
+		"monitor only",
+		"headphone cue",
+		"pre-listen",
+		"preview in headphones"
+	],
+	"chromatic-mode": ["keyboard mode", "play bassline", "polyphony", "chords", "scales", "legato"],
+	"exchange-swap-pads": ["swap pads", "move sample", "reorganize kit", "switch pad positions"],
+	"init-sample-params": ["reset sample", "clear pitch", "default parameters", "init param"],
+	"pad-link": [
+		"layer pads",
+		"stack drums",
+		"link pads",
+		"simultaneous trigger",
+		"stack pads",
+		"trigger multiple pads"
+	],
+	"mute-groups": [
+		"choke group",
+		"cut off sample",
+		"hi-hat choke",
+		"monophonic chops",
+		"stop overlapping",
+		"choke",
+		"cut self",
+		"cut group",
+		"mono pad"
+	],
+	"metronome-toggle": ["click track", "tempo click", "metronome"],
+	"count-in-mode": ["pre-roll", "threshold record", "auto start sampling", "wait mode"],
+	"tap-tempo-menu": ["set bpm", "master tempo", "tap sub pad"],
+	"gain-noise-gate": ["clipping", "input too loud", "attenuator", "noise gate", "hum"],
+	"utility-menu": ["knob catch", "system settings", "sd backup", "midi settings"],
+	"import-export-sd": ["load wav", "sd card browser", "export stems", "format sd card"],
+	"pad-led-settings": ["pad color", "rgb led", "pad sensitivity", "velocity curve"],
+	"efx-routing-bus-3-4": [
+		"bus 3",
+		"bus 4",
+		"serial parallel routing",
+		"type a type b",
+		"efx favorites",
+		"customize top buttons",
+		"parallel fx",
+		"serial fx",
+		"chain fx",
+		"master fx"
+	],
+	"input-fx-recording": [
+		"input fx",
+		"record with effects",
+		"record setting",
+		"external audio fx",
+		"print effects"
+	],
+	"pattern-edit-parameters": [
+		"duplicate pattern bars",
+		"double pattern length",
+		"pattern bpm",
+		"crop pattern",
+		"bars"
+	],
+	"queue-next-pattern": [
+		"switch pattern",
+		"cue pattern",
+		"next pattern",
+		"live arrangement",
+		"purple pads"
+	],
+	"external-fx-processor": [
+		"fx box",
+		"external synth effects",
+		"live fx processor",
+		"line in effects",
+		"thru fx",
+		"pedalboard",
+		"guitar fx"
+	],
+	"dj-mode-enter-controls": [
+		"dj mode",
+		"ch1",
+		"ch2",
+		"pitch bend",
+		"sync decks",
+		"crossfader",
+		"dual deck"
+	],
+	"sound-generator-mode": [
+		"synth",
+		"oscillator",
+		"808 sub bass",
+		"tone generator",
+		"sound generator",
+		"bass generator",
+		"test tone"
+	],
+	"sync-all-bank": ["all pads bpm sync", "bank sync", "batch bpm sync"],
+	"live-mode-lock": ["lock buttons", "performance lock", "disable record", "live mode"],
+	"looper-skipback-switch": ["looper mode", "switch mark button", "sbs", "live looper"],
+	"silent-pad-select": [
+		"silent select",
+		"mute select",
+		"select without playing",
+		"quiet pad select",
+		"quiet select"
+	],
+	"delete-efx-motion": [
+		"clear automation",
+		"erase motion rec",
+		"delete fx motion",
+		"pad mute motion erase"
+	],
+	"stop-single-ungated-pad": [
+		"mute single pad",
+		"stop one pad",
+		"kill one sample",
+		"exit pad",
+		"stuck sample",
+		"kill single pad"
+	],
+	"flam-timing-guard": ["flam", "simultaneous pads", "chord timing", "tight trigger"],
+	"looper-mode-controls": [
+		"looper",
+		"overdub loop",
+		"feedback rate",
+		"play rate",
+		"16 seconds",
+		"overdub",
+		"loop pedal",
+		"frippertronics",
+		"guitar looper"
+	],
+	"immediate-pattern-switch": [
+		"instant pattern switch",
+		"jump pattern",
+		"cut pattern",
+		"sub pad pattern"
+	],
+	"pattern-play-to-tr-rec": [
+		"live tr-rec",
+		"jump to step sequencer",
+		"shift rec",
+		"edit playing pattern"
+	],
+	"tr-rec-delete-measure": ["clear bar tr-rec", "delete measure", "wipe step bar", "del bank a"],
+	"tr-rec-micro-start": [
+		"micro timing",
+		"nudge step",
+		"off grid",
+		"dilla swing",
+		"late snare",
+		"early hit",
+		"microtiming",
+		"unquantized step"
+	],
+	"tr-rec-solo-pad": ["solo tr-rec", "isolate drum", "hear one pad", "tr-rec hold"],
+	"delete-pad-mute-motion": [
+		"clear pad mute",
+		"erase mute automation",
+		"del reverse",
+		"unmute pattern"
+	],
+	"undo-pattern-chain-edit": ["undo chain", "revert song mode", "asterisk pattern chain"],
+	"numeric-marker-input": [
+		"type start point",
+		"numeric position",
+		"exact frame",
+		"number pad input"
+	],
+	"route-ext-source-bus": [
+		"external input bus",
+		"route line in",
+		"mic bus fx",
+		"dry external input"
+	]
+}

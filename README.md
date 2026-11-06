@@ -12,8 +12,8 @@ A fast, visual, interactive shortcut finder and workflow companion for the **Rol
   - **Hardware → Cards:** Click any knob, FX button, function button, bank, or pad on the interactive SP-404MKII faceplate to filter the cheat sheet down to every shortcut that uses that control (sorted from single-button fundamentals to multi-button combos).
   - **Card → Hardware:** Click any shortcut card to light up its exact button combination on the faceplate and preview the combo inside the circular OLED display without losing your current card list.
 - **1:1 Hardware Muscle Memory + Mobile Thumb Zoom:** Preserves the exact 1:1 physical row/column geometry of the SP-404MKII across desktop and mobile screens (including iPhone SE), with an instant `🔍 Thumb Zoom` toggle for expanded touch targets.
-- **Essentials vs. Deep Dive Filtering & `⚠️ Caveat` Callouts:** Filter between everyday foundational controls (`Essentials`) and B-tier sub-mode workflows (`Deep Dive`), with inline `⚠️` warnings highlighting destructive actions, voice-stealing costs, and Bus FX routing behavior.
-- **Goal & Slang Search (MiniSearch):** Search by what you are _trying to accomplish_ (e.g., _"stems"_, _"choke group"_, _"16 levels"_, _"lazy chop"_, _"sound generator"_, _"silent select"_) even if you don't know Roland's official menu terminology.
+- **Essentials vs. Deep Dive Filtering & Progressive `⚠️ Note` Callouts:** Filter between everyday foundational controls (`Essentials`) and B-tier sub-mode workflows (`Deep Dive`). Cards with hardware caveats display a subtle `⚠️ Note` indicator at first glance and expand the full warning when clicked.
+- **High-Precision DAW / MPC / Slang Search (`src/lib/data/aliases.json`):** A dedicated Rosetta Stone maps cross-gear terminology from MPC, Ableton, FL Studio, Elektron, and Koala (e.g., _"one shot"_, _"full level"_, _"16 levels"_, _"choke group"_, _"p-lock"_, _"fx send"_, _"lazy chop"_) directly to specific `tip.id`s without cluttering the card UI or flooding search results.
 - **My Sheet & Print View:** Pin your personal go-to shortcuts into a persistent `localStorage` sheet and print a clean 1-page physical studio sheet.
 
 ---
@@ -49,6 +49,7 @@ Every tip in [`src/lib/data/tips.json`](./src/lib/data/tips.json) is checked aut
 
 1. **Strict 1-to-1 `combo` ↔ `buttons` Matching:** `tip.buttons` must match the exact canonical hardware button IDs represented in `tip.combo`—preventing false-positive highlights on the faceplate.
 2. **Verbatim Quote Verification:** Every tip requires a `citation` object (`{ doc, page, quote }`). The validator opens `citation.doc`, locates `<!-- [Page N] -->`, and verifies that `citation.quote` **literally exists verbatim on that page**. Any hallucinated or unverified shortcut immediately fails the build.
+3. **Anti-Bloat Alias Bounds (`src/lib/data/aliases.json`):** Validates 1:1 `tip.id` coverage in [`src/lib/data/aliases.json`](./src/lib/data/aliases.json) and enforces that no single alias string is shared across more than 2 tips.
 
 ---
 

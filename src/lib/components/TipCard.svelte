@@ -82,7 +82,7 @@
 
 		<p class="tip-card__goal">{tip.goal}</p>
 
-		{#if tip.caveat}
+		{#if tip.caveat && isSelected}
 			<p class="tip-card__caveat">
 				<span class="tip-card__caveat-icon" aria-hidden="true">⚠️</span>
 				<span>{tip.caveat}</span>
@@ -95,12 +95,12 @@
 					{tip.category}
 				</button>
 			{/if}
-			{#if tip.tier === 'deep-dive'}
-				<span class="tier-badge tier-badge--deep">Deep Dive</span>
-			{/if}
 			<span class="manual-ref-badge" title={tip.citation.quote}>
 				Roland v5.50 · p. {tip.citation.page}
 			</span>
+			{#if tip.caveat && !isSelected}
+				<span class="caveat-indicator" title={tip.caveat}>⚠️ Note</span>
+			{/if}
 			{#if tip.context}
 				<span class="context-tag">{tip.context}</span>
 			{/if}
@@ -285,14 +285,13 @@
 		margin-top: 0.15rem;
 	}
 
-	.tier-badge--deep {
+	.caveat-indicator {
 		padding: 0.1rem 0.4rem;
 		font-size: 0.64rem;
-		font-weight: 700;
-		letter-spacing: 0.02em;
-		color: #fdba74;
-		background: rgba(234, 88, 12, 0.14);
-		border: 1px solid rgba(249, 115, 22, 0.35);
+		font-weight: 600;
+		color: #cbd5e1;
+		background: #1a1e26;
+		border: 1px solid #2e3543;
 		border-radius: 0.25rem;
 	}
 
