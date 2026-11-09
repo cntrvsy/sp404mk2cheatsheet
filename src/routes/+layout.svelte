@@ -14,7 +14,7 @@
 		X
 	} from '@lucide/svelte';
 	import { asset, resolve } from '$app/paths';
-	import { browser } from '$app/env';
+	import { browser, dev } from '$app/env';
 	import { pinnedStore } from '#lib/stores/pinned.svelte.js';
 	import { uiStore } from '#lib/stores/ui.svelte.js';
 	import { pwaStore } from '#lib/stores/pwa.svelte.js';
@@ -26,9 +26,19 @@
 		if (browser) {
 			pwaStore.init();
 			if ('serviceWorker' in navigator) {
-				navigator.serviceWorker.register(`${resolve('/')}service-worker.js`).catch(() => {
-					// Service worker registration error handled silently
-				});
+				if (dev) {
+					// In local development, automatically unregister any service worker so
+					// localhost:5173 is never hijacked or poisoned for other projects.
+					navigator.serviceWorker.getRegistrations().then((registrations) => {
+						for (const registration of registrations) {
+							registration.unregister();
+						}
+					});
+				} else {
+					navigator.serviceWorker.register(`${resolve('/')}service-worker.js`).catch(() => {
+						// Service worker registration error handled silently
+					});
+				}
 			}
 		}
 	});
