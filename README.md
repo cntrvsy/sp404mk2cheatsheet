@@ -2,7 +2,7 @@
 
 A fast, visual shortcut finder and hardware companion for the **Roland SP-404MKII** (Firmware v5.50), built with SvelteKit and TypeScript.
 
-🔗 **Live Tool:** [SP-404MKII Cheat Sheet](https://cntrvsy.github.io/sp404mk2cheatsheet/)
+🔗 **Live Tool:** [SP-404MKII Cheat Sheet](https://cntrvsy.github.io/sp404mk2cheatsheet/) &nbsp;|&nbsp; <a href="https://0rwx.com/"><img src="./static/AI-W-light.svg" alt="AI Usage Disclosed via 0rwx" height="18" align="center" /></a>
 
 ---
 
@@ -62,6 +62,18 @@ npm run lint
 # Build static production site (./build)
 npm run build
 ```
+
+---
+
+## AI Usage Disclosure
+
+<p align="left">
+  <a href="https://0rwx.com/">
+    <img src="./static/AI-W-light.svg" alt="0rwx AI Disclosure Badge" width="40" height="40" />
+  </a>
+</p>
+
+This project complies with the **[0rwx](https://0rwx.com/)** open AI disclosure specification. AI coding assistants were utilized for interactive architecture, citation validation tooling, and documentation formatting, paired with manual verification against the official Roland SP-404MKII v5.50 Reference Manual.
 
 ---
 

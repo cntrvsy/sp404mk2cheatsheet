@@ -11,7 +11,9 @@
 		Zap,
 		Layers,
 		Share2,
-		X
+		X,
+		Menu,
+		ExternalLink
 	} from '@lucide/svelte';
 	import { asset, resolve } from '$app/paths';
 	import { browser, dev } from '$app/env';
@@ -21,6 +23,15 @@
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
+
+	let showAboutModal = $state(false);
+
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape') {
+			if (showAboutModal) showAboutModal = false;
+			if (pwaStore.showInstallModal) pwaStore.closeInstallModal();
+		}
+	}
 
 	$effect(() => {
 		if (browser) {
@@ -103,6 +114,8 @@
 	{@html '<' + 'script type="application/ld+json">' + jsonLd + '<' + '/script>'}
 </svelte:head>
 
+<svelte:window onkeydown={handleKeydown} />
+
 <a href="#main-content" class="skip-link visually-hidden">Skip to shortcuts</a>
 
 <header class="site-header">
@@ -169,58 +182,17 @@
 				</div>
 			{/if}
 
-			<!-- Install / App Button -->
-			{#if !pwaStore.isInstalled}
-				<button
-					type="button"
-					class="studio-tool-btn"
-					onclick={() => pwaStore.promptInstall()}
-					aria-label="Install offline app for desktop or mobile"
-					title="Get standalone offline app"
-				>
-					<Download size={14} />
-					<span class="btn-label-desktop">App</span>
-				</button>
-			{/if}
-
-			<!-- Print / PDF Button -->
+			<!-- Studio Hamburger Menu & About Button -->
 			<button
 				type="button"
-				class="studio-tool-btn"
-				onclick={() => uiStore.openPrintModal()}
-				aria-label="Print or Export cheat sheet to PDF"
-				title="Print or Save PDF"
+				class="studio-tool-btn studio-menu-btn"
+				onclick={() => (showAboutModal = true)}
+				aria-label="Open Studio Menu and About"
+				title="Menu & About"
 			>
-				<Printer size={14} />
-				<span class="btn-label-desktop">PDF</span>
+				<Menu size={16} />
+				<span class="btn-label-desktop">Menu</span>
 			</button>
-
-			<!-- GitHub Source Link -->
-			<a
-				href="https://github.com/cntrvsy/sp404mk2cheatsheet"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="studio-tool-btn studio-tool-btn--icon-only"
-				aria-label="View SP-404MKII Cheat Sheet source code on GitHub"
-				title="GitHub Repository"
-			>
-				<svg
-					width="14"
-					height="14"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					aria-hidden="true"
-				>
-					<path
-						d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
-					/>
-					<path d="M9 18c-4.51 2-5-2-7-2" />
-				</svg>
-			</a>
 		</div>
 	</div>
 </header>
@@ -234,6 +206,10 @@
 				Made with <Heart size={14} class="heart-icon heart-icon--filled" /> by
 				<a href="https://frstudios.co.ke" target="_blank" rel="noopener noreferrer">frstudios</a>
 			</span>
+			<span class="footer-dot" aria-hidden="true">·</span>
+			<button type="button" class="footer-about-btn" onclick={() => (showAboutModal = true)}>
+				About & AI Disclosure
+			</button>
 			<span class="footer-dot" aria-hidden="true">·</span>
 			<a
 				href="https://github.com/cntrvsy/sp404mk2cheatsheet"
@@ -379,6 +355,197 @@
 				>
 					Got It
 				</button>
+			</div>
+		</div>
+	</div>
+{/if}
+
+{#if showAboutModal}
+	<div
+		class="about-modal-backdrop"
+		onclick={(e) => {
+			if (e.target === e.currentTarget) showAboutModal = false;
+		}}
+		role="presentation"
+	>
+		<div
+			class="about-modal-box"
+			role="dialog"
+			tabindex="-1"
+			aria-modal="true"
+			aria-labelledby="about-modal-title"
+			onclick={(e) => e.stopPropagation()}
+			onkeydown={(e) => e.stopPropagation()}
+		>
+			<div class="about-modal-header">
+				<div class="about-modal-title-group">
+					<img src={asset('icon.svg')} alt="404" width="28" height="28" class="about-modal-icon" />
+					<div>
+						<div class="about-modal-title-row">
+							<h2 id="about-modal-title" class="about-modal-title">SP-404MKII Companion</h2>
+							<span class="about-version-badge">v5.50</span>
+						</div>
+						<p class="about-modal-subtitle">Interactive Studio Reference & Cheat Sheet</p>
+					</div>
+				</div>
+				<button
+					type="button"
+					class="about-modal-close"
+					onclick={() => (showAboutModal = false)}
+					aria-label="Close dialog"
+				>
+					<X size={18} />
+				</button>
+			</div>
+
+			<div class="about-modal-body">
+				<!-- Studio Utilities -->
+				<div class="about-section">
+					<h3 class="about-section-heading">Studio Utilities</h3>
+					<div class="about-actions-grid">
+						<button
+							type="button"
+							class="about-action-btn"
+							onclick={() => {
+								showAboutModal = false;
+								uiStore.openPrintModal();
+							}}
+						>
+							<Printer size={18} class="about-action-icon" />
+							<div class="about-action-text">
+								<span class="about-action-title">Print / Export PDF</span>
+								<span class="about-action-desc"
+									>High-density ink-friendly 1–2 page studio desk reference</span
+								>
+							</div>
+						</button>
+
+						{#if !pwaStore.isInstalled}
+							<button
+								type="button"
+								class="about-action-btn"
+								onclick={() => {
+									showAboutModal = false;
+									pwaStore.promptInstall();
+								}}
+							>
+								<Download size={18} class="about-action-icon" />
+								<div class="about-action-text">
+									<span class="about-action-title">Install Offline App</span>
+									<span class="about-action-desc"
+										>Works 100% offline on desktop & mobile for stage gigs</span
+									>
+								</div>
+							</button>
+						{/if}
+					</div>
+				</div>
+
+				<!-- About Project -->
+				<div class="about-section">
+					<h3 class="about-section-heading">About This Tool</h3>
+					<p class="about-text">
+						Built for beatmakers and live performers. Preserves 1:1 hardware faceplate muscle memory
+						with 101 shortcuts strictly verified with verbatim citations against the official Roland
+						SP-404MKII Reference Manual.
+					</p>
+					<p class="about-text">
+						Crafted with <Heart size={13} class="inline-heart" /> by
+						<a
+							href="https://frstudios.co.ke"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="about-link"
+						>
+							frstudios
+						</a>.
+					</p>
+				</div>
+
+				<!-- AI Usage Disclosure -->
+				<div class="about-section about-section--disclosure">
+					<div class="disclosure-header">
+						<a
+							href="https://0rwx.com/"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="disclosure-badge-link"
+							aria-label="0rwx Open AI Disclosure standard"
+							title="0rwx.com Open AI Disclosure"
+						>
+							<img
+								src={asset('AI-W-light.svg')}
+								alt="0rwx AI Disclosure Badge"
+								width="32"
+								height="32"
+								class="disclosure-badge-img"
+							/>
+						</a>
+						<div class="disclosure-body">
+							<div class="disclosure-title-row">
+								<h3 class="about-section-heading disclosure-title">AI Usage Disclosure</h3>
+								<a
+									href="https://0rwx.com/"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="disclosure-sublink"
+								>
+									<span>0rwx.com</span>
+									<ExternalLink size={12} />
+								</a>
+							</div>
+							<p class="about-text disclosure-desc">
+								This project adheres to the <strong>0rwx</strong> open disclosure specification. AI coding
+								assistants were utilized for architecture design, document ingestion scripts, and CI validation
+								pipelines, paired with manual verification against the official Roland v5.50 Reference
+								Manual.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Links & Legal -->
+				<div class="about-footer-row">
+					<div class="about-links">
+						<a
+							href="https://github.com/cntrvsy/sp404mk2cheatsheet"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="about-sublink"
+						>
+							<svg
+								width="14"
+								height="14"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+							>
+								<path
+									d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+								/>
+								<path d="M9 18c-4.51 2-5-2-7-2" />
+							</svg>
+							<span>GitHub Repository</span>
+						</a>
+						<span class="about-dot">·</span>
+						<a
+							href="https://github.com/cntrvsy/sp404mk2cheatsheet/blob/main/LICENSE"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="about-sublink"
+						>
+							MIT License
+						</a>
+					</div>
+					<p class="about-disclaimer">
+						Roland and SP-404MKII are registered trademarks of Roland Corporation. This project is
+						an independent educational tool not affiliated with or endorsed by Roland.
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -630,11 +797,6 @@
 		border-color: #3b4559;
 	}
 
-	.studio-tool-btn--icon-only {
-		width: 1.95rem;
-		padding: 0;
-	}
-
 	@media (max-width: 640px) {
 		.brand-model {
 			display: none;
@@ -700,6 +862,22 @@
 	}
 
 	.footer-attribution a:hover {
+		color: #fb923c;
+		text-decoration: underline;
+	}
+
+	.footer-about-btn {
+		background: none;
+		border: none;
+		padding: 0;
+		color: #f97316;
+		font: inherit;
+		cursor: pointer;
+		text-decoration: none;
+		transition: color 0.15s ease;
+	}
+
+	.footer-about-btn:hover {
 		color: #fb923c;
 		text-decoration: underline;
 	}
@@ -909,9 +1087,314 @@
 		color: #ffffff;
 	}
 
+	/* About & Studio Menu Modal */
+	.about-modal-backdrop {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.78);
+		backdrop-filter: blur(5px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+		z-index: 1000;
+	}
+
+	.about-modal-box {
+		background: #12151c;
+		border: 1px solid #273142;
+		border-radius: 0.85rem;
+		max-width: 520px;
+		width: 100%;
+		max-height: 90vh;
+		overflow-y: auto;
+		padding: 1.5rem;
+		box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65);
+		color: #e2e8f0;
+	}
+
+	.about-modal-header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-bottom: 1rem;
+		border-bottom: 1px solid #222938;
+	}
+
+	.about-modal-title-group {
+		display: flex;
+		gap: 0.85rem;
+		align-items: center;
+	}
+
+	.about-modal-icon {
+		flex-shrink: 0;
+		border-radius: 0.35rem;
+	}
+
+	.about-modal-title-row {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+
+	.about-modal-title {
+		margin: 0;
+		font-size: 1.15rem;
+		font-weight: 800;
+		color: #f8fafc;
+	}
+
+	.about-version-badge {
+		font-size: 0.7rem;
+		font-weight: 800;
+		color: #ea580c;
+		background: rgba(234, 88, 12, 0.12);
+		border: 1px solid rgba(234, 88, 12, 0.35);
+		padding: 0.12rem 0.45rem;
+		border-radius: 0.3rem;
+		letter-spacing: 0.04em;
+	}
+
+	.about-modal-subtitle {
+		margin: 0.2rem 0 0 0;
+		font-size: 0.78rem;
+		color: #94a3b8;
+	}
+
+	.about-modal-close {
+		background: transparent;
+		border: none;
+		color: #94a3b8;
+		cursor: pointer;
+		padding: 0.3rem;
+		border-radius: 0.35rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.15s ease;
+	}
+
+	.about-modal-close:hover {
+		color: #ffffff;
+		background: #1c222e;
+	}
+
+	.about-modal-body {
+		padding-top: 1.25rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1.35rem;
+	}
+
+	.about-section {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+
+	.about-section-heading {
+		margin: 0;
+		font-size: 0.78rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #fdba74;
+	}
+
+	.about-actions-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+
+	.about-action-btn {
+		display: flex;
+		align-items: center;
+		gap: 0.85rem;
+		background: #171b24;
+		border: 1px solid #283344;
+		border-radius: 0.55rem;
+		padding: 0.75rem 1rem;
+		color: #f1f5f9;
+		cursor: pointer;
+		text-align: left;
+		transition: all 0.15s ease;
+	}
+
+	.about-action-btn:hover {
+		background: #1e2432;
+		border-color: #ea580c;
+		transform: translateY(-1px);
+	}
+
+	:global(.about-action-icon) {
+		color: #ea580c;
+		flex-shrink: 0;
+	}
+
+	.about-action-text {
+		display: flex;
+		flex-direction: column;
+		gap: 0.15rem;
+	}
+
+	.about-action-title {
+		font-size: 0.86rem;
+		font-weight: 700;
+		color: #ffffff;
+	}
+
+	.about-action-desc {
+		font-size: 0.74rem;
+		color: #94a3b8;
+	}
+
+	.about-text {
+		margin: 0;
+		font-size: 0.82rem;
+		line-height: 1.5;
+		color: #cbd5e1;
+	}
+
+	.about-link {
+		color: #f97316;
+		text-decoration: underline;
+		font-weight: 600;
+	}
+
+	.about-link:hover {
+		color: #fb923c;
+	}
+
+	:global(.inline-heart) {
+		display: inline-block;
+		vertical-align: middle;
+		color: #ef4444;
+		fill: #ef4444;
+	}
+
+	/* AI Disclosure Card inside modal */
+	.about-section--disclosure {
+		background: #151922;
+		border: 1px solid #252e3e;
+		border-radius: 0.6rem;
+		padding: 0.9rem 1rem;
+	}
+
+	.disclosure-header {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.85rem;
+	}
+
+	.disclosure-badge-link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		padding: 0.2rem;
+		border-radius: 0.4rem;
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		transition: all 0.15s ease;
+	}
+
+	.disclosure-badge-link:hover {
+		border-color: #ea580c;
+		transform: scale(1.05);
+	}
+
+	.disclosure-badge-img {
+		display: block;
+		width: 32px;
+		height: 32px;
+	}
+
+	.disclosure-body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+	}
+
+	.disclosure-title-row {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+
+	.disclosure-title {
+		margin: 0;
+	}
+
+	.disclosure-sublink {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+		font-size: 0.72rem;
+		color: #f97316;
+		text-transform: none;
+		letter-spacing: normal;
+		text-decoration: none;
+		font-weight: 600;
+	}
+
+	.disclosure-sublink:hover {
+		text-decoration: underline;
+	}
+
+	.disclosure-desc {
+		font-size: 0.78rem;
+		color: #94a3b8;
+		line-height: 1.45;
+	}
+
+	.about-footer-row {
+		border-top: 1px solid #222938;
+		padding-top: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+
+	.about-links {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		font-size: 0.8rem;
+	}
+
+	.about-sublink {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		color: #cbd5e1;
+		text-decoration: none;
+		font-weight: 600;
+		transition: color 0.15s ease;
+	}
+
+	.about-sublink:hover {
+		color: #ffffff;
+		text-decoration: underline;
+	}
+
+	.about-dot {
+		color: #475569;
+	}
+
+	.about-disclaimer {
+		margin: 0;
+		font-size: 0.72rem;
+		color: #64748b;
+		line-height: 1.4;
+	}
+
 	@media print {
 		.site-header,
-		.pwa-modal-backdrop {
+		.pwa-modal-backdrop,
+		.about-modal-backdrop {
 			display: none !important;
 		}
 
